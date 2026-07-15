@@ -161,6 +161,7 @@
     overflow-y:auto;
     width:var(--editor-w);
     padding:20px 22px 12px;
+    scrollbar-color: var(--accent) var(--editor-bg);
   }
   .editor-tab-section{ scroll-margin-top:8px; }
   .editor-tab-section + .editor-tab-section{ margin-top:28px; }
@@ -298,7 +299,6 @@
     position:relative;
     display:flex;
     justify-content:center;
-    margin: 0 auto;
   }
 
   /* ===== Floating "Interactive Demo" callout ===== */
@@ -316,6 +316,7 @@
     transform:translateY(8px);
     pointer-events:none;
     transition:opacity 0.3s ease, transform 0.3s ease, left 0.35s cubic-bezier(.4,0,.2,1);
+    display: none !important;
   }
   .app-shell.editor-open .demo-callout.visible{
     opacity:1;
@@ -612,8 +613,7 @@
   .mini-icon svg{ width:100%; height:100%; display:block; }
 
   /* ===== Skills (grouped) ===== */
-  .skill-group{ margin-bottom:11pt; margin-left: 2pt;}
-  .skill-group:last-child{ margin-bottom:0; }
+  .skill-group{ margin-left: 2pt;}
   .skill-group-title{
     display:flex;
     align-items:center;
@@ -784,15 +784,18 @@
   @media (max-width: 900px){
     .app-shell{ flex-direction:column; }
 
-    /* Editor becomes a full-screen slide-in overlay on mobile instead of a
-       side-by-side column — the resume stays full width/scale behind it
-       and the editor gets the whole screen to work with, since squeezing
-       a 400px-designed panel into a narrow column would make it cramped
-       (and made the panel look like it only had "half" the screen before). */
+    /* Editor becomes a slide-in overlay PANEL on mobile — not a full-bleed
+       screen. It takes most of the width (with its own drop shadow, like a
+       card sitting on top), while the resume stays visible-but-dimmed/
+       blurred behind it on the right edge, so it's clear the editor is
+       floating over the document rather than replacing it. */
     .editor-sidebar{
       position:fixed;
-      inset:0;
+      top:0;
+      left:0;
+      bottom:0;
       width:100%;
+      max-width:100%;
       height:100%;
       max-height:none;
       flex:none;
@@ -800,6 +803,7 @@
       transition:transform 0.35s cubic-bezier(.4,0,.2,1);
       z-index:100;
       border-bottom:none;
+      box-shadow:16px 0 40px rgba(10,10,20,0.35);
     }
     .app-shell.editor-open .editor-sidebar{
       flex:none;
@@ -809,14 +813,25 @@
       width:100%;
     }
 
-    /* No room for the floating hint card on a small screen — the full-screen
-       editor already makes it obvious you're editing. */
+    /* The resume dims and blurs behind the editor instead of disappearing —
+       reinforces that the editor is a panel floating on top of it. */
+    .resume-stage{
+      transition:filter 0.35s ease, opacity 0.35s ease;
+    }
+    .app-shell.editor-open .resume-stage{
+      filter:blur(3px);
+      opacity:0.45;
+      pointer-events:none;
+    }
+
+    /* No room for the floating hint card on a small screen — the editor
+       panel already makes it obvious you're editing. */
     .demo-callout{ display:none; }
 
     body.editor-lock-scroll{ overflow:hidden; }
 
-    /* Keep the bottom bar's own look, just let it wrap to the viewport
-       instead of overflowing it. */
+    /* Bottom action bar: stack each "offer" as icon+label centered above its
+       own full-width button, with a proper divider between the two. */
     .action-bar{
       left:12px;
       right:12px;
@@ -825,10 +840,39 @@
       transform:none;
       flex-direction:column;
       align-items:stretch;
-      gap:10px;
-      padding:14px 16px;
+      gap:14px;
+      padding:20px 18px 18px;
     }
-    .action-bar-divider{ text-align:center; }
+    .action-bar-group{
+      flex-direction:row;
+      align-items:center;
+      gap:10px;
+    }
+    .action-bar-text{
+      align-items:flex-start;
+      text-align:left;
+      white-space:normal;
+    }
+    .action-bar-btn{
+      width:100%;
+      justify-content:center;
+    }
+    .action-bar-divider{
+      position:relative;
+      text-align:center;
+      color:#c7c7d1;
+      margin:2px 0;
+    }
+    .action-bar-divider::before, .action-bar-divider::after{
+      content:'';
+      position:absolute;
+      top:50%;
+      width:calc(50% - 18px);
+      height:1px;
+      background:#ececf2;
+    }
+    .action-bar-divider::before{ left:0; }
+    .action-bar-divider::after{ right:0; }
     .privacy-note{
       position:static;
       transform:none;
@@ -836,6 +880,7 @@
       margin:8px auto 0;
     }
   }
+
 
   /* ===== Print styles ===== */
   @page{
@@ -1040,8 +1085,8 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
     </div>
     <div class="action-bar-text">
-      <strong>Need this resume?</strong>
-      <span>Download it for your records</span>
+      <strong>Download Resume</strong>
+      <span>For hiring and reference</span>
     </div>
   </div>
   <button type="button" class="action-bar-btn outline" id="barDownloadBtn">
@@ -1055,7 +1100,7 @@
     </div>
     <div class="action-bar-text">
       <strong>Like this template?</strong>
-      <span>Use it to create your own resume</span>
+      <span>Create your own using this template</span>
     </div>
   </div>
   <button type="button" class="action-bar-btn primary" id="useTemplateBtn">Use This Template &#8594;</button>
@@ -1257,6 +1302,10 @@
   function buildSidebarHeadBlocks(data){
     var blocks = [];
 
+    // Name + role title never gets the standard .section-block spacing
+    // treatment (the role title's own ::after rule already provides the gap
+    // below it) — kept as a plain string so assembleGroupedHtml inserts it
+    // with no extra wrapper, exactly as before.
     blocks.push(
       '<div class="name"><span>' + escapeHtml(data.firstName) + '</span><span>' + escapeHtml(data.lastName) + '</span></div>' +
       '<div class="role-title">' + escapeHtml(data.roleTitle) + '</div>'
@@ -1264,18 +1313,32 @@
 
     blocks.push('<div class="section-block">' + sectionHeadingHtml('person', 'Contact') + '<ul class="contact-list">' + contactListHtml(data.contact) + '</ul></div>');
 
+    // Skills: each item is its own pagination unit (tagged with the group's
+    // id) rather than the whole group being one atomic block. If a group's
+    // list is too long to fit, it now breaks near its own subheading and
+    // continues under a fresh wrapper on the next page instead of forcing
+    // the entire group to jump as a whole.
     if (data.skillGroups.length){
-      data.skillGroups.forEach(function(group, i){
-        var itemsHtml = parseCommaList(group.items).map(function(item){ return '<li>' + escapeHtml(item) + '</li>'; }).join('');
-        var groupHtml = '<div class="skill-group"><div class="skill-group-title"><span class="dot"></span>' + escapeHtml(group.title) + '</div><ul class="skills-list">' + itemsHtml + '</ul></div>';
-        if (i === 0){
-          blocks.push('<div class="section-block">' + sectionHeadingHtml('code', 'Skills') + groupHtml + '</div>');
-        } else {
-          blocks.push('<div class="section-block">' + groupHtml + '</div>');
+      data.skillGroups.forEach(function(group, gi){
+        var items = parseCommaList(group.items);
+        var groupId = 'skill-' + gi;
+        var titleHtml = '<div class="skill-group-title"><span class="dot"></span>' + escapeHtml(group.title) + '</div>';
+        var skillsHeading = gi === 0 ? sectionHeadingHtml('code', 'Skills') : '';
+
+        if (items.length === 0){
+          blocks.push({ group: groupId, html: skillsHeading + '<div class="skill-group">' + titleHtml + '</div>' });
+          return;
         }
+
+        items.forEach(function(item, ii){
+          var itemHtml = '<div class="skill-group">' +
+            (ii === 0 ? titleHtml : '') +
+            '<ul class="skills-list"><li>' + escapeHtml(item) + '</li></ul></div>';
+          blocks.push({ group: groupId, html: (ii === 0 ? skillsHeading : '') + itemHtml });
+        });
       });
     } else {
-      blocks.push('<div class="section-block">' + sectionHeadingHtml('code', 'Skills') + '</div>');
+      blocks.push({ group: 'skills-empty', html: sectionHeadingHtml('code', 'Skills') });
     }
 
     return blocks;
@@ -1441,18 +1504,27 @@
     return pages;
   }
 
-  // Wraps each page's blocks in .section-block divs, merging consecutive
-  // blocks that share the same group id into a single div so that, e.g.,
-  // every bullet belonging to a job (or to Key Accomplishments) that lands
-  // on a given page is nested inside that section's own wrapper — even when
-  // the section's earlier blocks were already closed out on a prior page.
+  // Wraps grouped ({group, html}) blocks in .section-block divs, merging
+  // consecutive blocks that share the same group id into a single div so
+  // that, e.g., every bullet belonging to a job (or every item in a skill
+  // group) that lands on a given page is nested inside that section's own
+  // wrapper — even when the section's earlier blocks were already closed
+  // out on a prior page. Plain strings are already fully self-contained
+  // (their own wrapper baked in, or deliberately unwrapped, e.g. the name/
+  // role header) and are inserted as-is, untouched.
   function assembleGroupedHtml(pageBlocks){
     var html = '';
     var i = 0;
     while (i < pageBlocks.length){
-      var group = pageBlocks[i].group;
+      var block = pageBlocks[i];
+      if (typeof block === 'string'){
+        html += block;
+        i++;
+        continue;
+      }
+      var group = block.group;
       var chunk = '';
-      while (i < pageBlocks.length && pageBlocks[i].group === group){
+      while (i < pageBlocks.length && typeof pageBlocks[i] !== 'string' && pageBlocks[i].group === group){
         chunk += pageBlocks[i].html;
         i++;
       }
@@ -1470,12 +1542,13 @@
     var pageHeightPx = pxPerMm * 297;
     var marginTopPx = pxPerMm * 14;
     var marginBottomPx = pxPerMm * 10;
-    // Extra breathing room reserved at the bottom of every page. Without
-    // this, a section (e.g. Education, or a Skills sub-group) that just
-    // barely fits gets crammed right up against the page's bottom margin.
-    // Reserving more room here means anything that doesn't comfortably fit
-    // flows onto the next page instead, starting fresh at the top there.
-    var safetyBufferPx = pxPerMm * 14;
+    // Small cushion for the residual difference between on-screen measurement
+    // and the final print/PDF render (sub-pixel font rounding etc). Kept
+    // deliberately small: the real fix for content being measured too short
+    // is getSectionBlockMarginPx()/the .section-block CSS rule above — this
+    // buffer only needs to cover rendering noise, not systematic error, so a
+    // large value here would just cut pages short for no reason.
+    var safetyBufferPx = pxPerMm * 4;
     var availableHeightPx = pageHeightPx - marginTopPx - marginBottomPx - safetyBufferPx;
 
     var mainPages = paginateBlocks(buildMainBlocks(data), mainWidthPx, availableHeightPx);
@@ -1487,7 +1560,7 @@
     var pages = [];
     for (var i = 0; i < pageCount; i++){
       pages.push({
-        sidebar: sidebarPages[i] ? sidebarPages[i].join('') : '',
+        sidebar: sidebarPages[i] ? assembleGroupedHtml(sidebarPages[i]) : '',
         main: mainPages[i] ? assembleGroupedHtml(mainPages[i]) : ''
       });
     }

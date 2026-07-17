@@ -1,1992 +1,3414 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bharath Kunamneni — Resume</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --sidebar-bg:#EEF3FA;
-    --navy:#1B4B77;
-    --pill-bg:#E1ECFB;
-    --ink:#262626;
-    --gray-date:#6B7280;
-    --dotted:#C7CED8;
-    --page-w:210mm;
-    --page-h:297mm;
-    --margin-top:14mm;
-    --margin-right:12mm;
-    --margin-bottom:10mm;
-    --margin-left:10mm;
-    --sidebar-w:74mm;
-    --gutter-w:6mm;
-    --font:'Poppins','Century Gothic','Apple Gothic';
-    --accent:#6C5CE7;
-  }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bharath Kunamneni — Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --sidebar-bg: #eef3fa;
+        --navy: #1b4b77;
+        --pill-bg: #e1ecfb;
+        --ink: #262626;
+        --gray-date: #6b7280;
+        --dotted: #c7ced8;
+        --page-w: 210mm;
+        --page-h: 297mm;
+        --margin-top: 14mm;
+        --margin-right: 12mm;
+        --margin-bottom: 10mm;
+        --margin-left: 10mm;
+        --sidebar-w: 74mm;
+        --gutter-w: 6mm;
+        --font: "Poppins", "Century Gothic", "Apple Gothic";
+        --accent: #6c5ce7;
+      }
 
-  *{ box-sizing:border-box; }
+      * {
+        box-sizing: border-box;
+      }
 
-  html,body{
-    margin:0;
-    padding:0;
-    background:#e9e9ee;
-    font-family:var(--font);
-    -webkit-font-smoothing:antialiased;
-  }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #e9e9ee;
+        font-family: var(--font);
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+      }
 
-  /* ===== App shell: editor sidebar (overlay/off-canvas) + resume stage ===== */
-  .app-shell{
-    display:flex;
-    align-items:flex-start;
-    min-height:100vh;
-  }
+      /* ===== App shell: editor sidebar (overlay/off-canvas) + resume stage ===== */
+      .app-shell {
+        display: flex;
+        align-items: flex-start;
+        min-height: 100vh;
+        max-width:1600px;
+        margin: 0 auto;
+      }
 
-  :root{
-    --editor-w:400px;
-    --editor-bg:#0c0c12;
-    --editor-bg-raised:#17171f;
-    --editor-border:#26262f;
-    --editor-text:#f2f2f5;
-    --editor-text-dim:#9494a1;
-    --editor-text-faint:#6c6c78;
-  }
+      :root {
+        --editor-w: 400px;
+        --editor-bg: #0c0c12;
+        --editor-bg-raised: #17171f;
+        --editor-border: #26262f;
+        --editor-text: #f2f2f5;
+        --editor-text-dim: #9494a1;
+        --editor-text-faint: #6c6c78;
+      }
 
-  /* ===== Editor sidebar (dark, off-canvas, screen only) ===== */
-  .editor-sidebar{
-    width:var(--editor-w);
-    flex:0 0 0px;
-    height:100vh;
-    overflow:hidden;
-    position:sticky;
-    top:0;
-    background:var(--editor-bg);
-    color:var(--editor-text);
-    display:flex;
-    flex-direction:column;
-    transition:flex-basis 0.35s cubic-bezier(.4,0,.2,1);
-  }
-  .app-shell.editor-open .editor-sidebar{
-    flex:0 0 var(--editor-w);
-  }
+      /* ===== Editor sidebar (dark, off-canvas, screen only) ===== */
+      .editor-sidebar {
+        width: var(--editor-w);
+        flex: 0 0 0px;
+        height: 100vh;
+        overflow: hidden;
+        position: sticky;
+        top: 0;
+        background: var(--editor-bg);
+        color: var(--editor-text);
+        display: flex;
+        flex-direction: column;
+        transition: flex-basis 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        margin: 24px auto;
+      }
+      .app-shell.editor-open .editor-sidebar {
+        flex: 0 0 var(--editor-w);
+      }
 
-  .editor-header{
-    display:flex;
-    align-items:flex-start;
-    gap:10px;
-    padding:20px 22px 16px;
-    flex:0 0 auto;
-    width:var(--editor-w);
-  }
-  .editor-close-btn{
-    width:26px;
-    height:26px;
-    flex:0 0 26px;
-    border:none;
-    border-radius:50%;
-    background:var(--editor-bg-raised);
-    color:var(--editor-text-dim);
-    font-size:12px;
-    cursor:pointer;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    margin-top:2px;
-  }
-  .editor-close-btn:hover{ background:#1f1f29; color:#fff; }
-  .editor-header-text{ min-width:0; }
-  .editor-header-text h2{
-    font-size:12.5pt;
-    font-weight:700;
-    margin:0 0 6px;
-    display:flex;
-    align-items:center;
-    gap:8px;
-    color:var(--editor-text);
-  }
-  .beta-badge{
-    font-size:7pt;
-    font-weight:700;
-    letter-spacing:0.5pt;
-    color:#c9b8fb;
-    background:#2c2145;
-    padding:2px 7px;
-    border-radius:5px;
-  }
-  .editor-header-text p{
-    font-size:8.5pt;
-    line-height:13pt;
-    color:var(--editor-text-dim);
-    margin:0;
-  }
+      .editor-header {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 20px 22px 16px;
+        flex: 0 0 auto;
+        width: var(--editor-w);
+      }
+      .editor-close-btn {
+        width: 26px;
+        height: 26px;
+        flex: 0 0 26px;
+        border: none;
+        border-radius: 50%;
+        background: var(--editor-bg-raised);
+        color: var(--editor-text-dim);
+        font-size: 12px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 2px;
+      }
+      .editor-close-btn:hover {
+        background: #1f1f29;
+        color: #fff;
+      }
+      .editor-header-text {
+        min-width: 0;
+      }
+      .editor-header-text h2 {
+        font-size: 12.5pt;
+        font-weight: 700;
+        margin: 0 0 6px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--editor-text);
+      }
+      .beta-badge {
+        font-size: 7pt;
+        font-weight: 700;
+        letter-spacing: 0.5pt;
+        color: #c9b8fb;
+        background: #2c2145;
+        padding: 2px 7px;
+        border-radius: 5px;
+      }
+      .editor-header-text p {
+        font-size: 8.5pt;
+        line-height: 13pt;
+        color: var(--editor-text-dim);
+        margin: 0;
+      }
 
-  .editor-tabs{
-    display:flex;
-    flex:0 0 auto;
-    width:var(--editor-w);
-    border-bottom:1px solid var(--editor-border);
-    padding:0 8px;
-  }
-  .editor-tab{
-    flex:1 1 0;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:5px;
-    background:none;
-    border:none;
-    cursor:pointer;
-    padding:10px 4px 9px;
-    color:var(--editor-text-faint);
-    font-family:var(--font);
-    border-bottom:2px solid transparent;
-  }
-  .editor-tab svg{ width:15px; height:15px; display:block; }
-  .editor-tab span{
-    font-size:7pt;
-    font-weight:700;
-    letter-spacing:0.4pt;
-    text-transform:uppercase;
-    white-space:nowrap;
-  }
-  .editor-tab.active{
-    color:var(--accent);
-    border-bottom-color:var(--accent);
-  }
-  .editor-tab:hover:not(.active){ color:var(--editor-text-dim); }
+      .editor-tabs {
+        display: flex;
+        flex: 0 0 auto;
+        width: var(--editor-w);
+        border-bottom: 1px solid var(--editor-border);
+        padding: 0 8px;
+      }
+      .editor-tab {
+        flex: 1 1 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 10px 4px 9px;
+        color: var(--editor-text-faint);
+        font-family: var(--font);
+        border-bottom: 2px solid transparent;
+      }
+      .editor-tab svg {
+        width: 15px;
+        height: 15px;
+        display: block;
+      }
+      .editor-tab span {
+        font-size: 7pt;
+        font-weight: 700;
+        letter-spacing: 0.4pt;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+      .editor-tab.active {
+        color: var(--accent);
+        border-bottom-color: var(--accent);
+      }
+      .editor-tab:hover:not(.active) {
+        color: var(--editor-text-dim);
+      }
 
-  .editor-scroll{
-    flex:1 1 auto;
-    overflow-y:auto;
-    width:var(--editor-w);
-    padding:20px 22px 12px;
-    scrollbar-color: var(--accent) var(--editor-bg);
-  }
-  .editor-tab-section{ scroll-margin-top:8px; }
-  .editor-tab-section + .editor-tab-section{ margin-top:28px; }
+      .editor-scroll {
+        flex: 1 1 auto;
+        overflow-y: auto;
+        width: var(--editor-w);
+        padding: 20px 22px 12px;
+        scrollbar-color: var(--accent) var(--editor-bg);
+      }
+      .editor-tab-section {
+        scroll-margin-top: 8px;
+      }
+      .editor-tab-section + .editor-tab-section {
+        margin-top: 28px;
+      }
 
-  .editor-scroll .form-section{
-    margin-bottom:22px;
-    padding-bottom:20px;
-    border-bottom:1px solid var(--editor-border);
-  }
-  .editor-scroll .form-section:last-child{ border-bottom:none; margin-bottom:0; padding-bottom:0; }
-  .editor-scroll .form-section h3{
-    font-size:9pt;
-    font-weight:700;
-    text-transform:uppercase;
-    letter-spacing:0.6pt;
-    color:var(--editor-text-dim);
-    margin:0 0 12px;
-  }
+      .editor-scroll .form-section {
+        margin-bottom: 22px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid var(--editor-border);
+      }
+      .editor-scroll .form-section:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+      .editor-scroll .form-section h3 {
+        font-size: 9pt;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.6pt;
+        color: var(--editor-text-dim);
+        margin: 0 0 12px;
+      }
 
-  .editor-scroll .field{ margin-bottom:12px; }
-  .editor-scroll .field:last-child{ margin-bottom:0; }
-  .editor-scroll .field label{
-    display:block;
-    font-size:8.5pt;
-    color:var(--editor-text-faint);
-    margin-bottom:4px;
-  }
-  .editor-scroll .field-row{ display:flex; gap:8px; }
-  .editor-scroll .field-row .field{ flex:1; margin-bottom:12px; }
+      .editor-scroll .field {
+        margin-bottom: 12px;
+      }
+      .editor-scroll .field:last-child {
+        margin-bottom: 0;
+      }
+      .editor-scroll .field label {
+        display: block;
+        font-size: 8.5pt;
+        color: var(--editor-text-faint);
+        margin-bottom: 4px;
+      }
+      .editor-scroll .field-row {
+        display: flex;
+        gap: 8px;
+      }
+      .editor-scroll .field-row .field {
+        flex: 1;
+        margin-bottom: 12px;
+      }
 
-  .editor-scroll input[type="text"], .editor-scroll textarea{
-    width:100%;
-    font-family:var(--font);
-    font-size:10pt;
-    padding:8px 10px;
-    border:1px solid var(--editor-border);
-    border-radius:6px;
-    background:var(--editor-bg-raised);
-    color:var(--editor-text);
-  }
-  .editor-scroll textarea{ resize:vertical; min-height:56px; line-height:14pt; }
-  .editor-scroll input[type="text"]::placeholder, .editor-scroll textarea::placeholder{ color:var(--editor-text-faint); }
-  .editor-scroll input[type="text"]:focus, .editor-scroll textarea:focus{
-    outline:none;
-    border-color:var(--accent);
-    box-shadow:0 0 0 3px rgba(108,92,231,0.22);
-  }
+      .editor-scroll input[type="text"],
+      .editor-scroll textarea {
+        width: 100%;
+        font-family: var(--font);
+        font-size: 10pt;
+        padding: 8px 10px;
+        border: 1px solid var(--editor-border);
+        border-radius: 6px;
+        background: var(--editor-bg-raised);
+        color: var(--editor-text);
+      }
+      .editor-scroll textarea {
+        resize: vertical;
+        min-height: 56px;
+        line-height: 14pt;
+      }
+      .editor-scroll input[type="text"]::placeholder,
+      .editor-scroll textarea::placeholder {
+        color: var(--editor-text-faint);
+      }
+      .editor-scroll input[type="text"]:focus,
+      .editor-scroll textarea:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.22);
+      }
 
-  .editor-scroll .exp-block{
-    position:relative;
-    border:1px solid var(--editor-border);
-    background:var(--editor-bg-raised);
-    border-radius:8px;
-    padding:14px 14px 12px;
-    margin-bottom:14px;
-  }
-  .editor-scroll .exp-block .remove-btn{
-    position:absolute;
-    top:8px;
-    right:8px;
-    width:22px;
-    height:22px;
-    border:none;
-    background:none;
-    color:var(--editor-text-faint);
-    font-size:13px;
-    line-height:1;
-    cursor:pointer;
-    border-radius:50%;
-  }
-  .editor-scroll .exp-block .remove-btn:hover{ color:#fff; background:#e05a5a; }
+      .editor-scroll .exp-block {
+        position: relative;
+        border: 1px solid var(--editor-border);
+        background: var(--editor-bg-raised);
+        border-radius: 8px;
+        padding: 14px 14px 12px;
+        margin-bottom: 14px;
+      }
+      .editor-scroll .exp-block .remove-btn {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        width: 22px;
+        height: 22px;
+        border: none;
+        background: none;
+        color: var(--editor-text-faint);
+        font-size: 13px;
+        line-height: 1;
+        cursor: pointer;
+        border-radius: 50%;
+      }
+      .editor-scroll .exp-block .remove-btn:hover {
+        color: #fff;
+        background: #e05a5a;
+      }
 
-  .editor-scroll .add-exp-btn{
-    width:100%;
-    padding:10px;
-    border:1.5px dashed var(--accent);
-    background:none;
-    color:var(--accent);
-    border-radius:8px;
-    cursor:pointer;
-    font-family:var(--font);
-    font-weight:600;
-    font-size:10pt;
-  }
-  .editor-scroll .add-exp-btn:hover{ background:rgba(108,92,231,0.12); }
+      .editor-scroll .add-exp-btn {
+        width: 100%;
+        padding: 10px;
+        border: 1.5px dashed var(--accent);
+        background: none;
+        color: var(--accent);
+        border-radius: 8px;
+        cursor: pointer;
+        font-family: var(--font);
+        font-weight: 600;
+        font-size: 10pt;
+      }
+      .editor-scroll .add-exp-btn:hover {
+        background: rgba(108, 92, 231, 0.12);
+      }
 
-  .editor-footer{
-    flex:0 0 auto;
-    width:var(--editor-w);
-    display:flex;
-    gap:10px;
-    padding:16px 22px 4px;
-    border-top:1px solid var(--editor-border);
-  }
-  .editor-footer-btn{
-    flex:1;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:6px;
-    font-family:var(--font);
-    font-size:9.5pt;
-    font-weight:600;
-    padding:10px 8px;
-    border-radius:8px;
-    cursor:pointer;
-  }
-  .editor-footer-btn svg{ width:13px; height:13px; }
-  .editor-footer-btn.secondary{
-    background:none;
-    border:1px solid var(--editor-border);
-    color:var(--editor-text-dim);
-  }
-  .editor-footer-btn.secondary:hover{ background:var(--editor-bg-raised); color:#fff; }
-  .editor-footer-btn.primary{
-    background:var(--accent);
-    border:1px solid var(--accent);
-    color:#fff;
-  }
-  .editor-footer-btn.primary:hover{ background:#5b4bd6; }
+      /* ===== Bullet on/off toggle switch ===== */
+      .toggle-field {
+        margin-bottom: 14px;
+      }
+      .toggle-switch-label {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        font-size: 8.5pt;
+        color: var(--editor-text-dim);
+        cursor: pointer;
+      }
+      .toggle-switch {
+        position: relative;
+        width: 34px;
+        height: 19px;
+        flex: 0 0 34px;
+        display: inline-block;
+      }
+      .toggle-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+        position: absolute;
+      }
+      .toggle-slider {
+        position: absolute;
+        inset: 0;
+        background: #33333f;
+        border-radius: 999px;
+        transition: background 0.2s ease;
+      }
+      .toggle-slider::before {
+        content: "";
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        left: 2px;
+        top: 2px;
+        background: #fff;
+        border-radius: 50%;
+        transition: transform 0.2s ease;
+      }
+      .toggle-switch input:checked + .toggle-slider {
+        background: var(--accent);
+      }
+      .toggle-switch input:checked + .toggle-slider::before {
+        transform: translateX(15px);
+      }
 
-  .editor-autosave-note{
-    flex:0 0 auto;
-    width:var(--editor-w);
-    text-align:center;
-    font-size:8pt;
-    color:var(--editor-text-faint);
-    padding:10px 0 18px;
-  }
+      .editor-footer {
+        flex: 0 0 auto;
+        width: var(--editor-w);
+        display: flex;
+        gap: 10px;
+        padding: 16px 22px 4px;
+        border-top: 1px solid var(--editor-border);
+      }
+      .editor-footer-btn {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        font-family: var(--font);
+        font-size: 9.5pt;
+        font-weight: 600;
+        padding: 10px 8px;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+      .editor-footer-btn svg {
+        width: 13px;
+        height: 13px;
+      }
+      .editor-footer-btn.secondary {
+        background: none;
+        border: 1px solid var(--editor-border);
+        color: var(--editor-text-dim);
+      }
+      .editor-footer-btn.secondary:hover {
+        background: var(--editor-bg-raised);
+        color: #fff;
+      }
+      .editor-footer-btn.primary {
+        background: var(--accent);
+        border: 1px solid var(--accent);
+        color: #fff;
+      }
+      .editor-footer-btn.primary:hover {
+        background: #5b4bd6;
+      }
 
-  /* ===== Resume stage ===== */
-  .resume-stage{
-    flex:1 1 auto;
-    min-width:0;
-    position:relative;
-    display:flex;
-    justify-content:center;
-    margin: 0 auto;
-  }
+      .editor-autosave-note {
+        flex: 0 0 auto;
+        width: var(--editor-w);
+        text-align: center;
+        font-size: 8pt;
+        color: var(--editor-text-faint);
+        padding: 10px 0 18px;
+      }
 
-  /* ===== Floating "Interactive Demo" callout ===== */
-  .demo-callout{
-    position:fixed;
-    left:calc(var(--editor-w) + 32px);
-    top:230px;
-    width:220px;
-    background:#ffffff;
-    border-radius:14px;
-    box-shadow:0 12px 32px rgba(20,20,40,0.18);
-    padding:18px 18px 16px;
-    z-index:20;
-    opacity:0;
-    transform:translateY(8px);
-    pointer-events:none;
-    transition:opacity 0.3s ease, transform 0.3s ease, left 0.35s cubic-bezier(.4,0,.2,1);
-    display: none !important;
-  }
-  .app-shell.editor-open .demo-callout.visible{
-    opacity:1;
-    transform:translateY(0);
-    pointer-events:auto;
-  }
-  .demo-callout-icon{
-    width:26px;
-    height:26px;
-    border-radius:7px;
-    background:#efeaff;
-    color:var(--accent);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:13px;
-    margin-bottom:10px;
-  }
-  .demo-callout h3{
-    font-size:11pt;
-    font-weight:700;
-    color:#1c1c22;
-    margin:0 0 8px;
-  }
-  .demo-callout p{
-    font-size:8.5pt;
-    line-height:13pt;
-    color:#77778a;
-    margin:0 0 14px;
-  }
-  .demo-callout-btn{
-    width:100%;
-    background:var(--accent);
-    color:#fff;
-    border:none;
-    border-radius:8px;
-    padding:10px 10px;
-    font-family:var(--font);
-    font-size:9pt;
-    font-weight:600;
-    cursor:pointer;
-    margin-bottom:10px;
-  }
-  .demo-callout-btn:hover{ background:#5b4bd6; }
-  .demo-callout-link{
-    display:flex;
-    align-items:center;
-    gap:6px;
-    background:none;
-    border:none;
-    color:#57576b;
-    font-family:var(--font);
-    font-size:8.5pt;
-    font-weight:600;
-    cursor:pointer;
-    padding:0;
-  }
+      /* ===== Resume stage ===== */
+      .resume-stage {
+        flex: 1 1 auto;
+        min-width: 0;
+        position: relative;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 28px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
 
-  /* ===== Bottom action bar (screen only) ===== */
-  .action-bar{
-    position:fixed;
-    left:50%;
-    bottom:26px;
-    transform:translateX(-50%);
-    display:flex;
-    align-items:center;
-    gap:18px;
-    background:#ffffff;
-    border-radius:18px;
-    box-shadow:0 14px 40px rgba(20,20,40,0.16);
-    padding:12px 22px;
-    z-index:30;
-  }
-  .action-bar-group{
-    display:flex;
-    align-items:center;
-    gap:12px;
-  }
-  .action-bar-icon{
-    width:32px;
-    height:32px;
-    flex:0 0 32px;
-    border-radius:9px;
-    background:#eef0fb;
-    color:var(--accent);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-  }
-  .action-bar-icon svg{ width:15px; height:15px; }
-  .action-bar-text{
-    display:flex;
-    flex-direction:column;
-    line-height:1.25;
-    white-space:nowrap;
-  }
-  .action-bar-text strong{ font-size:9pt; color:#1c1c22; }
-  .action-bar-text span{ font-size:8pt; color:#8a8a97; }
-  .action-bar-divider{
-    font-size:8pt;
-    font-weight:700;
-    color:#b3b3bd;
-    letter-spacing:0.5pt;
-  }
-  .action-bar-btn{
-    display:flex;
-    align-items:center;
-    gap:7px;
-    font-family:var(--font);
-    font-size:9pt;
-    font-weight:600;
-    border-radius:9px;
-    padding:9px 14px;
-    cursor:pointer;
-    white-space:nowrap;
-  }
-  .action-bar-btn svg{ width:12px; height:12px; }
-  .action-bar-btn.outline{
-    background:#fff;
-    border:1px solid #dcdce4;
-    color:#33333d;
-  }
-  .action-bar-btn.outline:hover{ background:#f7f7fb; }
-  .action-bar-btn.primary{
-    background:var(--accent);
-    border:1px solid var(--accent);
-    color:#fff;
-  }
-  .action-bar-btn.primary:hover{ background:#5b4bd6; }
+      /* ===== Saved drafts panel ===== */
+      /* Hidden by default — only shown while the editor is open, since that's
+     the only time the person is actively working on the resume. */
+      .drafts-panel {
+        display: none;
+        width: 190px;
+        flex: 0 0 190px;
+        margin-top: 24px;
+        position: sticky;
+        top: 24px;
+        flex-direction: column;
+        max-height: var(--page-h);
+      }
+      .app-shell.editor-open .drafts-panel {
+        display: flex;
+      }
+      .drafts-panel-header {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 12px;
+        flex: 0 0 auto;
+      }
+      .drafts-panel-header h3 {
+        margin: 0;
+        font-size: 9.5pt;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5pt;
+        color: #57576b;
+      }
+      .new-draft-btn {
+        width: 100%;
+        padding: 8px 6px;
+        border: 1.5px dashed var(--accent);
+        background: #f4f2ff;
+        color: var(--accent);
+        border-radius: 8px;
+        cursor: pointer;
+        font-family: var(--font);
+        font-weight: 600;
+        font-size: 8.5pt;
+      }
+      .new-draft-btn:hover {
+        background: #ece7ff;
+      }
+      .drafts-list {
+        overflow-y: auto;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        padding: 2px 4px 8px 2px;
+        flex: 1 1 auto;
+        scrollbar-width: thin;
+      }
+      .drafts-empty {
+        font-size: 8.5pt;
+        line-height: 1.5;
+        color: #8a8a97;
+        margin: 4px 2px;
+      }
+      .draft-card {
+        background: #fff;
+        border: 1px solid #e2e2ea;
+        border-radius: 10px;
+        padding: 8px;
+        box-shadow: 0 3px 10px rgba(20, 20, 40, 0.06);
+        flex: 0 0 auto;
+      }
+      .draft-card.active {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 2px rgba(108, 92, 231, 0.25);
+      }
+      .draft-thumb-frame {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 210 / 297;
+        overflow: hidden;
+        border-radius: 6px;
+        border: 1px solid #e2e2ea;
+        background: #fff;
+      }
+      .draft-thumb-inner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform-origin: top left;
+        pointer-events: none;
+      }
+      .draft-name-input {
+        width: 100%;
+        margin-top: 8px;
+        border: 1px solid transparent;
+        background: none;
+        font-family: var(--font);
+        font-size: 8.5pt;
+        font-weight: 600;
+        color: #262626;
+        padding: 3px 4px;
+        border-radius: 5px;
+      }
+      .draft-name-input:hover {
+        border-color: #e2e2ea;
+      }
+      .draft-name-input:focus {
+        outline: none;
+        border-color: var(--accent);
+        background: #faf9ff;
+      }
+      .draft-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        margin-top: 6px;
+      }
+      .draft-action-btn {
+        flex: 1 1 auto;
+        min-width: 34px;
+        font-family: var(--font);
+        font-size: 7.5pt;
+        font-weight: 600;
+        padding: 5px 4px;
+        border-radius: 6px;
+        border: 1px solid #e2e2ea;
+        background: #f7f7fb;
+        color: #4b4b58;
+        cursor: pointer;
+      }
+      .draft-action-btn:hover {
+        background: #eef0fb;
+        color: var(--accent);
+      }
+      .draft-action-btn.delete-btn {
+        flex: 0 0 auto;
+        color: #b04545;
+      }
+      .draft-action-btn.delete-btn:hover {
+        background: #fdeaea;
+        color: #c62e2e;
+      }
 
-  .privacy-note{
-    position:fixed;
-    left:50%;
-    bottom:6px;
-    transform:translateX(-50%);
-    display:flex;
-    align-items:center;
-    gap:6px;
-    font-size:7.5pt;
-    color:#9a9aa5;
-    z-index:29;
-    margin:0;
-  }
-  .privacy-note svg{ width:9px; height:9px; }
+      /* ===== Floating "Interactive Demo" callout ===== */
+      .demo-callout {
+        position: fixed;
+        left: calc(var(--editor-w) + 32px);
+        top: 230px;
+        width: 220px;
+        background: #ffffff;
+        border-radius: 14px;
+        box-shadow: 0 12px 32px rgba(20, 20, 40, 0.18);
+        padding: 18px 18px 16px;
+        z-index: 20;
+        opacity: 0;
+        transform: translateY(8px);
+        pointer-events: none;
+        transition:
+          opacity 0.3s ease,
+          transform 0.3s ease,
+          left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        display: none !important;
+      }
+      .app-shell.editor-open .demo-callout.visible {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+      .demo-callout-icon {
+        width: 26px;
+        height: 26px;
+        border-radius: 7px;
+        background: #efeaff;
+        color: var(--accent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        margin-bottom: 10px;
+      }
+      .demo-callout h3 {
+        font-size: 11pt;
+        font-weight: 700;
+        color: #1c1c22;
+        margin: 0 0 8px;
+      }
+      .demo-callout p {
+        font-size: 8.5pt;
+        line-height: 13pt;
+        color: #77778a;
+        margin: 0 0 14px;
+      }
+      .demo-callout-btn {
+        width: 100%;
+        background: var(--accent);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 10px;
+        font-family: var(--font);
+        font-size: 9pt;
+        font-weight: 600;
+        cursor: pointer;
+        margin-bottom: 10px;
+      }
+      .demo-callout-btn:hover {
+        background: #5b4bd6;
+      }
+      .demo-callout-link {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: none;
+        border: none;
+        color: #57576b;
+        font-family: var(--font);
+        font-size: 8.5pt;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 0;
+      }
 
-  /* ===== Resume side ===== */
-  .resume-wrap{
-    flex:0 0 auto;
-    min-width:0;
-  }
+      /* ===== Bottom action bar (screen only) ===== */
+      .action-bar {
+        position: fixed;
+        left: 50%;
+        bottom: 26px;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: #ffffff;
+        border-radius: 18px;
+        box-shadow: 0 14px 40px rgba(20, 20, 40, 0.16);
+        padding: 12px 22px;
+        z-index: 30;
+      }
+      .action-bar-group {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .action-bar-icon {
+        width: 32px;
+        height: 32px;
+        flex: 0 0 32px;
+        border-radius: 9px;
+        background: #eef0fb;
+        color: var(--accent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .action-bar-icon svg {
+        width: 15px;
+        height: 15px;
+      }
+      .action-bar-text {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.25;
+        white-space: nowrap;
+      }
+      .action-bar-text strong {
+        font-size: 9pt;
+        color: #1c1c22;
+      }
+      .action-bar-text span {
+        font-size: 8pt;
+        color: #8a8a97;
+      }
+      .action-bar-divider {
+        font-size: 8pt;
+        font-weight: 700;
+        color: #b3b3bd;
+        letter-spacing: 0.5pt;
+      }
+      .action-bar-btn {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        font-family: var(--font);
+        font-size: 9pt;
+        font-weight: 600;
+        border-radius: 9px;
+        padding: 9px 14px;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      .action-bar-btn svg {
+        width: 12px;
+        height: 12px;
+      }
+      .action-bar-btn.outline {
+        background: #fff;
+        border: 1px solid #dcdce4;
+        color: #33333d;
+      }
+      .action-bar-btn.outline:hover {
+        background: #f7f7fb;
+      }
+      .action-bar-btn.primary {
+        background: var(--accent);
+        border: 1px solid var(--accent);
+        color: #fff;
+      }
+      .action-bar-btn.primary:hover {
+        background: #5b4bd6;
+      }
 
-  #pagesContainer{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-  }
+      /* Only ever shown on mobile (see the max-width:900px block) — desktop
+     reaches drafts through the side panel instead. */
+      .view-drafts-btn {
+        display: none;
+      }
 
-  /* ===== Page shell (A4) ===== */
-  .page{
-    width:var(--page-w);
-    min-height:var(--page-h);
-    margin:24px auto;
-    background:#ffffff;
-    position:relative;
-    box-shadow:0 4px 24px rgba(0,0,0,0.15);
-    display:flex;
-    overflow:visible;
-  }
+      /* ===== Mobile saved-drafts carousel ===== */
+      .drafts-carousel-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(10, 10, 20, 0.5);
+        z-index: 300;
+        display: none;
+        align-items: flex-end;
+        justify-content: center;
+      }
+      .drafts-carousel-overlay.open {
+        display: flex;
+      }
+      .drafts-carousel-sheet {
+        width: 100%;
+        max-height: 82vh;
+        background: #fff;
+        border-radius: 20px 20px 0 0;
+        padding: 18px 16px 20px;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.28);
+      }
+      .drafts-carousel-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 14px;
+        flex: 0 0 auto;
+      }
+      .drafts-carousel-header h3 {
+        margin: 0;
+        font-size: 11pt;
+        font-weight: 700;
+        color: #1c1c22;
+      }
+      .drafts-carousel-close {
+        width: 28px;
+        height: 28px;
+        flex: 0 0 28px;
+        border-radius: 50%;
+        border: none;
+        background: #f0f0f5;
+        color: #57576b;
+        font-size: 13px;
+        cursor: pointer;
+      }
+      .drafts-carousel-close:hover {
+        background: #e6e6ee;
+      }
+      .drafts-carousel-track {
+        display: flex;
+        gap: 14px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        padding: 2px 2px 8px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .drafts-carousel-track .draft-card {
+        flex: 0 0 68%;
+        scroll-snap-align: center;
+      }
+      .drafts-carousel-track .drafts-empty {
+        flex: 1 1 auto;
+        padding: 10px 2px 4px;
+      }
+      .drafts-carousel-hint {
+        margin: 10px 0 0;
+        font-size: 8pt;
+        color: #9a9aa5;
+        text-align: center;
+        flex: 0 0 auto;
+      }
 
-  /* ===== Left sidebar (full-bleed, stretches to page height) ===== */
-  .sidebar{
-    width:var(--sidebar-w);
-    flex:0 0 var(--sidebar-w);
-    background:var(--sidebar-bg);
-    padding:var(--margin-top) 5mm var(--margin-bottom) var(--margin-left);
-    color:var(--ink);
-  }
+      .privacy-note {
+        position: fixed;
+        left: 50%;
+        bottom: 6px;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 7.5pt;
+        color: #9a9aa5;
+        z-index: 29;
+        margin: 0;
+      }
+      .privacy-note svg {
+        width: 9px;
+        height: 9px;
+      }
 
-  .gutter{
-    width:var(--gutter-w);
-    flex:0 0 var(--gutter-w);
-  }
+      /* ===== Resume side ===== */
+      .resume-wrap {
+        flex: 0 0 auto;
+        min-width: 0;
+      }
 
-  .main{
-    flex:1 1 auto;
-    padding:var(--margin-top) var(--margin-right) var(--margin-bottom) 0;
-    color:var(--ink);
-    min-width:0;
-  }
+      #pagesContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
 
-  /* ===== Name / Title block ===== */
-  .name{
-    font-weight:800;
-    font-size:25pt;
-    line-height:27pt;
-    letter-spacing:0.2pt;
-    text-transform:uppercase;
-    margin:0 0 4pt 0;
-    color:var(--navy);
-  }
-  .name span{ display:block; }
+      /* ===== Page shell (A4) ===== */
+      .page {
+        width: var(--page-w);
+        min-height: var(--page-h);
+        margin: 24px auto;
+        background: #ffffff;
+        position: relative;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+        display: flex;
+        overflow: visible;
+      }
 
-  .role-title{
-    font-weight:700;
-    font-size:11pt;
-    letter-spacing:1pt;
-    color:var(--navy);
-    margin:0;
-  }
-  .role-title::after{
-    content:"";
-    display:block;
-    width:20mm;
-    height:2px;
-    background:var(--navy);
-    margin-top:9pt;
-    margin-bottom: 20pt;
-    opacity: .25;
-  }
+      /* ===== Left sidebar (full-bleed, stretches to page height) ===== */
+      .sidebar {
+        width: var(--sidebar-w);
+        flex: 0 0 var(--sidebar-w);
+        background: var(--sidebar-bg);
+        padding: var(--margin-top) 5mm var(--margin-bottom) var(--margin-left);
+        color: var(--ink);
+      }
 
-  /* ===== Icon-badge section headings (icon circle + text + line + dot) ===== */
-  .section-heading-row{
-    display:flex;
-    align-items:center;
-    gap:6pt;
-    margin-bottom:9pt;
-  }
-  .icon-badge{
-    width:19pt;
-    height:19pt;
-    border-radius:50%;
-    border:1.3pt solid var(--navy);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex:0 0 19pt;
-    color:var(--navy);
-    background:#fff;
-  }
-  .icon-badge svg{ width:10pt; height:10pt; display:block; }
-  .section-heading-text{
-    font-weight:700;
-    font-size:11.5pt;
-    text-transform:uppercase;
-    letter-spacing:0.8pt;
-    color:var(--navy);
-    white-space:nowrap;
-  }
-  .heading-line{
-    flex:1 1 auto;
-    height:1.2pt;
-    background:var(--navy);
-    margin-left:4pt;
-    opacity: .25;
-  }
-  .heading-dot{
-    width:4pt;
-    height:4pt;
-    border-radius:50%;
-    background:var(--navy);
-    flex:0 0 4pt;
-    margin-left:-6pt;
-    opacity: .25;
-  }
+      .gutter {
+        width: var(--gutter-w);
+        flex: 0 0 var(--gutter-w);
+      }
 
-  .section-block{ margin-bottom:16pt; }
-  .sidebar .section-block:last-child{ margin-bottom:0; }
+      .main {
+        flex: 1 1 auto;
+        padding: var(--margin-top) var(--margin-right) var(--margin-bottom) 0;
+        color: var(--ink);
+        min-width: 0;
+      }
 
-  /* ===== Contact list (icon + text rows) ===== */
-  ul.contact-list{
-    list-style:none;
-    margin:0;
-    padding:0;
-    margin-left: 2pt;
-  }
-  ul.contact-list li{
-    display:flex;
-    align-items:flex-start;
-    gap:6pt;
-    font-size:9.5pt;
-    line-height:1.4;
-    margin-bottom:7pt;
-    word-break:break-word;
-  }
-  ul.contact-list li:last-child{ margin-bottom:0; }
-  ul.contact-list li a{ color:var(--ink); text-decoration:none; }
-  .mini-icon{
-    width:11pt;
-    height:11pt;
-    flex:0 0 11pt;
-    color:var(--navy);
-    margin-top:1.5pt;
-  }
-  .mini-icon svg{ width:100%; height:100%; display:block; }
+      /* ===== Name / Title block ===== */
+      .name {
+        font-weight: 800;
+        font-size: 25pt;
+        line-height: 27pt;
+        letter-spacing: 0.2pt;
+        text-transform: uppercase;
+        margin: 0 0 4pt 0;
+        color: var(--navy);
+      }
+      .name span {
+        display: block;
+      }
 
-  /* ===== Skills (grouped) ===== */
-  .skill-group{ margin-left: 2pt;}
-  .skill-group-title{
-    display:flex;
-    align-items:center;
-    gap:5pt;
-    font-weight:700;
-    font-size:9pt;
-    text-transform:uppercase;
-    letter-spacing:0.5pt;
-    color:var(--ink);
-    margin-bottom:4pt;
-  }
-  .skill-group-title .dot{
-    width:5pt;
-    height:5pt;
-    border-radius:50%;
-    background:var(--navy);
-    flex:0 0 5pt;
-  }
-  ul.skills-list{
-    list-style:none;
-    margin:0;
-    padding:0;
-  }
-  ul.skills-list li{
-    position:relative;
-    font-size:9.5pt;
-    line-height:1.55;
-    color:var(--ink);
-    padding-left:10pt;
-  }
-  ul.skills-list li::before{
-    content:"";
-    position:absolute;
-    left:0;
-    top:6.5pt;
-    width:3pt;
-    height:3pt;
-    border-radius:50%;
-    background:var(--navy);
-  }
+      .role-title {
+        font-weight: 700;
+        font-size: 11pt;
+        letter-spacing: 1pt;
+        color: var(--navy);
+        margin: 0;
+      }
+      .role-title::after {
+        content: "";
+        display: block;
+        width: 20mm;
+        height: 2px;
+        background: var(--navy);
+        margin-top: 9pt;
+        margin-bottom: 20pt;
+        opacity: 0.25;
+      }
 
-  /* ===== Education / Certifications ===== */
-  .edu-school{
-    font-weight:700;
-    font-size:10.5pt;
-    margin:0 0 2pt 2pt;
-    color:var(--ink);
-  }
-  .edu-degree{
-    font-size:9.5pt;
-    margin:0 0 1pt 2pt;
-    color:var(--ink);
-  }
-  .edu-year{
-    font-size:9.5pt;
-    color:var(--gray-date);
-    font-style:italic;
-    margin:0 0 3pt 2pt;
-  }
-  .edu-location{
-    display:flex;
-    align-items:center;
-    gap:5pt;
-    font-size:9pt;
-    color:var(--gray-date);
-    margin:0 0 0 2pt;
-  }
-  .edu-location .mini-icon{ margin-top:0; }
+      /* ===== Icon-badge section headings (icon circle + text + line + dot) ===== */
+      .section-heading-row {
+        display: flex;
+        align-items: center;
+        gap: 6pt;
+        margin-bottom: 9pt;
+      }
+      .icon-badge {
+        width: 19pt;
+        height: 19pt;
+        border-radius: 50%;
+        border: 1.3pt solid var(--navy);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 19pt;
+        color: var(--navy);
+        background: #fff;
+      }
+      .icon-badge svg {
+        width: 10pt;
+        height: 10pt;
+        display: block;
+      }
+      .section-heading-text {
+        font-weight: 700;
+        font-size: 11.5pt;
+        text-transform: uppercase;
+        letter-spacing: 0.8pt;
+        color: var(--navy);
+        white-space: nowrap;
+      }
+      .heading-line {
+        flex: 1 1 auto;
+        height: 1.2pt;
+        background: var(--navy);
+        margin-left: 4pt;
+        opacity: 0.25;
+      }
+      .heading-dot {
+        width: 4pt;
+        height: 4pt;
+        border-radius: 50%;
+        background: var(--navy);
+        flex: 0 0 4pt;
+        margin-left: -6pt;
+        opacity: 0.25;
+      }
 
-  .cert-entry{ margin-bottom:10pt; }
-  .cert-entry:last-child{ margin-bottom:0; }
+      .section-block {
+        margin-bottom: 16pt;
+      }
+      .sidebar .section-block:last-child {
+        margin-bottom: 0;
+      }
 
-  /* ===== Summary paragraph ===== */
-  .summary{
-    font-size:10.5pt;
-    line-height:1.55;
-    margin:0;
-    color:var(--ink);
-  }
+      /* ===== Contact list (icon + text rows) ===== */
+      ul.contact-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        margin-left: 2pt;
+      }
+      ul.contact-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 6pt;
+        font-size: 9.5pt;
+        line-height: 1.4;
+        margin-bottom: 7pt;
+        word-break: break-word;
+      }
+      ul.contact-list li:last-child {
+        margin-bottom: 0;
+      }
+      ul.contact-list li a {
+        color: var(--ink);
+        text-decoration: none;
+      }
+      .mini-icon {
+        width: 11pt;
+        height: 11pt;
+        flex: 0 0 11pt;
+        color: var(--navy);
+        margin-top: 1.5pt;
+      }
+      .mini-icon svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
 
-  /* ===== Key Accomplishments subheadings ===== */
-  .accomplishment-subheading{
-    font-weight:700;
-    color:var(--ink);
-    font-size:9.5pt;
-    margin:8pt 0 4pt 0;
-  }
+      /* ===== Skills (grouped) ===== */
+      .skill-group {
+        margin-left: 2pt;
+      }
+      .skill-group-title {
+        display: flex;
+        align-items: center;
+        gap: 5pt;
+        font-weight: 700;
+        font-size: 9pt;
+        text-transform: uppercase;
+        letter-spacing: 0.5pt;
+        color: var(--ink);
+        margin-bottom: 4pt;
+      }
+      .skill-group-title .dot {
+        width: 5pt;
+        height: 5pt;
+        border-radius: 50%;
+        background: var(--navy);
+        flex: 0 0 5pt;
+      }
+      ul.skills-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      ul.skills-list li {
+        position: relative;
+        font-size: 9.5pt;
+        line-height: 1.55;
+        color: var(--ink);
+        padding-left: 10pt;
+      }
+      ul.skills-list li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 6.5pt;
+        width: 3pt;
+        height: 3pt;
+        border-radius: 50%;
+        background: var(--navy);
+      }
 
-  /* ===== Experience entries ===== */
-  .job-divider{
-    border-top:1.2pt dashed var(--dotted);
-    margin:0 0 10pt 0;
-  }
-  .job-row{
-    display:flex;
-    justify-content:space-between;
-    align-items:baseline;
-    gap:10pt;
-  }
-  .job-role{
-    font-weight:700;
-    font-size:11.5pt;
-    color:var(--ink);
-  }
-  .job-company{
-    font-weight:600;
-    font-size:10pt;
-    color:var(--navy);
-    margin-top:1pt;
-  }
-  .job-meta{
-    display:flex;
-    align-items:center;
-    gap:4pt;
-    font-size:8.5pt;
-    color:var(--gray-date);
-    white-space:nowrap;
-    flex:0 0 auto;
-  }
-  .job-meta svg{ width:9pt; height:9pt; display:block; }
-  .job-client-line{
-    font-style:italic;
-    font-size:9pt;
-    color:var(--gray-date);
-    margin:3pt 0 0 0;
-  }
+      /* ===== Education / Certifications ===== */
+      .edu-school {
+        font-weight: 700;
+        font-size: 10.5pt;
+        margin: 0 0 2pt 2pt;
+        color: var(--ink);
+      }
+      .edu-degree {
+        font-size: 9.5pt;
+        margin: 0 0 1pt 2pt;
+        color: var(--ink);
+      }
+      .edu-year {
+        font-size: 9.5pt;
+        color: var(--gray-date);
+        font-style: italic;
+        margin: 0 0 3pt 2pt;
+      }
+      .edu-location {
+        display: flex;
+        align-items: center;
+        gap: 5pt;
+        font-size: 9pt;
+        color: var(--gray-date);
+        margin: 0 0 0 2pt;
+      }
+      .edu-location .mini-icon {
+        margin-top: 0;
+      }
 
-  .tags-row{
-    margin:8pt 0 9pt 0;
-    display:flex;
-    flex-wrap:wrap;
-    gap:5pt;
-  }
-  .tag-pill{
-    background:var(--pill-bg);
-    color:var(--navy);
-    font-size:8pt;
-    font-weight:600;
-    padding:3pt 8pt;
-    border-radius:9pt;
-  }
+      .cert-entry {
+        margin-bottom: 10pt;
+      }
+      .cert-entry:last-child {
+        margin-bottom: 0;
+      }
 
-  ul.job-bullets{
-    list-style:none;
-    margin:0;
-    padding:0;
-  }
-  ul.job-bullets li{
-    position:relative;
-    font-size:9.5pt;
-    line-height:1.45;
-    padding-left:12pt;
-    margin-bottom:4pt;
-    color:var(--ink);
-  }
-  ul.job-bullets li::before{
-    content:"";
-    position:absolute;
-    left:1pt;
-    top:6pt;
-    width:3.5pt;
-    height:3.5pt;
-    border-radius:50%;
-    background:var(--navy);
-  }
-  ul.job-bullets li:last-child{ margin-bottom:0; }
+      /* ===== Summary paragraph ===== */
+      .summary {
+        font-size: 10.5pt;
+        line-height: 1.55;
+        margin: 0;
+        color: var(--ink);
+      }
 
-  @media (max-width: 900px){
-    .app-shell{ flex-direction:column; }
+      /* ===== Key Accomplishments subheadings ===== */
+      .accomplishment-subheading {
+        font-weight: 700;
+        color: var(--ink);
+        font-size: 9.5pt;
+        margin: 8pt 0 4pt 0;
+      }
 
-    /* Editor becomes a slide-in overlay PANEL on mobile — not a full-bleed
+      /* ===== Experience entries ===== */
+      .job-divider {
+        border-top: 1.2pt dashed var(--dotted);
+        margin: 0 0 10pt 0;
+      }
+      .job-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 10pt;
+      }
+      .job-role {
+        font-weight: 700;
+        font-size: 11.5pt;
+        color: var(--ink);
+      }
+      .job-company {
+        font-weight: 600;
+        font-size: 10pt;
+        color: var(--navy);
+        margin-top: 1pt;
+      }
+      .job-meta {
+        display: flex;
+        align-items: center;
+        gap: 4pt;
+        font-size: 8.5pt;
+        color: var(--gray-date);
+        white-space: nowrap;
+        flex: 0 0 auto;
+      }
+      .job-meta svg {
+        width: 9pt;
+        height: 9pt;
+        display: block;
+      }
+      .job-client-line {
+        font-style: italic;
+        font-size: 9pt;
+        color: var(--gray-date);
+        margin: 3pt 0 0 0;
+      }
+
+      .tags-row {
+        margin: 8pt 0 9pt 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5pt;
+      }
+      .tag-pill {
+        background: var(--pill-bg);
+        color: var(--navy);
+        font-size: 8pt;
+        font-weight: 600;
+        padding: 3pt 8pt;
+        border-radius: 9pt;
+      }
+
+      ul.job-bullets {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      ul.job-bullets li {
+        position: relative;
+        font-size: 9.5pt;
+        line-height: 1.45;
+        padding-left: 12pt;
+        margin-bottom: 4pt;
+        color: var(--ink);
+      }
+      ul.job-bullets li::before {
+        content: "";
+        position: absolute;
+        left: 1pt;
+        top: 6pt;
+        width: 3.5pt;
+        height: 3.5pt;
+        border-radius: 50%;
+        background: var(--navy);
+      }
+      ul.job-bullets li:last-child {
+        margin-bottom: 0;
+      }
+
+      .job-plain-text {
+        font-size: 9.5pt;
+        line-height: 1.45;
+        margin: 0 0 4pt 0;
+        color: var(--ink);
+      }
+      .job-plain-text:last-child {
+        margin-bottom: 0;
+      }
+
+      @media (max-width: 900px) {
+        .app-shell {
+          flex-direction: column;
+        }
+
+        /* Editor becomes a slide-in overlay PANEL on mobile — not a full-bleed
        screen. It takes most of the width (with its own drop shadow, like a
        card sitting on top), while the resume stays visible-but-dimmed/
        blurred behind it on the right edge, so it's clear the editor is
        floating over the document rather than replacing it. */
-    .editor-sidebar{
-      position:fixed;
-      top:0;
-      left:0;
-      bottom:0;
-      width:100%;
-      max-width:100%;
-      height:100%;
-      max-height:none;
-      flex:none;
-      transform:translateX(-100%);
-      transition:transform 0.35s cubic-bezier(.4,0,.2,1);
-      z-index:100;
-      border-bottom:none;
-      box-shadow:16px 0 40px rgba(10,10,20,0.35);
-    }
-    .app-shell.editor-open .editor-sidebar{
-      flex:none;
-      transform:translateX(0);
-    }
-    .editor-header, .editor-tabs, .editor-scroll, .editor-footer, .editor-autosave-note{
-      width:100%;
-    }
+        .editor-sidebar {
+          position: fixed;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          max-width: 100%;
+          height: 100%;
+          max-height: none;
+          flex: none;
+          transform: translateX(-100%);
+          transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+          z-index: 100;
+          border-bottom: none;
+          box-shadow: 16px 0 40px rgba(10, 10, 20, 0.35);
+        }
+        .app-shell.editor-open .editor-sidebar {
+          flex: none;
+          transform: translateX(0);
+        }
+        .editor-header,
+        .editor-tabs,
+        .editor-scroll,
+        .editor-footer,
+        .editor-autosave-note {
+          width: 100%;
+        }
 
-    /* The resume dims and blurs behind the editor instead of disappearing —
-       reinforces that the editor is a panel floating on top of it. */
-    .resume-stage{
-      transition:filter 0.35s ease, opacity 0.35s ease;
-    }
-    .app-shell.editor-open .resume-stage{
-      filter:blur(3px);
-      opacity:0.45;
-      pointer-events:none;
-    }
-
-    /* No room for the floating hint card on a small screen — the editor
+        /* No room for the floating hint card on a small screen — the editor
        panel already makes it obvious you're editing. */
-    .demo-callout{ display:none; }
+        .demo-callout {
+          display: none;
+        }
 
-    body.editor-lock-scroll{ overflow:hidden; }
+        .resume-stage {
+          flex-direction: column;
+          align-items: center;
+          padding: 0 12px;
+          gap: 16px;
+        }
 
-    /* Bottom action bar: stack each "offer" as icon+label centered above its
-       own full-width button, with a proper divider between the two. */
-    .action-bar{
-      left:12px;
-      right:12px;
-      bottom:12px;
-      width:93%;
-      transform:none;
-      flex-direction:column;
-      align-items:stretch;
-      gap:14px;
-      padding:20px 18px 18px;
-      margin: 0 auto;
-      position: static;
-      border-radius: 0px 0px 18px 18px;
-    }
-    .action-bar-group{
-      flex-direction:row;
-      align-items:center;
-      gap:10px;
-    }
-    .action-bar-text{
-      align-items:flex-start;
-      text-align:left;
-      white-space:normal;
-    }
-    .action-bar-btn{
-      width:100%;
-      justify-content:center;
-    }
-    .action-bar-divider{
-      position:relative;
-      text-align:center;
-      color:#c7c7d1;
-      margin:2px 0;
-    }
-    .action-bar-divider::before, .action-bar-divider::after{
-      content:'';
-      position:absolute;
-      top:50%;
-      width:calc(50% - 18px);
-      height:1px;
-      background:#ececf2;
-    }
-    .action-bar-divider::before{ left:0; }
-    .action-bar-divider::after{ right:0; }
-    .privacy-note{
-      position:static;
-      transform:none;
-      justify-content:center;
-      margin:8px auto 0;
-    }
-  }
+        /* The side drafts panel only works on desktop: there, opening the
+       editor is a sidebar that shares the screen with the resume, so the
+       panel next to it stays reachable. On mobile the editor is a full-
+       screen overlay, so that same panel would render fully hidden behind
+       it (and its row of thumbnails was inflating the page's scrollable
+       width). It's force-hidden here regardless of editor-open state —
+       mobile users reach drafts instead through the "View Saved Drafts"
+       button in the action bar, which opens the carousel below. */
+        .drafts-panel,
+        .app-shell.editor-open .drafts-panel {
+          display: none !important;
+        }
 
+        .view-drafts-btn {
+          display: flex;
+        }
 
-  /* ===== Print styles ===== */
-  @page{
-    size:A4;
-    margin:0;
-  }
-  @media print{
-    html,body{
-      background:#fff;
-      height:auto;
-    }
-    *{
-      -webkit-print-color-adjust:exact;
-      print-color-adjust:exact;
-      color-adjust:exact;
-    }
-    .editor-sidebar, .action-bar, .demo-callout, .privacy-note{ display:none; }
-    .app-shell{ display:block; height:auto; }
-    .resume-stage{ display:block; }
-    .resume-wrap{ width:100% !important; height:auto !important; overflow:visible !important; }
-    #pagesContainer{ display:block; transform:none !important; width:auto !important; }
-    .page{
-      margin:0;
-      box-shadow:none;
-      width:var(--page-w);
-      height:var(--page-h);
-      min-height:0;
-      overflow:hidden;
-    }
-    .page + .page{
-      page-break-before:always;
-      break-before:page;
-    }
-    .sidebar .section-block{
-      page-break-inside:avoid;
-      break-inside:avoid;
-    }
-  }
-</style>
-</head>
-<body>
+        body.editor-lock-scroll {
+          overflow: hidden;
+        }
 
-<div class="app-shell" id="appShell">
+        /* Bottom action bar: stack each "offer" as icon+label centered above its
+       own full-width button, with a proper divider between the two. Width is
+       set at runtime (see syncActionBarLayout in the script) to match the
+       resume's own rendered width — the values here are just a fallback for
+       the instant before that first runs. */
+        .action-bar {
+          width: 93%;
+          bottom: 12px;
+          transform: none;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 14px;
+          padding: 20px 18px 18px;
+          margin: 16px auto 0;
+          position: static;
+          border-radius: 0px 0px 18px 18px;
+        }
+        .action-bar-group {
+          flex-direction: row;
+          align-items: center;
+          gap: 10px;
+        }
+        .action-bar-text {
+          align-items: flex-start;
+          text-align: left;
+          white-space: normal;
+        }
+        .action-bar-btn {
+          width: 100%;
+          justify-content: center;
+        }
+        .action-bar-divider {
+          position: relative;
+          text-align: center;
+          color: #c7c7d1;
+          margin: 2px 0;
+        }
+        .action-bar-divider::before,
+        .action-bar-divider::after {
+          content: "";
+          position: absolute;
+          top: 50%;
+          width: calc(50% - 18px);
+          height: 1px;
+          background: #ececf2;
+        }
+        .action-bar-divider::before {
+          left: 0;
+        }
+        .action-bar-divider::after {
+          right: 0;
+        }
+        .privacy-note {
+          position: static;
+          transform: none;
+          justify-content: center;
+          margin: 8px auto 0;
+        }
+      }
 
-  <!-- ===================== EDITOR SIDEBAR (dark, off-canvas) ===================== -->
-  <aside class="editor-sidebar" id="editorSidebar">
-    <div class="editor-header">
-      <button type="button" class="editor-close-btn" id="editorCloseBtn" aria-label="Close editor">&#10005;</button>
-      <div class="editor-header-text">
-        <h2>Resume Builder <span class="beta-badge">BETA</span></h2>
-        <p>You're editing a live template. Changes appear instantly in the preview.</p>
+      /* ===== Print styles ===== */
+      @page {
+        size: A4;
+        margin: 0;
+      }
+      @media print {
+        html,
+        body {
+          background: #fff;
+          height: auto;
+        }
+        * {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+          color-adjust: exact;
+        }
+        .editor-sidebar,
+        .action-bar,
+        .demo-callout,
+        .privacy-note,
+        .drafts-panel,
+        .drafts-carousel-overlay {
+          display: none;
+        }
+        .app-shell {
+          display: block;
+          height: auto;
+        }
+        .resume-stage {
+          display: block;
+        }
+        .resume-wrap {
+          width: 100% !important;
+          height: auto !important;
+          overflow: visible !important;
+        }
+        #pagesContainer {
+          display: block;
+          transform: none !important;
+          width: auto !important;
+        }
+        .page {
+          margin: 0;
+          box-shadow: none;
+          width: var(--page-w);
+          height: var(--page-h);
+          min-height: 0;
+          overflow: hidden;
+        }
+        .page + .page {
+          page-break-before: always;
+          break-before: page;
+        }
+        .sidebar .section-block {
+          page-break-inside: avoid;
+          break-inside: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-shell" id="appShell">
+      <!-- ===================== EDITOR SIDEBAR (dark, off-canvas) ===================== -->
+      <aside class="editor-sidebar" id="editorSidebar">
+        <div class="editor-header">
+          <button
+            type="button"
+            class="editor-close-btn"
+            id="editorCloseBtn"
+            aria-label="Close editor"
+          >
+            &#10005;
+          </button>
+          <div class="editor-header-text">
+            <h2>Resume Builder <span class="beta-badge">BETA</span></h2>
+            <p>
+              You're editing a live template. Changes appear instantly in the
+              preview.
+            </p>
+          </div>
+        </div>
+
+        <nav class="editor-tabs" id="editorTabs">
+          <button
+            type="button"
+            class="editor-tab active"
+            data-target="tabBasicInfo"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="8" r="4" />
+              <path d="M4 20c0-4.4 3.6-7 8-7s8 2.6 8 7" />
+            </svg>
+            <span>Basic Info</span>
+          </button>
+          <button type="button" class="editor-tab" data-target="tabExperience">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="3" y="7" width="18" height="13" rx="2" />
+              <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+              <line x1="3" y1="13" x2="21" y2="13" />
+            </svg>
+            <span>Experience</span>
+          </button>
+          <button type="button" class="editor-tab" data-target="tabEducation">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M12 3 2 8l10 5 10-5-10-5z" />
+              <path d="M6 11v4c0 1.4 2.7 3 6 3s6-1.6 6-3v-4" />
+            </svg>
+            <span>Education</span>
+          </button>
+          <button type="button" class="editor-tab" data-target="tabSkills">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="9 18 3 12 9 6" />
+              <polyline points="15 6 21 12 15 18" />
+            </svg>
+            <span>Skills</span>
+          </button>
+        </nav>
+
+        <div class="editor-scroll" id="editorScroll">
+          <section class="editor-tab-section" id="tabBasicInfo">
+            <div class="form-section">
+              <h3>Basic Info</h3>
+              <div class="field-row">
+                <div class="field">
+                  <label for="fFirstName">First Name</label>
+                  <input type="text" id="fFirstName" value="Bharath" />
+                </div>
+                <div class="field">
+                  <label for="fLastName">Last Name</label>
+                  <input type="text" id="fLastName" value="Kunamneni" />
+                </div>
+              </div>
+              <div class="field">
+                <label for="fRoleTitle">Role Title</label>
+                <input
+                  type="text"
+                  id="fRoleTitle"
+                  value="Senior Frontend Developer"
+                />
+              </div>
+              <div class="field">
+                <label for="fSummary">Professional Summary</label>
+                <textarea id="fSummary" rows="6">
+Senior Frontend Engineer with 10+ years of experience building scalable, performant web applications using React, TypeScript, and modern frontend technologies. Passionate about creating fast, accessible, and intuitive user experiences while staying current with evolving web standards, tooling, and best practices. Experienced in collaborating with global teams to deliver high-quality products from concept to production.</textarea
+                >
+              </div>
+              <div class="field">
+                <label for="fAchievements"
+                  >Key Accomplishments (one per line)</label
+                >
+                <textarea
+                  id="fAchievements"
+                  rows="5"
+                  placeholder="One accomplishment per line. Start a line with # for a bold subheading (e.g. # Delivery Impact). Wrap a word in #hashtags# to bold just that word, e.g. Grew revenue by #40%#."
+                ></textarea>
+              </div>
+              <div class="field toggle-field">
+                <label class="toggle-switch-label" for="toggleAchievementsBullets">
+                  <span>Show bullet points</span>
+                  <span class="toggle-switch">
+                    <input type="checkbox" id="toggleAchievementsBullets" checked />
+                    <span class="toggle-slider"></span>
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h3>Contact</h3>
+              <div class="field">
+                <label for="fContact">Items, separated by commas</label>
+                <textarea id="fContact" rows="4">
+bbugs35@gmail.com, +91 90668 18774, https://linkedin.com/in/bharathkunamneni, bharathkunamneni.com, Bangalore India</textarea
+                >
+              </div>
+            </div>
+          </section>
+
+          <section class="editor-tab-section" id="tabExperience">
+            <div class="form-section">
+              <h3>Experience</h3>
+              <div class="field toggle-field">
+                <label class="toggle-switch-label" for="toggleExperienceBullets">
+                  <span>Show bullet points</span>
+                  <span class="toggle-switch">
+                    <input type="checkbox" id="toggleExperienceBullets" checked />
+                    <span class="toggle-slider"></span>
+                  </span>
+                </label>
+              </div>
+              <div id="experienceForm"></div>
+              <button type="button" class="add-exp-btn" id="addExpBtn">
+                + Add Company
+              </button>
+            </div>
+          </section>
+
+          <section class="editor-tab-section" id="tabEducation">
+            <div class="form-section">
+              <h3>Education</h3>
+              <div class="field">
+                <label for="fEduSchool">School / Degree title</label>
+                <input
+                  type="text"
+                  id="fEduSchool"
+                  value="Bachelor of Technology"
+                />
+              </div>
+              <div class="field">
+                <label for="fEduDegree">Field of study</label>
+                <input
+                  type="text"
+                  id="fEduDegree"
+                  value="Computer Science &amp; Engineering"
+                />
+              </div>
+              <div class="field">
+                <label for="fEduYear">Years</label>
+                <input type="text" id="fEduYear" value="2010 - 2014" />
+              </div>
+              <div class="field">
+                <label for="fEduLocation">Location</label>
+                <input type="text" id="fEduLocation" value="India" />
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h3>Certifications</h3>
+              <div id="certificationForm"></div>
+              <button type="button" class="add-exp-btn" id="addCertBtn">
+                + Add Certification
+              </button>
+            </div>
+          </section>
+
+          <section class="editor-tab-section" id="tabSkills">
+            <div class="form-section">
+              <h3>Skills</h3>
+              <p
+                class="hint"
+                style="
+                  margin: 0 0 12px;
+                  color: var(--editor-text-faint);
+                  font-size: 8.5pt;
+                "
+              >
+                Each group has a title and comma-separated items.
+              </p>
+              <div id="skillGroupForm"></div>
+              <button type="button" class="add-exp-btn" id="addSkillGroupBtn">
+                + Add Skill Group
+              </button>
+            </div>
+          </section>
+        </div>
+
+        <div class="editor-footer">
+          <button
+            type="button"
+            class="editor-footer-btn secondary"
+            id="editorSaveDraftBtn"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z" />
+              <path d="M17 21v-8H7v8" />
+              <path d="M7 3v5h8" />
+            </svg>
+            Save Draft
+          </button>
+          <button
+            type="button"
+            class="editor-footer-btn primary"
+            id="footerDownloadBtn"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M12 3v12" />
+              <path d="m7 10 5 5 5-5" />
+              <path d="M5 21h14" />
+            </svg>
+            Download PDF
+          </button>
+        </div>
+        <p class="editor-autosave-note">All changes are auto-saved</p>
+      </aside>
+
+      <!-- ===================== RESUME STAGE ===================== -->
+      <div class="resume-stage">
+        <div class="resume-wrap">
+          <div id="pagesContainer"></div>
+        </div>
+
+        <!-- ===================== SAVED DRAFTS PANEL ===================== -->
+        <aside class="drafts-panel" id="draftsPanel">
+          <div class="drafts-panel-header">
+            <h3>Saved Drafts</h3>
+            <button type="button" class="new-draft-btn" id="saveDraftBtn">
+              + Save Draft
+            </button>
+          </div>
+          <div class="drafts-list" id="draftsList"></div>
+        </aside>
+
+        <!-- ===================== FLOATING "INTERACTIVE DEMO" CALLOUT ===================== -->
+        <div class="demo-callout" id="demoCallout">
+          <div class="demo-callout-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M12 2v4M12 18v4M2 12h4M18 12h4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M19.1 4.9l-2.8 2.8M7.7 16.3l-2.8 2.8"
+              />
+            </svg>
+          </div>
+          <h3>Interactive Demo</h3>
+          <p>
+            This resume isn't a screenshot. Edit it live and watch the document
+            update instantly.
+          </p>
+          <button type="button" class="demo-callout-btn" id="dismissCalloutBtn">
+            Customize This Resume &#8594;
+          </button>
+          <button type="button" class="demo-callout-link" id="seeActionBtn">
+            <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor">
+              <polygon points="6 3 20 12 6 21 6 3" />
+            </svg>
+            See the builder in action
+          </button>
+        </div>
       </div>
     </div>
 
-    <nav class="editor-tabs" id="editorTabs">
-      <button type="button" class="editor-tab active" data-target="tabBasicInfo">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
-        <span>Basic Info</span>
-      </button>
-      <button type="button" class="editor-tab" data-target="tabExperience">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="3" y1="13" x2="21" y2="13"/></svg>
-        <span>Experience</span>
-      </button>
-      <button type="button" class="editor-tab" data-target="tabEducation">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 8l10 5 10-5-10-5z"/><path d="M6 11v4c0 1.4 2.7 3 6 3s6-1.6 6-3v-4"/></svg>
-        <span>Education</span>
-      </button>
-      <button type="button" class="editor-tab" data-target="tabSkills">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg>
-        <span>Skills</span>
-      </button>
-    </nav>
-
-    <div class="editor-scroll" id="editorScroll">
-
-      <section class="editor-tab-section" id="tabBasicInfo">
-        <div class="form-section">
-          <h3>Basic Info</h3>
-          <div class="field-row">
-            <div class="field">
-              <label for="fFirstName">First Name</label>
-              <input type="text" id="fFirstName" value="Bharath">
-            </div>
-            <div class="field">
-              <label for="fLastName">Last Name</label>
-              <input type="text" id="fLastName" value="Kunamneni">
-            </div>
-          </div>
-          <div class="field">
-            <label for="fRoleTitle">Role Title</label>
-            <input type="text" id="fRoleTitle" value="Senior Frontend Developer">
-          </div>
-          <div class="field">
-            <label for="fSummary">Professional Summary</label>
-            <textarea id="fSummary" rows="6">Senior Frontend Engineer with 10+ years of experience building scalable, performant web applications using React, TypeScript, and modern frontend technologies. Passionate about creating fast, accessible, and intuitive user experiences while staying current with evolving web standards, tooling, and best practices. Experienced in collaborating with global teams to deliver high-quality products from concept to production.</textarea>
-          </div>
-          <div class="field">
-            <label for="fAchievements">Key Accomplishments (one per line)</label>
-            <textarea id="fAchievements" rows="5"
-              placeholder="One accomplishment per line. Start a line with # for a bold subheading (e.g. # Delivery Impact)"></textarea>
-          </div>
+    <!-- ===================== BOTTOM ACTION BAR ===================== -->
+    <div class="action-bar" id="actionBar">
+      <div class="action-bar-group">
+        <div class="action-bar-icon">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 3v12" />
+            <path d="m7 10 5 5 5-5" />
+            <path d="M5 21h14" />
+          </svg>
         </div>
-
-        <div class="form-section">
-          <h3>Contact</h3>
-          <div class="field">
-            <label for="fContact">Items, separated by commas</label>
-            <textarea id="fContact" rows="4">bbugs35@gmail.com, +91 90668 18774, https://linkedin.com/in/bharathkunamneni, bharathkunamneni.com, Bangalore India</textarea>
-          </div>
+        <div class="action-bar-text">
+          <strong>Download Resume</strong>
+          <span>For hiring and reference</span>
         </div>
-      </section>
-
-      <section class="editor-tab-section" id="tabExperience">
-        <div class="form-section">
-          <h3>Experience</h3>
-          <div id="experienceForm"></div>
-          <button type="button" class="add-exp-btn" id="addExpBtn">+ Add Company</button>
-        </div>
-      </section>
-
-      <section class="editor-tab-section" id="tabEducation">
-        <div class="form-section">
-          <h3>Education</h3>
-          <div class="field">
-            <label for="fEduSchool">School / Degree title</label>
-            <input type="text" id="fEduSchool" value="Bachelor of Technology">
-          </div>
-          <div class="field">
-            <label for="fEduDegree">Field of study</label>
-            <input type="text" id="fEduDegree" value="Computer Science &amp; Engineering">
-          </div>
-          <div class="field">
-            <label for="fEduYear">Years</label>
-            <input type="text" id="fEduYear" value="2010 - 2014">
-          </div>
-          <div class="field">
-            <label for="fEduLocation">Location</label>
-            <input type="text" id="fEduLocation" value="India">
-          </div>
-        </div>
-
-        <div class="form-section">
-          <h3>Certifications</h3>
-          <div id="certificationForm"></div>
-          <button type="button" class="add-exp-btn" id="addCertBtn">+ Add Certification</button>
-        </div>
-      </section>
-
-      <section class="editor-tab-section" id="tabSkills">
-        <div class="form-section">
-          <h3>Skills</h3>
-          <p class="hint" style="margin:0 0 12px; color:var(--editor-text-faint); font-size:8.5pt;">Each group has a title and comma-separated items.</p>
-          <div id="skillGroupForm"></div>
-          <button type="button" class="add-exp-btn" id="addSkillGroupBtn">+ Add Skill Group</button>
-        </div>
-      </section>
-
-    </div>
-
-    <div class="editor-footer">
-      <button type="button" class="editor-footer-btn secondary" id="resetDemoBtn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
-        Reset Demo
-      </button>
-      <button type="button" class="editor-footer-btn primary" id="footerDownloadBtn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+      </div>
+      <button type="button" class="action-bar-btn outline" id="barDownloadBtn">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M12 3v12" />
+          <path d="m7 10 5 5 5-5" />
+          <path d="M5 21h14" />
+        </svg>
         Download PDF
       </button>
-    </div>
-    <p class="editor-autosave-note">All changes are auto-saved</p>
-  </aside>
-
-  <!-- ===================== RESUME STAGE ===================== -->
-  <div class="resume-stage">
-
-    <div class="resume-wrap">
-      <div id="pagesContainer"></div>
-    </div>
-
-    <!-- ===================== FLOATING "INTERACTIVE DEMO" CALLOUT ===================== -->
-    <div class="demo-callout" id="demoCallout">
-      <div class="demo-callout-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M2 12h4M18 12h4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M19.1 4.9l-2.8 2.8M7.7 16.3l-2.8 2.8"/></svg>
+      <div class="action-bar-divider">OR</div>
+      <div class="action-bar-group">
+        <div class="action-bar-icon">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="18" cy="5" r="3" />
+            <circle cx="6" cy="12" r="3" />
+            <circle cx="18" cy="19" r="3" />
+            <path d="M8.6 10.6 15.4 6.4M8.6 13.4l6.8 4.2" />
+          </svg>
+        </div>
+        <div class="action-bar-text">
+          <strong>Like this template?</strong>
+          <span>Create your own using this template</span>
+        </div>
       </div>
-      <h3>Interactive Demo</h3>
-      <p>This resume isn't a screenshot. Edit it live and watch the document update instantly.</p>
-      <button type="button" class="demo-callout-btn" id="dismissCalloutBtn">Customize This Resume &#8594;</button>
-      <button type="button" class="demo-callout-link" id="seeActionBtn">
-        <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
-        See the builder in action
+      <button type="button" class="action-bar-btn primary" id="useTemplateBtn">
+        Use This Template &#8594;
+      </button>
+      <button
+        type="button"
+        class="action-bar-btn outline view-drafts-btn"
+        id="viewDraftsBtn"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <rect x="3" y="4" width="7" height="16" rx="1.5" />
+          <rect x="14.5" y="6.5" width="7" height="11" rx="1.5" transform="rotate(8 18 12)" />
+        </svg>
+        View Saved Drafts
       </button>
     </div>
+    <p class="privacy-note">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <rect x="4" y="10" width="16" height="10" rx="2" />
+        <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+      </svg>
+      Your data is private and never stored.
+    </p>
 
-  </div>
-
-</div>
-
-<!-- ===================== BOTTOM ACTION BAR ===================== -->
-<div class="action-bar" id="actionBar">
-  <div class="action-bar-group">
-    <div class="action-bar-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+    <!-- ===================== MOBILE SAVED-DRAFTS CAROUSEL ===================== -->
+    <!-- Drafts live in the resume-stage side panel on desktop (visible once the
+     editor is open, which never covers the resume there). On mobile the
+     editor is a full-screen overlay, so that side panel is never reachable —
+     this carousel is the mobile equivalent instead, reachable from the
+     action bar without needing to open the editor first. -->
+    <div class="drafts-carousel-overlay" id="draftsCarouselOverlay">
+      <div class="drafts-carousel-sheet">
+        <div class="drafts-carousel-header">
+          <h3>Saved Drafts</h3>
+          <button
+            type="button"
+            class="drafts-carousel-close"
+            id="draftsCarouselClose"
+            aria-label="Close"
+          >
+            &#10005;
+          </button>
+        </div>
+        <div class="drafts-carousel-track" id="draftsCarouselTrack"></div>
+        <p class="drafts-carousel-hint">Swipe to browse, tap Open on a draft to load it</p>
+      </div>
     </div>
-    <div class="action-bar-text">
-      <strong>Download Resume</strong>
-      <span>For hiring and reference</span>
-    </div>
-  </div>
-  <button type="button" class="action-bar-btn outline" id="barDownloadBtn">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
-    Download PDF
-  </button>
-  <div class="action-bar-divider">OR</div>
-  <div class="action-bar-group">
-    <div class="action-bar-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 10.6 15.4 6.4M8.6 13.4l6.8 4.2"/></svg>
-    </div>
-    <div class="action-bar-text">
-      <strong>Like this template?</strong>
-      <span>Create your own using this template</span>
-    </div>
-  </div>
-  <button type="button" class="action-bar-btn primary" id="useTemplateBtn">Use This Template &#8594;</button>
-</div>
-<p class="privacy-note">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
-  Your data is private and never stored.
-</p>
 
-<!-- hidden probes used to measure real rendered pixel sizes for pagination -->
-<div id="mmProbe" style="position:absolute; visibility:hidden; left:-99999px; top:0; width:0; height:100mm;"></div>
-<div id="mainProbe" style="position:absolute; visibility:hidden; left:-99999px; top:0; overflow:hidden;"></div>
+    <!-- hidden probes used to measure real rendered pixel sizes for pagination -->
+    <div
+      id="mmProbe"
+      style="
+        position: absolute;
+        visibility: hidden;
+        left: -99999px;
+        top: 0;
+        width: 0;
+        height: 100mm;
+      "
+    ></div>
+    <div
+      id="mainProbe"
+      style="
+        position: absolute;
+        visibility: hidden;
+        left: -99999px;
+        top: 0;
+        overflow: hidden;
+      "
+    ></div>
 
-<script>
-  // ---------- icon set (all use currentColor so they inherit --navy) ----------
-  var ICONS = {
-    person: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>',
-    target: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/></svg>',
-    briefcase: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="3" y1="13" x2="21" y2="13"/></svg>',
-    code: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg>',
-    cap: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 8l10 5 10-5-10-5z"/><path d="M6 11v4c0 1.4 2.7 3 6 3s6-1.6 6-3v-4"/></svg>',
-    award: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M9 13.5 7 22l5-3 5 3-2-8.5"/></svg>',
-    star: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 9.5 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.5 9 9"/></svg>',
-    mail: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 6 10 7 10-7"/></svg>',
-    phone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.4 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.4a2 2 0 0 1 2.1-.4c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.8 2.2z"/></svg>',
-    link: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8" cy="8.2" r="0.9" fill="currentColor" stroke="none"/><path d="M8 11v6"/><path d="M12.5 17v-4a2.2 2.2 0 0 1 4.4 0v4"/><path d="M12.5 13.2v3.8"/></svg>',
-    branch: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.2"/><circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="9" r="2.2"/><path d="M6 8v8"/><path d="M6 9a9 9 0 0 0 9 0"/></svg>',
-    globe: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>',
-    pin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>',
-    calendar: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>',
-    rocket: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 19 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>',
-    people: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="3"/><path d="M2 20c0-3.3 2.7-6 7-6s7 2.7 7 6"/><circle cx="17" cy="8" r="2.5"/><path d="M15.5 14.5c2.9.4 4.5 2.3 4.5 5.5"/></svg>',
-    chart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l3-4 3 2 5-6"/></svg>',
-    trophy: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0V4z"/><path d="M17 6h2a2 2 0 0 1-2 2"/><path d="M7 6H5a2 2 0 0 0 2 2"/></svg>'
-  };
-
-  // ---------- helpers ----------
-  function escapeHtml(str){
-    return String(str == null ? '' : str)
-      .replace(/&/g,'&amp;')
-      .replace(/</g,'&lt;')
-      .replace(/>/g,'&gt;')
-      .replace(/"/g,'&quot;')
-      .replace(/'/g,'&#39;');
-  }
-
-  function parseCommaList(value){
-    return value.split(',').map(function(s){ return s.trim(); }).filter(Boolean);
-  }
-
-  // ---------- persistence (localStorage) ----------
-  // Keeps everything typed into the form so it survives closing the tab or
-  // the whole browser. Wrapped in try/catch since localStorage can throw
-  // (private browsing, disabled storage, quota exceeded, etc.) — persistence
-  // is a nice-to-have and should never break the resume itself.
-  var STORAGE_KEY = 'resumeBuilderData_v1';
-
-  function loadSavedState(){
-    try{
-      var raw = localStorage.getItem(STORAGE_KEY);
-      return raw ? JSON.parse(raw) : null;
-    }catch(e){
-      return null;
-    }
-  }
-
-  function saveState(){
-    try{
-      var payload = {
-        firstName: fFirstName.value,
-        lastName: fLastName.value,
-        roleTitle: fRoleTitle.value,
-        summary: fSummary.value,
-        achievements: fAchievements.value,
-        contact: fContact.value,
-        eduSchool: fEduSchool.value,
-        eduDegree: fEduDegree.value,
-        eduYear: fEduYear.value,
-        eduLocation: fEduLocation.value,
-        skillGroups: skillGroupData.map(function(g){ return { title: g.title, items: g.items }; }),
-        experiences: experienceData.map(function(e){
-          return { role:e.role, company:e.company, dates:e.dates, client:e.client, location:e.location, tags:e.tags, bullets:e.bullets };
-        }),
-        certifications: certificationData.map(function(c){ return { name:c.name, provider:c.provider, validTill:c.validTill }; })
+    <script>
+      // ---------- icon set (all use currentColor so they inherit --navy) ----------
+      var ICONS = {
+        person:
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>',
+        target:
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/></svg>',
+        briefcase:
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="3" y1="13" x2="21" y2="13"/></svg>',
+        code: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg>',
+        cap: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 8l10 5 10-5-10-5z"/><path d="M6 11v4c0 1.4 2.7 3 6 3s6-1.6 6-3v-4"/></svg>',
+        award:
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M9 13.5 7 22l5-3 5 3-2-8.5"/></svg>',
+        star: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 9.5 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.5 9 9"/></svg>',
+        mail: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 6 10 7 10-7"/></svg>',
+        phone:
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.4 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.4a2 2 0 0 1 2.1-.4c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.8 2.2z"/></svg>',
+        link: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8" cy="8.2" r="0.9" fill="currentColor" stroke="none"/><path d="M8 11v6"/><path d="M12.5 17v-4a2.2 2.2 0 0 1 4.4 0v4"/><path d="M12.5 13.2v3.8"/></svg>',
+        branch:
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.2"/><circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="9" r="2.2"/><path d="M6 8v8"/><path d="M6 9a9 9 0 0 0 9 0"/></svg>',
+        globe:
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>',
+        pin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>',
+        calendar:
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>',
+        rocket:
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 19 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>',
+        people:
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="3"/><path d="M2 20c0-3.3 2.7-6 7-6s7 2.7 7 6"/><circle cx="17" cy="8" r="2.5"/><path d="M15.5 14.5c2.9.4 4.5 2.3 4.5 5.5"/></svg>',
+        chart:
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l3-4 3 2 5-6"/></svg>',
+        trophy:
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0V4z"/><path d="M17 6h2a2 2 0 0 1-2 2"/><path d="M7 6H5a2 2 0 0 0 2 2"/></svg>',
       };
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
-    }catch(e){
-      // storage unavailable or full — fail silently, resume still works
-    }
-  }
 
-  function clearSavedState(){
-    try{ localStorage.removeItem(STORAGE_KEY); }catch(e){}
-    location.reload();
-  }
-
-  function sectionHeadingHtml(iconKey, text){
-    return '<div class="section-heading-row">' +
-      '<span class="icon-badge">' + ICONS[iconKey] + '</span>' +
-      '<span class="section-heading-text">' + escapeHtml(text) + '</span>' +
-      '<span class="heading-line"></span>' +
-      '<span class="heading-dot"></span>' +
-      '</div>';
-  }
-
-  // Detects a reasonable icon + clickable label for each free-text contact item.
-  function contactListHtml(value){
-    return parseCommaList(value).map(function(item){
-      var icon = 'pin';
-      var inner = escapeHtml(item);
-
-      if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(item)){
-        icon = 'mail';
-        inner = '<a href="mailto:' + escapeHtml(item) + '">' + escapeHtml(item) + '</a>';
-      } else if (/^[+\d][\d\s().-]{5,}$/.test(item)){
-        icon = 'phone';
-      } else if (/linkedin\.com/i.test(item)){
-        icon = 'link';
-        var href1 = /^https?:\/\//i.test(item) ? item : 'https://' + item.replace(/^\/\//,'');
-        inner = '<a href="' + escapeHtml(href1) + '" target="_blank" rel="noopener">' + escapeHtml(item.replace(/^https?:\/\//i,'')) + '</a>';
-      } else if (/github\.com/i.test(item)){
-        icon = 'branch';
-        var href2 = /^https?:\/\//i.test(item) ? item : 'https://' + item.replace(/^\/\//,'');
-        inner = '<a href="' + escapeHtml(href2) + '" target="_blank" rel="noopener">' + escapeHtml(item.replace(/^https?:\/\//i,'')) + '</a>';
-      } else if (/^https?:\/\//i.test(item) || /^[\w-]+(\.[\w-]+)+(\/\S*)?$/i.test(item)){
-        icon = 'globe';
-        var href3 = /^https?:\/\//i.test(item) ? item : 'https://' + item.replace(/^\/\//,'');
-        inner = '<a href="' + escapeHtml(href3) + '" target="_blank" rel="noopener">' + escapeHtml(item.replace(/^https?:\/\//i,'')) + '</a>';
+      // ---------- helpers ----------
+      function escapeHtml(str) {
+        return String(str == null ? "" : str)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
       }
 
-      return '<li><span class="mini-icon">' + ICONS[icon] + '</span><span>' + inner + '</span></li>';
-    }).join('');
-  }
-
-  // ---- Experience: header (title/company/dates/location/client/tags) is kept
-  // separate from bullets, since bullets must be individually splittable
-  // across pages while a bullet's own text must never be cut mid-sentence.
-  function jobHeaderHtml(exp, isFirst){
-    var clientLine = (exp.client && exp.client.trim())
-      ? '<p class="job-client-line">' + escapeHtml(exp.client) + '</p>'
-      : '';
-    var datesMeta = (exp.dates && exp.dates.trim())
-      ? '<span class="job-meta">' + ICONS.calendar + '<span>' + escapeHtml(exp.dates) + '</span></span>'
-      : '';
-    var locationMeta = (exp.location && exp.location.trim())
-      ? '<span class="job-meta">' + ICONS.pin + '<span>' + escapeHtml(exp.location) + '</span></span>'
-      : '';
-    var tags = parseCommaList(exp.tags || '');
-    var tagsHtml = tags.length
-      ? '<div class="tags-row">' + tags.map(function(t){ return '<span class="tag-pill">' + escapeHtml(t) + '</span>'; }).join('') + '</div>'
-      : '';
-    var dividerHtml = isFirst ? '' : '<div class="job-divider"></div>';
-
-    return dividerHtml +
-      '<div class="job-row"><span class="job-role">' + escapeHtml(exp.role) + '</span>' + datesMeta + '</div>' +
-      '<div class="job-row"><span class="job-company">' + escapeHtml(exp.company) + '</span>' + locationMeta + '</div>' +
-      clientLine +
-      tagsHtml;
-  }
-
-  function bulletHtml(text){
-    return '<ul class="job-bullets"><li>' + escapeHtml(text) + '</li></ul>';
-  }
-
-  // ---- Key Accomplishments: lines starting with "#" become bold subheadings
-  // (no bullet). A subheading is bundled with the item right after it so it
-  // never ends up alone at the bottom of a page with nothing under it.
-  function buildAchievementUnits(raw){
-    var lines = (raw || '').split('\n').map(function(l){ return l.trim(); }).filter(Boolean);
-    var parsed = lines.map(function(line){
-      if (/^#+\s*/.test(line)){
-        return { type: 'subheading', text: line.replace(/^#+\s*/, '') };
+      // Escapes text then converts #wrapped# spans into <strong> tags for
+      // inline bolding (e.g. "Grew revenue by #40%#"). Runs after escaping so
+      // the marker character itself never needs special-casing against &, <, >.
+      function formatInlineText(str) {
+        var escaped = escapeHtml(str);
+        return escaped.replace(/#([^#]+)#/g, "<strong>$1</strong>");
       }
-      return { type: 'item', text: line };
-    });
 
-    function renderEntry(entry){
-      return entry.type === 'subheading'
-        ? '<p class="accomplishment-subheading">' + escapeHtml(entry.text) + '</p>'
-        : bulletHtml(entry.text);
-    }
-
-    var units = [];
-    var i = 0;
-    while (i < parsed.length){
-      if (parsed[i].type === 'subheading' && i + 1 < parsed.length){
-        units.push(renderEntry(parsed[i]) + renderEntry(parsed[i + 1]));
-        i += 2;
-      } else {
-        units.push(renderEntry(parsed[i]));
-        i += 1;
+      function parseCommaList(value) {
+        return value
+          .split(",")
+          .map(function (s) {
+            return s.trim();
+          })
+          .filter(Boolean);
       }
-    }
-    return units;
-  }
 
-  // Sidebar content as atomic, unsplittable blocks so the pagination engine
-  // can flow overflow (e.g. many certifications) onto a fresh page.
-  function buildSidebarHeadBlocks(data){
-    var blocks = [];
+      // ---------- persistence (localStorage) ----------
+      // Keeps everything typed into the form so it survives closing the tab or
+      // the whole browser. Wrapped in try/catch since localStorage can throw
+      // (private browsing, disabled storage, quota exceeded, etc.) — persistence
+      // is a nice-to-have and should never break the resume itself.
+      var STORAGE_KEY = "resumeBuilderData_v1";
+      var DRAFTS_STORAGE_KEY = "resumeBuilderDrafts_v1";
 
-    // Name + role title never gets the standard .section-block spacing
-    // treatment (the role title's own ::after rule already provides the gap
-    // below it) — kept as a plain string so assembleGroupedHtml inserts it
-    // with no extra wrapper, exactly as before.
-    blocks.push(
-      '<div class="name"><span>' + escapeHtml(data.firstName) + '</span><span>' + escapeHtml(data.lastName) + '</span></div>' +
-      '<div class="role-title">' + escapeHtml(data.roleTitle) + '</div>'
-    );
+      function loadSavedState() {
+        try {
+          var raw = localStorage.getItem(STORAGE_KEY);
+          return raw ? JSON.parse(raw) : null;
+        } catch (e) {
+          return null;
+        }
+      }
 
-    blocks.push('<div class="section-block">' + sectionHeadingHtml('person', 'Contact') + '<ul class="contact-list">' + contactListHtml(data.contact) + '</ul></div>');
+      // Builds the single canonical snapshot of everything currently in the
+      // editor. Used both for the silent autosave (current working state) and
+      // for saved drafts, so a draft's data shape is always exactly what
+      // renderResume()/buildPages() expect.
+      function buildStatePayload() {
+        return {
+          firstName: fFirstName.value,
+          lastName: fLastName.value,
+          roleTitle: fRoleTitle.value,
+          summary: fSummary.value,
+          achievements: fAchievements.value,
+          contact: fContact.value,
+          eduSchool: fEduSchool.value,
+          eduDegree: fEduDegree.value,
+          eduYear: fEduYear.value,
+          eduLocation: fEduLocation.value,
+          skillGroups: skillGroupData.map(function (g) {
+            return { title: g.title, items: g.items };
+          }),
+          experiences: experienceData.map(function (e) {
+            return {
+              role: e.role,
+              company: e.company,
+              dates: e.dates,
+              client: e.client,
+              location: e.location,
+              tags: e.tags,
+              bullets: e.bullets,
+            };
+          }),
+          certifications: certificationData.map(function (c) {
+            return {
+              name: c.name,
+              provider: c.provider,
+              validTill: c.validTill,
+            };
+          }),
+          bulletsAchievements: bulletsAchievementsEnabled,
+          bulletsExperience: bulletsExperienceEnabled,
+        };
+      }
 
-    // Skills: each item is its own pagination unit (tagged with the group's
-    // id) rather than the whole group being one atomic block. If a group's
-    // list is too long to fit, it now breaks near its own subheading and
-    // continues under a fresh wrapper on the next page instead of forcing
-    // the entire group to jump as a whole.
-    if (data.skillGroups.length){
-      data.skillGroups.forEach(function(group, gi){
-        var items = parseCommaList(group.items);
-        var groupId = 'skill-' + gi;
-        var titleHtml = '<div class="skill-group-title"><span class="dot"></span>' + escapeHtml(group.title) + '</div>';
-        var skillsHeading = gi === 0 ? sectionHeadingHtml('code', 'Skills') : '';
+      function saveState() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(buildStatePayload()));
+        } catch (e) {
+          // storage unavailable or full — fail silently, resume still works
+        }
+      }
 
-        if (items.length === 0){
-          blocks.push({ group: groupId, html: skillsHeading + '<div class="skill-group">' + titleHtml + '</div>' });
+      function clearSavedState() {
+        try {
+          localStorage.removeItem(STORAGE_KEY);
+        } catch (e) {}
+        location.reload();
+      }
+
+      function sectionHeadingHtml(iconKey, text) {
+        return (
+          '<div class="section-heading-row">' +
+          '<span class="icon-badge">' +
+          ICONS[iconKey] +
+          "</span>" +
+          '<span class="section-heading-text">' +
+          escapeHtml(text) +
+          "</span>" +
+          '<span class="heading-line"></span>' +
+          '<span class="heading-dot"></span>' +
+          "</div>"
+        );
+      }
+
+      // Detects a reasonable icon + clickable label for each free-text contact item.
+      function contactListHtml(value) {
+        return parseCommaList(value)
+          .map(function (item) {
+            var icon = "pin";
+            var inner = escapeHtml(item);
+
+            if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(item)) {
+              icon = "mail";
+              inner =
+                '<a href="mailto:' +
+                escapeHtml(item) +
+                '">' +
+                escapeHtml(item) +
+                "</a>";
+            } else if (/^[+\d][\d\s().-]{5,}$/.test(item)) {
+              icon = "phone";
+            } else if (/linkedin\.com/i.test(item)) {
+              icon = "link";
+              var href1 = /^https?:\/\//i.test(item)
+                ? item
+                : "https://" + item.replace(/^\/\//, "");
+              inner =
+                '<a href="' +
+                escapeHtml(href1) +
+                '" target="_blank" rel="noopener">' +
+                escapeHtml(item.replace(/^https?:\/\//i, "")) +
+                "</a>";
+            } else if (/github\.com/i.test(item)) {
+              icon = "branch";
+              var href2 = /^https?:\/\//i.test(item)
+                ? item
+                : "https://" + item.replace(/^\/\//, "");
+              inner =
+                '<a href="' +
+                escapeHtml(href2) +
+                '" target="_blank" rel="noopener">' +
+                escapeHtml(item.replace(/^https?:\/\//i, "")) +
+                "</a>";
+            } else if (
+              /^https?:\/\//i.test(item) ||
+              /^[\w-]+(\.[\w-]+)+(\/\S*)?$/i.test(item)
+            ) {
+              icon = "globe";
+              var href3 = /^https?:\/\//i.test(item)
+                ? item
+                : "https://" + item.replace(/^\/\//, "");
+              inner =
+                '<a href="' +
+                escapeHtml(href3) +
+                '" target="_blank" rel="noopener">' +
+                escapeHtml(item.replace(/^https?:\/\//i, "")) +
+                "</a>";
+            }
+
+            return (
+              '<li><span class="mini-icon">' +
+              ICONS[icon] +
+              "</span><span>" +
+              inner +
+              "</span></li>"
+            );
+          })
+          .join("");
+      }
+
+      // ---- Experience: header (title/company/dates/location/client/tags) is kept
+      // separate from bullets, since bullets must be individually splittable
+      // across pages while a bullet's own text must never be cut mid-sentence.
+      function jobHeaderHtml(exp, isFirst) {
+        var clientLine =
+          exp.client && exp.client.trim()
+            ? '<p class="job-client-line">' +
+              formatInlineText(exp.client) +
+              "</p>"
+            : "";
+        var datesMeta =
+          exp.dates && exp.dates.trim()
+            ? '<span class="job-meta">' +
+              ICONS.calendar +
+              "<span>" +
+              escapeHtml(exp.dates) +
+              "</span></span>"
+            : "";
+        var locationMeta =
+          exp.location && exp.location.trim()
+            ? '<span class="job-meta">' +
+              ICONS.pin +
+              "<span>" +
+              escapeHtml(exp.location) +
+              "</span></span>"
+            : "";
+        var tags = parseCommaList(exp.tags || "");
+        var tagsHtml = tags.length
+          ? '<div class="tags-row">' +
+            tags
+              .map(function (t) {
+                return '<span class="tag-pill">' + escapeHtml(t) + "</span>";
+              })
+              .join("") +
+            "</div>"
+          : "";
+        var dividerHtml = isFirst ? "" : '<div class="job-divider"></div>';
+
+        return (
+          dividerHtml +
+          '<div class="job-row"><span class="job-role">' +
+          escapeHtml(exp.role) +
+          "</span>" +
+          datesMeta +
+          "</div>" +
+          '<div class="job-row"><span class="job-company">' +
+          escapeHtml(exp.company) +
+          "</span>" +
+          locationMeta +
+          "</div>" +
+          clientLine +
+          tagsHtml
+        );
+      }
+
+      // Renders one line item as either a bulleted <li> or a plain paragraph,
+      // depending on the section's bullet toggle. Text always goes through
+      // formatInlineText so #word# bolding works in both modes.
+      function itemHtml(text, useBullets) {
+        var inner = formatInlineText(text);
+        if (useBullets) {
+          return '<ul class="job-bullets"><li>' + inner + "</li></ul>";
+        }
+        return '<p class="job-plain-text">' + inner + "</p>";
+      }
+
+      // ---- Key Accomplishments: lines starting with "#" become bold subheadings
+      // (no bullet). A subheading is bundled with the item right after it so it
+      // never ends up alone at the bottom of a page with nothing under it.
+      function buildAchievementUnits(raw, useBullets) {
+        var lines = (raw || "")
+          .split("\n")
+          .map(function (l) {
+            return l.trim();
+          })
+          .filter(Boolean);
+        var parsed = lines.map(function (line) {
+          if (/^#+\s*/.test(line)) {
+            return { type: "subheading", text: line.replace(/^#+\s*/, "") };
+          }
+          return { type: "item", text: line };
+        });
+
+        function renderEntry(entry) {
+          return entry.type === "subheading"
+            ? '<p class="accomplishment-subheading">' +
+                formatInlineText(entry.text) +
+                "</p>"
+            : itemHtml(entry.text, useBullets);
+        }
+
+        var units = [];
+        var i = 0;
+        while (i < parsed.length) {
+          if (parsed[i].type === "subheading" && i + 1 < parsed.length) {
+            units.push(renderEntry(parsed[i]) + renderEntry(parsed[i + 1]));
+            i += 2;
+          } else {
+            units.push(renderEntry(parsed[i]));
+            i += 1;
+          }
+        }
+        return units;
+      }
+
+      // Sidebar content as atomic, unsplittable blocks so the pagination engine
+      // can flow overflow (e.g. many certifications) onto a fresh page.
+      function buildSidebarHeadBlocks(data) {
+        var blocks = [];
+
+        // Name + role title never gets the standard .section-block spacing
+        // treatment (the role title's own ::after rule already provides the gap
+        // below it) — kept as a plain string so assembleGroupedHtml inserts it
+        // with no extra wrapper, exactly as before.
+        blocks.push(
+          '<div class="name"><span>' +
+            escapeHtml(data.firstName) +
+            "</span><span>" +
+            escapeHtml(data.lastName) +
+            "</span></div>" +
+            '<div class="role-title">' +
+            escapeHtml(data.roleTitle) +
+            "</div>",
+        );
+
+        blocks.push(
+          '<div class="section-block">' +
+            sectionHeadingHtml("person", "Contact") +
+            '<ul class="contact-list">' +
+            contactListHtml(data.contact) +
+            "</ul></div>",
+        );
+
+        // Skills: each item is its own pagination unit (tagged with the group's
+        // id) rather than the whole group being one atomic block. If a group's
+        // list is too long to fit, it now breaks near its own subheading and
+        // continues under a fresh wrapper on the next page instead of forcing
+        // the entire group to jump as a whole.
+        if (data.skillGroups.length) {
+          data.skillGroups.forEach(function (group, gi) {
+            var items = parseCommaList(group.items);
+            var groupId = "skill-" + gi;
+            var titleHtml =
+              '<div class="skill-group-title"><span class="dot"></span>' +
+              escapeHtml(group.title) +
+              "</div>";
+            var skillsHeading =
+              gi === 0 ? sectionHeadingHtml("code", "Skills") : "";
+
+            if (items.length === 0) {
+              blocks.push({
+                group: groupId,
+                html:
+                  skillsHeading +
+                  '<div class="skill-group">' +
+                  titleHtml +
+                  "</div>",
+              });
+              return;
+            }
+
+            items.forEach(function (item, ii) {
+              var itemInnerHtml =
+                '<div class="skill-group">' +
+                (ii === 0 ? titleHtml : "") +
+                '<ul class="skills-list"><li>' +
+                escapeHtml(item) +
+                "</li></ul></div>";
+              blocks.push({
+                group: groupId,
+                html: (ii === 0 ? skillsHeading : "") + itemInnerHtml,
+              });
+            });
+          });
+        } else {
+          blocks.push({
+            group: "skills-empty",
+            html: sectionHeadingHtml("code", "Skills"),
+          });
+        }
+
+        return blocks;
+      }
+
+      function buildSidebarTailBlocks(data) {
+        var blocks = [];
+
+        if (data.certifications.length) {
+          data.certifications.forEach(function (cert, i) {
+            var entry =
+              '<div class="cert-entry">' +
+              '<p class="edu-school">' +
+              escapeHtml(cert.name) +
+              "</p>" +
+              '<p class="edu-degree">' +
+              escapeHtml(cert.provider) +
+              "</p>" +
+              '<p class="edu-year">' +
+              escapeHtml(cert.validTill) +
+              "</p>" +
+              "</div>";
+            var html =
+              i === 0
+                ? '<div class="section-block">' +
+                  sectionHeadingHtml("award", "Certifications") +
+                  entry +
+                  "</div>"
+                : '<div class="section-block">' + entry + "</div>";
+            blocks.push(html);
+          });
+        }
+
+        var eduLocationHtml =
+          data.eduLocation && data.eduLocation.trim()
+            ? '<p class="edu-location"><span class="mini-icon">' +
+              ICONS.pin +
+              "</span><span>" +
+              escapeHtml(data.eduLocation) +
+              "</span></p>"
+            : "";
+        var eduHtml =
+          '<div class="section-block">' +
+          sectionHeadingHtml("cap", "Education") +
+          '<p class="edu-school">' +
+          escapeHtml(data.eduSchool) +
+          "</p>" +
+          '<p class="edu-degree">' +
+          escapeHtml(data.eduDegree) +
+          "</p>" +
+          '<p class="edu-year">' +
+          escapeHtml(data.eduYear) +
+          "</p>" +
+          eduLocationHtml +
+          "</div>";
+        blocks.push(eduHtml);
+
+        return blocks;
+      }
+
+      // ---- Main-column blocks are tagged with a "group" id. Blocks that share a
+      // group id are the pieces of one logical section (Summary / Key
+      // Accomplishments / a single job's header+bullets) that may need to be
+      // split across pages by the pagination engine below. Each block's html is
+      // the *inner* content only (no outer .section-block wrapper) — the wrapper
+      // is added afterwards, once per page, around whichever consecutive run of
+      // same-group blocks actually lands on that page. That guarantees every
+      // bullet ends up nested inside a .section-block div, including bullets
+      // that spill onto a following page.
+      function buildMainBlocks(data) {
+        var blocks = [];
+
+        // Professional Summary
+        blocks.push({
+          group: "summary",
+          html:
+            sectionHeadingHtml("person", "Professional Summary") +
+            '<p class="summary">' +
+            formatInlineText(data.summary) +
+            "</p>",
+        });
+
+        // Key Accomplishments (optional; bullet-level granular so a partial list
+        // can flow onto the next page instead of the whole section jumping)
+        var useBulletsAchievements = data.bulletsAchievements !== false;
+        var achievementUnits = buildAchievementUnits(
+          data.achievements,
+          useBulletsAchievements,
+        );
+        achievementUnits.forEach(function (unitHtml, idx) {
+          blocks.push({
+            group: "accomplishments",
+            html:
+              idx === 0
+                ? sectionHeadingHtml("trophy", "Key Accomplishments") + unitHtml
+                : unitHtml,
+          });
+        });
+
+        // Experience (bullet-level granular per job, same reasoning as above)
+        var useBulletsExperience = data.bulletsExperience !== false;
+        if (data.experiences.length === 0) {
+          blocks.push({
+            group: "experience",
+            html: sectionHeadingHtml("briefcase", "Experience"),
+          });
+        } else {
+          var isVeryFirstUnit = true;
+          data.experiences.forEach(function (exp, i) {
+            var header = jobHeaderHtml(exp, i === 0);
+            var bullets = exp.bullets || [];
+            var firstBullet = bullets.length
+              ? itemHtml(bullets[0], useBulletsExperience)
+              : "";
+            var firstUnit = header + firstBullet;
+            var jobGroup = "exp-" + i;
+
+            if (isVeryFirstUnit) {
+              blocks.push({
+                group: jobGroup,
+                html: sectionHeadingHtml("briefcase", "Experience") + firstUnit,
+              });
+              isVeryFirstUnit = false;
+            } else {
+              blocks.push({ group: jobGroup, html: firstUnit });
+            }
+
+            for (var b = 1; b < bullets.length; b++) {
+              blocks.push({
+                group: jobGroup,
+                html: itemHtml(bullets[b], useBulletsExperience),
+              });
+            }
+          });
+        }
+
+        return blocks;
+      }
+
+      // ---------- pagination engine ----------
+      var mmProbe = document.getElementById("mmProbe");
+      var mainProbe = document.getElementById("mainProbe");
+
+      function getPxPerMm() {
+        return mmProbe.getBoundingClientRect().height / 100;
+      }
+
+      function measureBlockHeightPx(html, widthPx) {
+        mainProbe.style.width = widthPx + "px";
+        mainProbe.innerHTML = html;
+        var h = Math.ceil(mainProbe.getBoundingClientRect().height);
+        mainProbe.innerHTML = "";
+        return h;
+      }
+
+      // Grouped (object) blocks for the main column are measured as bare inner
+      // content, without the .section-block wrapper they'll eventually get (that
+      // wrapper is only added post-pagination, once per page, around each page's
+      // run of same-group blocks — see assembleGroupedHtml). This reads the
+      // wrapper's real margin-bottom straight from CSS (via getComputedStyle, so
+      // it can never drift out of sync with the stylesheet) so pagination can
+      // charge it at the point a same-group run ends.
+      var cachedSectionBlockMarginPx = null;
+      function getSectionBlockMarginPx() {
+        if (cachedSectionBlockMarginPx === null) {
+          var probe = document.createElement("div");
+          probe.className = "section-block";
+          probe.style.visibility = "hidden";
+          document.body.appendChild(probe);
+          cachedSectionBlockMarginPx =
+            parseFloat(getComputedStyle(probe).marginBottom) || 0;
+          document.body.removeChild(probe);
+        }
+        return cachedSectionBlockMarginPx;
+      }
+
+      // Splits a flat list of blocks into per-page arrays based on measured
+      // height. Accepts either plain html strings or {group, html} objects —
+      // whichever was passed in is preserved as-is in the output pages so callers
+      // can post-process (e.g. group-wrap) as needed.
+      function paginateBlocks(blocks, widthPx, availableHeightPx) {
+        var pages = [];
+        var current = [];
+        var currentHeight = 0;
+        var sectionMarginPx = getSectionBlockMarginPx();
+
+        blocks.forEach(function (block, i) {
+          var html = typeof block === "string" ? block : block.html;
+          var h = measureBlockHeightPx(html, widthPx);
+
+          if (typeof block !== "string") {
+            var nextBlock = blocks[i + 1];
+            var nextGroup =
+              nextBlock && typeof nextBlock !== "string"
+                ? nextBlock.group
+                : null;
+            if (nextGroup !== block.group) {
+              h += sectionMarginPx;
+            }
+          }
+
+          if (current.length > 0 && currentHeight + h > availableHeightPx) {
+            pages.push(current);
+            current = [];
+            currentHeight = 0;
+          }
+          current.push(block);
+          currentHeight += h;
+        });
+        pages.push(current);
+
+        return pages;
+      }
+
+      // Wraps grouped ({group, html}) blocks in .section-block divs, merging
+      // consecutive blocks that share the same group id into a single div so
+      // that, e.g., every bullet belonging to a job (or every item in a skill
+      // group) that lands on a given page is nested inside that section's own
+      // wrapper — even when the section's earlier blocks were already closed
+      // out on a prior page. Plain strings are already fully self-contained
+      // (their own wrapper baked in, or deliberately unwrapped, e.g. the name/
+      // role header) and are inserted as-is, untouched.
+      function assembleGroupedHtml(pageBlocks) {
+        var html = "";
+        var i = 0;
+        while (i < pageBlocks.length) {
+          var block = pageBlocks[i];
+          if (typeof block === "string") {
+            html += block;
+            i++;
+            continue;
+          }
+          var group = block.group;
+          var chunk = "";
+          while (
+            i < pageBlocks.length &&
+            typeof pageBlocks[i] !== "string" &&
+            pageBlocks[i].group === group
+          ) {
+            chunk += pageBlocks[i].html;
+            i++;
+          }
+          html += '<div class="section-block">' + chunk + "</div>";
+        }
+        return html;
+      }
+
+      function buildPages(data) {
+        var pxPerMm = getPxPerMm();
+        var mainWidthMm = 210 - 74 - 6 - 12; // page - sidebar - gutter - right margin
+        var sidebarWidthMm = 74 - 5 - 10; // sidebar - its own right padding - left margin/padding
+        var mainWidthPx = pxPerMm * mainWidthMm;
+        var sidebarWidthPx = pxPerMm * sidebarWidthMm;
+        var pageHeightPx = pxPerMm * 297;
+        var marginTopPx = pxPerMm * 14;
+        var marginBottomPx = pxPerMm * 10;
+        // Small cushion for the residual difference between on-screen measurement
+        // and the final print/PDF render (sub-pixel font rounding etc). Kept
+        // deliberately small: the real fix for content being measured too short
+        // is getSectionBlockMarginPx()/the .section-block CSS rule above — this
+        // buffer only needs to cover rendering noise, not systematic error, so a
+        // large value here would just cut pages short for no reason.
+        var safetyBufferPx = pxPerMm * 4;
+        var availableHeightPx =
+          pageHeightPx - marginTopPx - marginBottomPx - safetyBufferPx;
+
+        var mainPages = paginateBlocks(
+          buildMainBlocks(data),
+          mainWidthPx,
+          availableHeightPx,
+        );
+
+        var sidebarBlocks = buildSidebarHeadBlocks(data).concat(
+          buildSidebarTailBlocks(data),
+        );
+        var sidebarPages = paginateBlocks(
+          sidebarBlocks,
+          sidebarWidthPx,
+          availableHeightPx,
+        );
+
+        var pageCount = Math.max(mainPages.length, sidebarPages.length);
+        var pages = [];
+        for (var i = 0; i < pageCount; i++) {
+          pages.push({
+            sidebar: sidebarPages[i]
+              ? assembleGroupedHtml(sidebarPages[i])
+              : "",
+            main: mainPages[i] ? assembleGroupedHtml(mainPages[i]) : "",
+          });
+        }
+        return pages;
+      }
+
+      function renderResume() {
+        var data = buildStatePayload();
+
+        var pages = buildPages(data);
+
+        var html = pages
+          .map(function (page) {
+            return (
+              '<div class="page">' +
+              '<aside class="sidebar">' +
+              page.sidebar +
+              "</aside>" +
+              '<div class="gutter"></div>' +
+              '<main class="main">' +
+              page.main +
+              "</main>" +
+              "</div>"
+            );
+          })
+          .join("");
+
+        document.getElementById("pagesContainer").innerHTML = html;
+
+        updateMobileScale();
+        saveState();
+      }
+
+      // ---------- mobile resume scaling ----------
+      // The resume's own design/dimensions never change (still a fixed-width
+      // A4 page, per the "no changes to resume design" requirement) — on narrow
+      // screens we instead apply a uniform visual zoom via CSS transform so the
+      // whole page fits the viewport without horizontal scrolling. The frame
+      // (.resume-wrap) is sized to the post-scale dimensions so it reserves the
+      // correct amount of space in the layout; #pagesContainer itself is scaled
+      // but keeps its true, unscaled internal layout.
+      var MOBILE_BREAKPOINT = 900;
+
+      function updateMobileScale() {
+        var wrap = document.querySelector(".resume-wrap");
+        var inner = document.getElementById("pagesContainer");
+        if (!wrap || !inner) return;
+
+        if (window.innerWidth > MOBILE_BREAKPOINT) {
+          wrap.style.width = "";
+          wrap.style.height = "";
+          wrap.style.overflow = "";
+          inner.style.transform = "";
+          inner.style.transformOrigin = "";
+          syncActionBarLayout();
           return;
         }
 
-        items.forEach(function(item, ii){
-          var itemHtml = '<div class="skill-group">' +
-            (ii === 0 ? titleHtml : '') +
-            '<ul class="skills-list"><li>' + escapeHtml(item) + '</li></ul></div>';
-          blocks.push({ group: groupId, html: (ii === 0 ? skillsHeading : '') + itemHtml });
+        // measure the true, unscaled size first
+        inner.style.transform = "none";
+        var naturalWidth = inner.scrollWidth;
+        var naturalHeight = inner.scrollHeight;
+        if (!naturalWidth || !naturalHeight) return;
+
+        var sidePad = 16;
+        var targetWidth = Math.max(200, window.innerWidth - sidePad * 2);
+        var scale = Math.min(1, targetWidth / naturalWidth);
+
+        inner.style.transformOrigin = "top left";
+        inner.style.transform = "scale(" + scale + ")";
+        wrap.style.width = naturalWidth * scale + "px";
+        wrap.style.height = naturalHeight * scale + "px";
+        wrap.style.overflow = "hidden";
+
+        syncActionBarLayout();
+      }
+
+      // Keeps the bottom action bar's width (and, on desktop where it's
+      // position:fixed, its left offset) locked to the resume's own rendered
+      // box — so it never runs wider than the resume or drifts off-center
+      // from it, regardless of whether the editor/drafts panel are open or
+      // the viewport is mobile-scaled.
+      function syncActionBarLayout() {
+        var bar = document.getElementById("actionBar");
+        var wrap = document.querySelector(".resume-wrap");
+        if (!bar || !wrap) return;
+        var rect = wrap.getBoundingClientRect();
+        if (!rect.width) return;
+        var width = Math.round(rect.width) + "px";
+
+        if (window.innerWidth > MOBILE_BREAKPOINT) {
+          // Desktop: bar is position:fixed, so pin it exactly under the resume.
+          bar.style.transform = "none";
+          bar.style.width = width;
+          bar.style.left = Math.round(rect.left) + "px";
+        } else {
+          // Mobile: bar sits in normal document flow (position:static) below
+          // the resume; centering it at the same width as the resume is
+          // enough to keep it visually aligned underneath it.
+          bar.style.left = "";
+          bar.style.transform = "";
+          bar.style.width = width;
+        }
+      }
+
+      var mobileScaleResizeTimer = null;
+      window.addEventListener("resize", function () {
+        if (mobileScaleResizeTimer) window.clearTimeout(mobileScaleResizeTimer);
+        mobileScaleResizeTimer = window.setTimeout(updateMobileScale, 120);
+      });
+      var fFirstName = document.getElementById("fFirstName");
+      var fLastName = document.getElementById("fLastName");
+      var fRoleTitle = document.getElementById("fRoleTitle");
+      var fSummary = document.getElementById("fSummary");
+      var fAchievements = document.getElementById("fAchievements");
+      var fContact = document.getElementById("fContact");
+      var fEduSchool = document.getElementById("fEduSchool");
+      var fEduDegree = document.getElementById("fEduDegree");
+      var fEduYear = document.getElementById("fEduYear");
+      var fEduLocation = document.getElementById("fEduLocation");
+
+      [
+        fFirstName,
+        fLastName,
+        fRoleTitle,
+        fSummary,
+        fAchievements,
+        fContact,
+        fEduSchool,
+        fEduDegree,
+        fEduYear,
+        fEduLocation,
+      ].forEach(function (input) {
+        input.addEventListener("input", renderResume);
+      });
+
+      // The editor always starts from the hardcoded default/sample resume on
+      // every load or reload — it intentionally does NOT restore whatever was
+      // last typed. Saved drafts (a separate store, see the "saved drafts"
+      // section below) are the only thing that persists across reloads.
+
+      // ---------- bullet toggles (Key Accomplishments / Experience) ----------
+      var bulletsAchievementsEnabled = true;
+      var bulletsExperienceEnabled = true;
+
+      var toggleAchievementsBullets = document.getElementById(
+        "toggleAchievementsBullets",
+      );
+      var toggleExperienceBullets = document.getElementById(
+        "toggleExperienceBullets",
+      );
+
+      function syncBulletToggleUI() {
+        toggleAchievementsBullets.checked = bulletsAchievementsEnabled;
+        toggleExperienceBullets.checked = bulletsExperienceEnabled;
+      }
+      syncBulletToggleUI();
+
+      toggleAchievementsBullets.addEventListener("change", function (e) {
+        bulletsAchievementsEnabled = e.target.checked;
+        renderResume();
+      });
+      toggleExperienceBullets.addEventListener("change", function (e) {
+        bulletsExperienceEnabled = e.target.checked;
+        renderResume();
+      });
+
+      // ---------- shared data arrays (must exist before any seeding below runs,
+      // since renderResume() reads all of them on every call) ----------
+      var skillGroupData = [];
+      var experienceData = [];
+      var certificationData = [];
+
+      // Wipes a scalable section's data + form DOM back to empty, so a draft can
+      // be loaded in cleanly without leaving stale exp-blocks behind.
+      function clearScalableSection(dataArray, formEl) {
+        dataArray.length = 0;
+        formEl.innerHTML = "";
+      }
+
+      // ---------- skill groups (scalable) ----------
+      var skillGroupForm = document.getElementById("skillGroupForm");
+      var addSkillGroupBtn = document.getElementById("addSkillGroupBtn");
+      var skillGroupCounter = 0;
+
+      function addSkillGroup(seed) {
+        seed = seed || { title: "", items: "" };
+        var id = "sg-" + ++skillGroupCounter;
+        var entry = { id: id, title: seed.title, items: seed.items };
+        skillGroupData.push(entry);
+
+        var block = document.createElement("div");
+        block.className = "exp-block";
+        block.dataset.id = id;
+        block.innerHTML =
+          '<button type="button" class="remove-btn" title="Remove this group">&#10005;</button>' +
+          '<div class="field">' +
+          "<label>Group Title</label>" +
+          '<input type="text" class="sg-title" value="' +
+          escapeHtml(entry.title) +
+          '" placeholder="e.g. Frontend">' +
+          "</div>" +
+          '<div class="field">' +
+          "<label>Items, separated by commas</label>" +
+          '<textarea class="sg-items" rows="3" placeholder="e.g. React.js, TypeScript, HTML5 &amp; CSS3">' +
+          escapeHtml(entry.items) +
+          "</textarea>" +
+          "</div>";
+        skillGroupForm.appendChild(block);
+
+        block
+          .querySelector(".sg-title")
+          .addEventListener("input", function (e) {
+            entry.title = e.target.value;
+            renderResume();
+          });
+        block
+          .querySelector(".sg-items")
+          .addEventListener("input", function (e) {
+            entry.items = e.target.value;
+            renderResume();
+          });
+        block
+          .querySelector(".remove-btn")
+          .addEventListener("click", function () {
+            var idx = skillGroupData.indexOf(entry);
+            if (idx > -1) skillGroupData.splice(idx, 1);
+            block.remove();
+            renderResume();
+          });
+
+        renderResume();
+      }
+
+      addSkillGroupBtn.addEventListener("click", function () {
+        addSkillGroup();
+      });
+
+      [
+        {
+          title: "Frontend",
+          items:
+            "React, TypeScript, JavaScript (ES6+), HTML5 & CSS3, Tailwind CSS, CSS Modules, Responsive Web Development, jQuery",
+        },
+        { title: "State Management", items: "Redux, Context API" },
+        { title: "APIs & Data", items: "REST API" },
+        {
+          title: "Tools",
+          items: "Git, Figma, Jira & Workfront, Adobe Photoshop",
+        },
+        { title: "Methodologies", items: "Agile / Scrum" },
+      ].forEach(addSkillGroup);
+
+      // ---------- experience (scalable) ----------
+      var experienceForm = document.getElementById("experienceForm");
+      var addExpBtn = document.getElementById("addExpBtn");
+      var expCounter = 0;
+
+      function addExperience(seed) {
+        seed = seed || {
+          role: "",
+          company: "",
+          dates: "",
+          client: "",
+          location: "",
+          tags: "",
+          bullets: [""],
+        };
+        var id = "exp-" + ++expCounter;
+        var entry = {
+          id: id,
+          role: seed.role,
+          company: seed.company,
+          dates: seed.dates,
+          client: seed.client || "",
+          location: seed.location || "",
+          tags: seed.tags || "",
+          bullets: (seed.bullets || []).slice(),
+        };
+        experienceData.push(entry);
+
+        var block = document.createElement("div");
+        block.className = "exp-block";
+        block.dataset.id = id;
+        block.innerHTML =
+          '<button type="button" class="remove-btn" title="Remove this company">&#10005;</button>' +
+          '<div class="field">' +
+          "<label>Job Title</label>" +
+          '<input type="text" class="exp-role" value="' +
+          escapeHtml(entry.role) +
+          '" placeholder="e.g. Senior Software Engineer">' +
+          "</div>" +
+          '<div class="field">' +
+          "<label>Company</label>" +
+          '<input type="text" class="exp-company" value="' +
+          escapeHtml(entry.company) +
+          '" placeholder="e.g. Tech Mahindra">' +
+          "</div>" +
+          '<div class="field">' +
+          "<label>Client</label>" +
+          '<input type="text" class="exp-client" value="' +
+          escapeHtml(entry.client) +
+          '" placeholder="e.g. Walmart">' +
+          "</div>" +
+          '<div class="field-row">' +
+          '<div class="field">' +
+          "<label>Dates</label>" +
+          '<input type="text" class="exp-dates" value="' +
+          escapeHtml(entry.dates) +
+          '" placeholder="e.g. Mar 2023 - Present">' +
+          "</div>" +
+          '<div class="field">' +
+          "<label>Location</label>" +
+          '<input type="text" class="exp-location" value="' +
+          escapeHtml(entry.location) +
+          '" placeholder="e.g. Bangalore, India">' +
+          "</div>" +
+          "</div>" +
+          '<div class="field">' +
+          "<label>Tech Tags, separated by commas</label>" +
+          '<input type="text" class="exp-tags" value="' +
+          escapeHtml(entry.tags) +
+          '" placeholder="e.g. React, TypeScript, Redux">' +
+          "</div>" +
+          '<div class="field">' +
+          "<label>Bullet points (one per line)</label>" +
+          '<textarea class="exp-bullets" rows="4" placeholder="One achievement per line">' +
+          escapeHtml(entry.bullets.join("\n")) +
+          "</textarea>" +
+          "</div>";
+        experienceForm.appendChild(block);
+
+        block
+          .querySelector(".exp-role")
+          .addEventListener("input", function (e) {
+            entry.role = e.target.value;
+            renderResume();
+          });
+        block
+          .querySelector(".exp-company")
+          .addEventListener("input", function (e) {
+            entry.company = e.target.value;
+            renderResume();
+          });
+        block
+          .querySelector(".exp-client")
+          .addEventListener("input", function (e) {
+            entry.client = e.target.value;
+            renderResume();
+          });
+        block
+          .querySelector(".exp-dates")
+          .addEventListener("input", function (e) {
+            entry.dates = e.target.value;
+            renderResume();
+          });
+        block
+          .querySelector(".exp-location")
+          .addEventListener("input", function (e) {
+            entry.location = e.target.value;
+            renderResume();
+          });
+        block
+          .querySelector(".exp-tags")
+          .addEventListener("input", function (e) {
+            entry.tags = e.target.value;
+            renderResume();
+          });
+        block
+          .querySelector(".exp-bullets")
+          .addEventListener("input", function (e) {
+            entry.bullets = e.target.value
+              .split("\n")
+              .map(function (s) {
+                return s.trim();
+              })
+              .filter(Boolean);
+            renderResume();
+          });
+        block
+          .querySelector(".remove-btn")
+          .addEventListener("click", function () {
+            var idx = experienceData.indexOf(entry);
+            if (idx > -1) experienceData.splice(idx, 1);
+            block.remove();
+            renderResume();
+          });
+
+        renderResume();
+      }
+
+      addExpBtn.addEventListener("click", function () {
+        addExperience();
+      });
+
+      [
+        {
+          role: "Senior Software Engineer",
+          company: "Tech Mahindra Ltd",
+          dates: "Mar 2023 - Present",
+          location: "Bangalore, India",
+          tags: "React, JavaScript, Redux, REST API, Agile, Git, Figma",
+          bullets: [
+            "Built web-based campaign management tools for Walmart's advertising platform, enabling efficient creation, management, and optimization of campaigns across multiple sellers and brands.",
+            "Built 40+ brand and campaign pages from scratch for Walmart, delivering scalable, responsive, and pixel-perfect experiences for major marketing initiatives.",
+            "Lead Frontend Developer for building and delivering Walmart's campaign and brand pages, ensuring high-quality, scalable, and responsive implementations.",
+            "Serve as a primary point of contact (POC) for Walmart's Producers and Design teams, collaborating closely to translate business and design requirements into production-ready solutions.",
+            "Participate throughout the entire project lifecycle: from initial design feasibility discussions and technical planning to development, QA support, client reviews, and successful production launches.",
+          ],
+        },
+        {
+          role: "Software Engineer",
+          company: "BORN Group",
+          dates: "Dec 2018 - Feb 2023",
+          location: "Bangalore, India",
+          tags: "React, JavaScript, REST API, Git, Figma, Agile",
+          bullets: [
+            "Developed and maintained mobile-first brand and campaign experiences for Walmart and Sam's Club, delivering responsive, high-performance web applications that supported large-scale marketing and customer engagement initiatives.",
+            "Delivered frontend solutions for Strider Bikes and Cigna Healthcare, implementing interactive campaign and event experiences while ensuring cross-browser compatibility and pixel-perfect execution.",
+            "Developed an internal knowledge portal using React to host onboarding, knowledge transfer (KT), and technical learning videos, integrating Vimeo for secure video management and enabling employees to access training resources through a centralized platform.",
+          ],
+        },
+        {
+          role: "Software Engineer",
+          company: "Assert Tech",
+          dates: "Feb 2016 - Dec 2018",
+          location: "Bangalore, India",
+          tags: "JavaScript, jQuery, Bootstrap, REST API, Git, Agile",
+          bullets: [
+            "Developed and maintained frontend solutions for internal and customer-facing applications for Avaya, delivering responsive and user-friendly interfaces that supported business operations.",
+            "Built and maintained promotional and advertising campaign landing pages for Optus, ensuring responsive design, cross-browser compatibility, and consistent user experience across devices.",
+            "Troubleshot and resolved frontend issues, enhancing application stability, usability, and performance across modern web browsers and devices.",
+          ],
+        },
+        {
+          role: "Software Development Intern",
+          company: "Nivid Technologies",
+          dates: "Aug 2015 - Feb 2016",
+          location: "Bangalore, India",
+          tags: "HTML, CSS, JavaScript, jQuery",
+          bullets: [
+            "Assisted in the development of an insurance e-commerce application, building frontend features and supporting application maintenance activities.",
+            "Collaborated with senior developers to implement responsive UI components, fix bugs, and enhance the overall user experience across the application.",
+          ],
+        },
+      ].forEach(addExperience);
+
+      // ---------- certifications (scalable) ----------
+      var certificationForm = document.getElementById("certificationForm");
+      var addCertBtn = document.getElementById("addCertBtn");
+      var certCounter = 0;
+
+      function addCertification(seed) {
+        seed = seed || { name: "", provider: "", validTill: "" };
+        var id = "cert-" + ++certCounter;
+        var entry = {
+          id: id,
+          name: seed.name,
+          provider: seed.provider,
+          validTill: seed.validTill,
+        };
+        certificationData.push(entry);
+
+        var block = document.createElement("div");
+        block.className = "exp-block";
+        block.dataset.id = id;
+        block.innerHTML =
+          '<button type="button" class="remove-btn" title="Remove this certification">&#10005;</button>' +
+          '<div class="field">' +
+          "<label>Certification Name</label>" +
+          '<input type="text" class="cert-name" value="' +
+          escapeHtml(entry.name) +
+          '" placeholder="e.g. AWS Certified Developer">' +
+          "</div>" +
+          '<div class="field">' +
+          "<label>Provider</label>" +
+          '<input type="text" class="cert-provider" value="' +
+          escapeHtml(entry.provider) +
+          '" placeholder="e.g. Amazon Web Services">' +
+          "</div>" +
+          '<div class="field">' +
+          "<label>Valid Till</label>" +
+          '<input type="text" class="cert-valid" value="' +
+          escapeHtml(entry.validTill) +
+          '" placeholder="e.g. 2027 or No Expiry">' +
+          "</div>";
+        certificationForm.appendChild(block);
+
+        block
+          .querySelector(".cert-name")
+          .addEventListener("input", function (e) {
+            entry.name = e.target.value;
+            renderResume();
+          });
+        block
+          .querySelector(".cert-provider")
+          .addEventListener("input", function (e) {
+            entry.provider = e.target.value;
+            renderResume();
+          });
+        block
+          .querySelector(".cert-valid")
+          .addEventListener("input", function (e) {
+            entry.validTill = e.target.value;
+            renderResume();
+          });
+        block
+          .querySelector(".remove-btn")
+          .addEventListener("click", function () {
+            var idx = certificationData.indexOf(entry);
+            if (idx > -1) certificationData.splice(idx, 1);
+            block.remove();
+            renderResume();
+          });
+        renderResume();
+      }
+
+      addCertBtn.addEventListener("click", function () {
+        addCertification();
+      });
+
+      // No default certifications are seeded — the editor always starts from
+      // the hardcoded sample resume, and that sample has no certifications.
+
+      // ---------- saved drafts (multiple named snapshots, side panel) ----------
+      var drafts = [];
+      var currentDraftId = null;
+
+      function loadDrafts() {
+        try {
+          var raw = localStorage.getItem(DRAFTS_STORAGE_KEY);
+          var parsed = raw ? JSON.parse(raw) : [];
+          return Array.isArray(parsed) ? parsed : [];
+        } catch (e) {
+          return [];
+        }
+      }
+
+      function persistDrafts() {
+        try {
+          localStorage.setItem(DRAFTS_STORAGE_KEY, JSON.stringify(drafts));
+        } catch (e) {
+          // storage unavailable or full — fail silently
+        }
+      }
+
+      // Loads a draft's saved data back into every editor field/array, then
+      // re-renders. Marks the draft as "currently open" so the per-card
+      // "Save" action knows which entry to overwrite.
+      function loadDraftIntoEditor(draft) {
+        var d = draft.data || {};
+        fFirstName.value = d.firstName || "";
+        fLastName.value = d.lastName || "";
+        fRoleTitle.value = d.roleTitle || "";
+        fSummary.value = d.summary || "";
+        fAchievements.value = d.achievements || "";
+        fContact.value = d.contact || "";
+        fEduSchool.value = d.eduSchool || "";
+        fEduDegree.value = d.eduDegree || "";
+        fEduYear.value = d.eduYear || "";
+        fEduLocation.value = d.eduLocation || "";
+
+        clearScalableSection(skillGroupData, skillGroupForm);
+        clearScalableSection(experienceData, experienceForm);
+        clearScalableSection(certificationData, certificationForm);
+        (d.skillGroups || []).forEach(addSkillGroup);
+        (d.experiences || []).forEach(addExperience);
+        (d.certifications || []).forEach(addCertification);
+
+        bulletsAchievementsEnabled =
+          typeof d.bulletsAchievements === "boolean"
+            ? d.bulletsAchievements
+            : true;
+        bulletsExperienceEnabled =
+          typeof d.bulletsExperience === "boolean"
+            ? d.bulletsExperience
+            : true;
+        syncBulletToggleUI();
+
+        currentDraftId = draft.id;
+        renderResume();
+        refreshDraftsUI();
+        closeDraftsCarousel();
+      }
+
+      // Renders a real, scaled-down clone of the draft's first page inside its
+      // thumbnail frame — a true preview, not a placeholder icon.
+      function renderDraftThumbnail(frameEl, draftData) {
+        var pxPerMm = getPxPerMm();
+        var pageWidthPx = pxPerMm * 210;
+        var pageHeightPx = pxPerMm * 297;
+        var pages = buildPages(draftData);
+        var first = pages[0] || { sidebar: "", main: "" };
+        var inner = frameEl.querySelector(".draft-thumb-inner");
+        inner.innerHTML =
+          '<div class="page" style="margin:0;">' +
+          '<aside class="sidebar">' +
+          first.sidebar +
+          "</aside>" +
+          '<div class="gutter"></div>' +
+          '<main class="main">' +
+          first.main +
+          "</main>" +
+          "</div>";
+        inner.style.width = pageWidthPx + "px";
+        inner.style.height = pageHeightPx + "px";
+        var frameWidth = frameEl.clientWidth || 1;
+        var scale = frameWidth / pageWidthPx;
+        inner.style.transform = "scale(" + scale + ")";
+      }
+
+      // Builds one draft card (thumbnail + editable name + actions), fully
+      // wired up. Shared between the desktop side panel and the mobile
+      // carousel so both stay in sync and behave identically.
+      function createDraftCardElement(draft) {
+        var card = document.createElement("div");
+        card.className =
+          "draft-card" + (draft.id === currentDraftId ? " active" : "");
+        card.dataset.id = draft.id;
+        card.innerHTML =
+          '<div class="draft-thumb-frame"><div class="draft-thumb-inner"></div></div>' +
+          '<input type="text" class="draft-name-input" value="' +
+          escapeHtml(draft.name) +
+          '" />' +
+          '<div class="draft-actions">' +
+          '<button type="button" class="draft-action-btn open-btn">Open</button>' +
+          '<button type="button" class="draft-action-btn save-here-btn">Save</button>' +
+          '<button type="button" class="draft-action-btn download-btn">PDF</button>' +
+          '<button type="button" class="draft-action-btn delete-btn" title="Delete">&#10005;</button>' +
+          "</div>";
+
+        var nameInput = card.querySelector(".draft-name-input");
+        nameInput.addEventListener("input", function (e) {
+          draft.name = e.target.value;
+          persistDrafts();
+        });
+
+        card.querySelector(".open-btn").addEventListener("click", function () {
+          loadDraftIntoEditor(draft);
+        });
+        card
+          .querySelector(".save-here-btn")
+          .addEventListener("click", function () {
+            draft.data = buildStatePayload();
+            draft.updatedAt = Date.now();
+            currentDraftId = draft.id;
+            persistDrafts();
+            refreshDraftsUI();
+          });
+        card
+          .querySelector(".download-btn")
+          .addEventListener("click", function () {
+            loadDraftIntoEditor(draft);
+            window.setTimeout(handleDownloadPdf, 50);
+          });
+        card
+          .querySelector(".delete-btn")
+          .addEventListener("click", function () {
+            if (
+              !confirm(
+                'Delete draft "' + draft.name + '"? This cannot be undone.',
+              )
+            )
+              return;
+            var idx = drafts.indexOf(draft);
+            if (idx > -1) drafts.splice(idx, 1);
+            if (currentDraftId === draft.id) currentDraftId = null;
+            persistDrafts();
+            refreshDraftsUI();
+          });
+
+        renderDraftThumbnail(card.querySelector(".draft-thumb-frame"), draft.data);
+        return card;
+      }
+
+      var DRAFTS_EMPTY_HTML =
+        '<p class="drafts-empty">No saved drafts yet. Tweak the resume for a role, then click "Save Draft" to keep a copy here.</p>';
+
+      // Desktop side panel (visible once the editor is open — see the
+      // .app-shell.editor-open .drafts-panel CSS rule).
+      function renderDraftsList() {
+        var listEl = document.getElementById("draftsList");
+        if (!drafts.length) {
+          listEl.innerHTML = DRAFTS_EMPTY_HTML;
+          return;
+        }
+        listEl.innerHTML = "";
+        drafts.forEach(function (draft) {
+          listEl.appendChild(createDraftCardElement(draft));
+        });
+      }
+
+      // Mobile carousel (opened via the "View Saved Drafts" action-bar button).
+      function renderDraftsCarousel() {
+        var trackEl = document.getElementById("draftsCarouselTrack");
+        if (!drafts.length) {
+          trackEl.innerHTML = DRAFTS_EMPTY_HTML;
+          return;
+        }
+        trackEl.innerHTML = "";
+        drafts.forEach(function (draft) {
+          trackEl.appendChild(createDraftCardElement(draft));
+        });
+      }
+
+      // Shows/hides the mobile "View Saved Drafts" button depending on
+      // whether there's anything to show.
+      function updateViewDraftsButtonVisibility() {
+        if (!viewDraftsBtn) return;
+        viewDraftsBtn.style.display = drafts.length ? "" : "none";
+      }
+
+      // Keeps whichever draft UI is relevant (desktop list, and the mobile
+      // carousel if it's currently open) in sync after any change.
+      function refreshDraftsUI() {
+        renderDraftsList();
+        if (draftsCarouselOverlay.classList.contains("open")) {
+          renderDraftsCarousel();
+        }
+        updateViewDraftsButtonVisibility();
+      }
+
+      function openDraftsCarousel() {
+        renderDraftsCarousel();
+        draftsCarouselOverlay.classList.add("open");
+        document.body.classList.add("editor-lock-scroll");
+      }
+
+      function closeDraftsCarousel() {
+        draftsCarouselOverlay.classList.remove("open");
+        if (!appShell.classList.contains("editor-open")) {
+          document.body.classList.remove("editor-lock-scroll");
+        }
+      }
+
+      var draftsCarouselOverlay = document.getElementById(
+        "draftsCarouselOverlay",
+      );
+      var viewDraftsBtn = document.getElementById("viewDraftsBtn");
+
+      viewDraftsBtn.addEventListener("click", openDraftsCarousel);
+      document
+        .getElementById("draftsCarouselClose")
+        .addEventListener("click", closeDraftsCarousel);
+      draftsCarouselOverlay.addEventListener("click", function (e) {
+        if (e.target === draftsCarouselOverlay) closeDraftsCarousel();
+      });
+
+      // Saves the current editor content as a brand-new draft (prompts for a
+      // name). Used by both the desktop side-panel button and the editor
+      // footer's Save Draft button, so the two always behave identically.
+      function promptAndSaveNewDraft() {
+        var payload = buildStatePayload();
+        var suggested = (fRoleTitle.value || "Untitled Draft").trim();
+        var name = prompt("Name this draft:", suggested);
+        if (name === null) return; // cancelled
+        name = name.trim() || suggested || "Untitled Draft";
+        var id =
+          "draft-" + Date.now() + "-" + Math.floor(Math.random() * 1000);
+        drafts.unshift({
+          id: id,
+          name: name,
+          data: payload,
+          updatedAt: Date.now(),
+        });
+        currentDraftId = id;
+        persistDrafts();
+        refreshDraftsUI();
+      }
+
+      document
+        .getElementById("saveDraftBtn")
+        .addEventListener("click", promptAndSaveNewDraft);
+      document
+        .getElementById("editorSaveDraftBtn")
+        .addEventListener("click", promptAndSaveNewDraft);
+
+      // re-paginate once web fonts finish loading, since font metrics affect
+      // measured block heights (and therefore where pages break)
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(function () {
+          renderResume();
+          refreshDraftsUI();
+        });
+      }
+      window.addEventListener("load", function () {
+        renderResume();
+        drafts = loadDrafts();
+        refreshDraftsUI();
+      });
+
+      // ---------- PDF export (native print) ----------
+      function handleDownloadPdf() {
+        renderResume();
+        window.print();
+      }
+      document
+        .getElementById("footerDownloadBtn")
+        .addEventListener("click", handleDownloadPdf);
+      document
+        .getElementById("barDownloadBtn")
+        .addEventListener("click", handleDownloadPdf);
+
+      // ---------- Editor sidebar open/close + floating demo callout ----------
+      var appShell = document.getElementById("appShell");
+      var demoCallout = document.getElementById("demoCallout");
+
+      function openEditor() {
+        appShell.classList.add("editor-open");
+        document.body.classList.add("editor-lock-scroll");
+        // let the sidebar's slide-in transition start, then reveal the callout
+        demoCallout.classList.remove("visible");
+        window.setTimeout(function () {
+          demoCallout.classList.add("visible");
+        }, 260);
+        // the resume shifts as the editor sidebar slides open and the drafts
+        // panel appears — resync immediately and again once that settles
+        syncActionBarLayout();
+        window.setTimeout(syncActionBarLayout, 370);
+      }
+
+      function closeEditor() {
+        appShell.classList.remove("editor-open");
+        document.body.classList.remove("editor-lock-scroll");
+        demoCallout.classList.remove("visible");
+        syncActionBarLayout();
+        window.setTimeout(syncActionBarLayout, 370);
+      }
+
+      function dismissCallout() {
+        demoCallout.classList.remove("visible");
+      }
+
+      document
+        .getElementById("useTemplateBtn")
+        .addEventListener("click", openEditor);
+      document
+        .getElementById("editorCloseBtn")
+        .addEventListener("click", closeEditor);
+      document
+        .getElementById("dismissCalloutBtn")
+        .addEventListener("click", dismissCallout);
+      document
+        .getElementById("seeActionBtn")
+        .addEventListener("click", dismissCallout);
+
+      // ---------- Editor tab navigation (click-to-scroll + scroll-spy) ----------
+      var editorTabs = Array.prototype.slice.call(
+        document.querySelectorAll(".editor-tab"),
+      );
+      var editorScroll = document.getElementById("editorScroll");
+      var tabSections = editorTabs.map(function (tab) {
+        return document.getElementById(tab.dataset.target);
+      });
+
+      function setActiveTab(tab) {
+        editorTabs.forEach(function (t) {
+          t.classList.toggle("active", t === tab);
+        });
+      }
+
+      editorTabs.forEach(function (tab, i) {
+        tab.addEventListener("click", function () {
+          setActiveTab(tab);
+          tabSections[i].scrollIntoView({ behavior: "smooth", block: "start" });
         });
       });
-    } else {
-      blocks.push({ group: 'skills-empty', html: sectionHeadingHtml('code', 'Skills') });
-    }
 
-    return blocks;
-  }
-
-  function buildSidebarTailBlocks(data){
-    var blocks = [];
-
-    if (data.certifications.length){
-      data.certifications.forEach(function(cert, i){
-        var entry = '<div class="cert-entry">' +
-          '<p class="edu-school">' + escapeHtml(cert.name) + '</p>' +
-          '<p class="edu-degree">' + escapeHtml(cert.provider) + '</p>' +
-          '<p class="edu-year">' + escapeHtml(cert.validTill) + '</p>' +
-          '</div>';
-        var html = (i === 0)
-          ? '<div class="section-block">' + sectionHeadingHtml('award', 'Certifications') + entry + '</div>'
-          : '<div class="section-block">' + entry + '</div>';
-        blocks.push(html);
+      var scrollSpyTimer = null;
+      editorScroll.addEventListener("scroll", function () {
+        if (scrollSpyTimer) window.clearTimeout(scrollSpyTimer);
+        scrollSpyTimer = window.setTimeout(function () {
+          var scrollTop = editorScroll.scrollTop;
+          var activeIndex = 0;
+          for (var i = 0; i < tabSections.length; i++) {
+            if (
+              tabSections[i].offsetTop - editorScroll.offsetTop <=
+              scrollTop + 12
+            ) {
+              activeIndex = i;
+            }
+          }
+          setActiveTab(editorTabs[activeIndex]);
+        }, 60);
       });
-    }
-
-    var eduLocationHtml = (data.eduLocation && data.eduLocation.trim())
-      ? '<p class="edu-location"><span class="mini-icon">' + ICONS.pin + '</span><span>' + escapeHtml(data.eduLocation) + '</span></p>'
-      : '';
-    var eduHtml =
-      '<div class="section-block">' + sectionHeadingHtml('cap', 'Education') +
-      '<p class="edu-school">' + escapeHtml(data.eduSchool) + '</p>' +
-      '<p class="edu-degree">' + escapeHtml(data.eduDegree) + '</p>' +
-      '<p class="edu-year">' + escapeHtml(data.eduYear) + '</p>' +
-      eduLocationHtml +
-      '</div>';
-    blocks.push(eduHtml);
-
-    return blocks;
-  }
-
-  // ---- Main-column blocks are tagged with a "group" id. Blocks that share a
-  // group id are the pieces of one logical section (Summary / Key
-  // Accomplishments / a single job's header+bullets) that may need to be
-  // split across pages by the pagination engine below. Each block's html is
-  // the *inner* content only (no outer .section-block wrapper) — the wrapper
-  // is added afterwards, once per page, around whichever consecutive run of
-  // same-group blocks actually lands on that page. That guarantees every
-  // bullet ends up nested inside a .section-block div, including bullets
-  // that spill onto a following page.
-  function buildMainBlocks(data){
-    var blocks = [];
-
-    // Professional Summary
-    blocks.push({
-      group: 'summary',
-      html: sectionHeadingHtml('person', 'Professional Summary') +
-            '<p class="summary">' + escapeHtml(data.summary) + '</p>'
-    });
-
-    // Key Accomplishments (optional; bullet-level granular so a partial list
-    // can flow onto the next page instead of the whole section jumping)
-    var achievementUnits = buildAchievementUnits(data.achievements);
-    achievementUnits.forEach(function(unitHtml, idx){
-      blocks.push({
-        group: 'accomplishments',
-        html: idx === 0 ? sectionHeadingHtml('trophy', 'Key Accomplishments') + unitHtml : unitHtml
-      });
-    });
-
-    // Experience (bullet-level granular per job, same reasoning as above)
-    if (data.experiences.length === 0){
-      blocks.push({ group: 'experience', html: sectionHeadingHtml('briefcase', 'Experience') });
-    } else {
-      var isVeryFirstUnit = true;
-      data.experiences.forEach(function(exp, i){
-        var header = jobHeaderHtml(exp, i === 0);
-        var bullets = exp.bullets || [];
-        var firstBullet = bullets.length ? bulletHtml(bullets[0]) : '';
-        var firstUnit = header + firstBullet;
-        var jobGroup = 'exp-' + i;
-
-        if (isVeryFirstUnit){
-          blocks.push({ group: jobGroup, html: sectionHeadingHtml('briefcase', 'Experience') + firstUnit });
-          isVeryFirstUnit = false;
-        } else {
-          blocks.push({ group: jobGroup, html: firstUnit });
-        }
-
-        for (var b = 1; b < bullets.length; b++){
-          blocks.push({ group: jobGroup, html: bulletHtml(bullets[b]) });
-        }
-      });
-    }
-
-    return blocks;
-  }
-
-  // ---------- pagination engine ----------
-  var mmProbe = document.getElementById('mmProbe');
-  var mainProbe = document.getElementById('mainProbe');
-
-  function getPxPerMm(){
-    return mmProbe.getBoundingClientRect().height / 100;
-  }
-
-  function measureBlockHeightPx(html, widthPx){
-    mainProbe.style.width = widthPx + 'px';
-    mainProbe.innerHTML = html;
-    var h = Math.ceil(mainProbe.getBoundingClientRect().height);
-    mainProbe.innerHTML = '';
-    return h;
-  }
-
-  // Grouped (object) blocks for the main column are measured as bare inner
-  // content, without the .section-block wrapper they'll eventually get (that
-  // wrapper is only added post-pagination, once per page, around each page's
-  // run of same-group blocks — see assembleGroupedHtml). This reads the
-  // wrapper's real margin-bottom straight from CSS (via getComputedStyle, so
-  // it can never drift out of sync with the stylesheet) so pagination can
-  // charge it at the point a same-group run ends.
-  var cachedSectionBlockMarginPx = null;
-  function getSectionBlockMarginPx(){
-    if (cachedSectionBlockMarginPx === null){
-      var probe = document.createElement('div');
-      probe.className = 'section-block';
-      probe.style.visibility = 'hidden';
-      document.body.appendChild(probe);
-      cachedSectionBlockMarginPx = parseFloat(getComputedStyle(probe).marginBottom) || 0;
-      document.body.removeChild(probe);
-    }
-    return cachedSectionBlockMarginPx;
-  }
-
-  // Splits a flat list of blocks into per-page arrays based on measured
-  // height. Accepts either plain html strings or {group, html} objects —
-  // whichever was passed in is preserved as-is in the output pages so callers
-  // can post-process (e.g. group-wrap) as needed.
-  function paginateBlocks(blocks, widthPx, availableHeightPx){
-    var pages = [];
-    var current = [];
-    var currentHeight = 0;
-    var sectionMarginPx = getSectionBlockMarginPx();
-
-    blocks.forEach(function(block, i){
-      var html = typeof block === 'string' ? block : block.html;
-      var h = measureBlockHeightPx(html, widthPx);
-
-      if (typeof block !== 'string'){
-        var nextBlock = blocks[i + 1];
-        var nextGroup = (nextBlock && typeof nextBlock !== 'string') ? nextBlock.group : null;
-        if (nextGroup !== block.group){
-          h += sectionMarginPx;
-        }
-      }
-
-      if (current.length > 0 && currentHeight + h > availableHeightPx){
-        pages.push(current);
-        current = [];
-        currentHeight = 0;
-      }
-      current.push(block);
-      currentHeight += h;
-    });
-    pages.push(current);
-
-    return pages;
-  }
-
-  // Wraps grouped ({group, html}) blocks in .section-block divs, merging
-  // consecutive blocks that share the same group id into a single div so
-  // that, e.g., every bullet belonging to a job (or every item in a skill
-  // group) that lands on a given page is nested inside that section's own
-  // wrapper — even when the section's earlier blocks were already closed
-  // out on a prior page. Plain strings are already fully self-contained
-  // (their own wrapper baked in, or deliberately unwrapped, e.g. the name/
-  // role header) and are inserted as-is, untouched.
-  function assembleGroupedHtml(pageBlocks){
-    var html = '';
-    var i = 0;
-    while (i < pageBlocks.length){
-      var block = pageBlocks[i];
-      if (typeof block === 'string'){
-        html += block;
-        i++;
-        continue;
-      }
-      var group = block.group;
-      var chunk = '';
-      while (i < pageBlocks.length && typeof pageBlocks[i] !== 'string' && pageBlocks[i].group === group){
-        chunk += pageBlocks[i].html;
-        i++;
-      }
-      html += '<div class="section-block">' + chunk + '</div>';
-    }
-    return html;
-  }
-
-  function buildPages(data){
-    var pxPerMm = getPxPerMm();
-    var mainWidthMm = 210 - 74 - 6 - 12;   // page - sidebar - gutter - right margin
-    var sidebarWidthMm = 74 - 5 - 10;      // sidebar - its own right padding - left margin/padding
-    var mainWidthPx = pxPerMm * mainWidthMm;
-    var sidebarWidthPx = pxPerMm * sidebarWidthMm;
-    var pageHeightPx = pxPerMm * 297;
-    var marginTopPx = pxPerMm * 14;
-    var marginBottomPx = pxPerMm * 10;
-    // Small cushion for the residual difference between on-screen measurement
-    // and the final print/PDF render (sub-pixel font rounding etc). Kept
-    // deliberately small: the real fix for content being measured too short
-    // is getSectionBlockMarginPx()/the .section-block CSS rule above — this
-    // buffer only needs to cover rendering noise, not systematic error, so a
-    // large value here would just cut pages short for no reason.
-    var safetyBufferPx = pxPerMm * 4;
-    var availableHeightPx = pageHeightPx - marginTopPx - marginBottomPx - safetyBufferPx;
-
-    var mainPages = paginateBlocks(buildMainBlocks(data), mainWidthPx, availableHeightPx);
-
-    var sidebarBlocks = buildSidebarHeadBlocks(data).concat(buildSidebarTailBlocks(data));
-    var sidebarPages = paginateBlocks(sidebarBlocks, sidebarWidthPx, availableHeightPx);
-
-    var pageCount = Math.max(mainPages.length, sidebarPages.length);
-    var pages = [];
-    for (var i = 0; i < pageCount; i++){
-      pages.push({
-        sidebar: sidebarPages[i] ? assembleGroupedHtml(sidebarPages[i]) : '',
-        main: mainPages[i] ? assembleGroupedHtml(mainPages[i]) : ''
-      });
-    }
-    return pages;
-  }
-
-  function renderResume(){
-    var data = {
-      firstName: fFirstName.value,
-      lastName: fLastName.value,
-      roleTitle: fRoleTitle.value,
-      summary: fSummary.value,
-      achievements: fAchievements.value,
-      contact: fContact.value,
-      eduSchool: fEduSchool.value,
-      eduDegree: fEduDegree.value,
-      eduYear: fEduYear.value,
-      eduLocation: fEduLocation.value,
-      experiences: experienceData,
-      certifications: certificationData,
-      skillGroups: skillGroupData
-    };
-
-    var pages = buildPages(data);
-
-    var html = pages.map(function(page){
-      return '<div class="page">' +
-        '<aside class="sidebar">' + page.sidebar + '</aside>' +
-        '<div class="gutter"></div>' +
-        '<main class="main">' + page.main + '</main>' +
-        '</div>';
-    }).join('');
-
-    document.getElementById('pagesContainer').innerHTML = html;
-
-    updateMobileScale();
-    saveState();
-  }
-
-  // ---------- mobile resume scaling ----------
-  // The resume's own design/dimensions never change (still a fixed-width
-  // A4 page, per the "no changes to resume design" requirement) — on narrow
-  // screens we instead apply a uniform visual zoom via CSS transform so the
-  // whole page fits the viewport without horizontal scrolling. The frame
-  // (.resume-wrap) is sized to the post-scale dimensions so it reserves the
-  // correct amount of space in the layout; #pagesContainer itself is scaled
-  // but keeps its true, unscaled internal layout.
-  var MOBILE_BREAKPOINT = 900;
-
-  function updateMobileScale(){
-    var wrap = document.querySelector('.resume-wrap');
-    var inner = document.getElementById('pagesContainer');
-    if (!wrap || !inner) return;
-
-    if (window.innerWidth > MOBILE_BREAKPOINT){
-      wrap.style.width = '';
-      wrap.style.height = '';
-      wrap.style.overflow = '';
-      inner.style.transform = '';
-      inner.style.transformOrigin = '';
-      return;
-    }
-
-    // measure the true, unscaled size first
-    inner.style.transform = 'none';
-    var naturalWidth = inner.scrollWidth;
-    var naturalHeight = inner.scrollHeight;
-    if (!naturalWidth || !naturalHeight) return;
-
-    var sidePad = 16;
-    var targetWidth = Math.max(200, window.innerWidth - sidePad * 2);
-    var scale = Math.min(1, targetWidth / naturalWidth);
-
-    inner.style.transformOrigin = 'top left';
-    inner.style.transform = 'scale(' + scale + ')';
-    wrap.style.width = (naturalWidth * scale) + 'px';
-    wrap.style.height = (naturalHeight * scale) + 'px';
-    wrap.style.overflow = 'hidden';
-  }
-
-  var mobileScaleResizeTimer = null;
-  window.addEventListener('resize', function(){
-    if (mobileScaleResizeTimer) window.clearTimeout(mobileScaleResizeTimer);
-    mobileScaleResizeTimer = window.setTimeout(updateMobileScale, 120);
-  });
-  var fFirstName = document.getElementById('fFirstName');
-  var fLastName = document.getElementById('fLastName');
-  var fRoleTitle = document.getElementById('fRoleTitle');
-  var fSummary = document.getElementById('fSummary');
-  var fAchievements = document.getElementById('fAchievements');
-  var fContact = document.getElementById('fContact');
-  var fEduSchool = document.getElementById('fEduSchool');
-  var fEduDegree = document.getElementById('fEduDegree');
-  var fEduYear = document.getElementById('fEduYear');
-  var fEduLocation = document.getElementById('fEduLocation');
-
-  [fFirstName, fLastName, fRoleTitle, fSummary, fAchievements, fContact, fEduSchool, fEduDegree, fEduYear, fEduLocation]
-    .forEach(function(input){ input.addEventListener('input', renderResume); });
-
-  // Restore anything saved from a previous visit. If found, it overrides the
-  // hardcoded placeholder values below for both the basic-info fields and
-  // the seed data for skills / experience / certifications.
-  var savedState = loadSavedState();
-
-  if (savedState){
-    fFirstName.value = savedState.firstName || '';
-    fLastName.value = savedState.lastName || '';
-    fRoleTitle.value = savedState.roleTitle || '';
-    fSummary.value = savedState.summary || '';
-    fAchievements.value = savedState.achievements || '';
-    fContact.value = savedState.contact || '';
-    fEduSchool.value = savedState.eduSchool || '';
-    fEduDegree.value = savedState.eduDegree || '';
-    fEduYear.value = savedState.eduYear || '';
-    fEduLocation.value = savedState.eduLocation || '';
-  }
-
-  // ---------- shared data arrays (must exist before any seeding below runs,
-  // since renderResume() reads all of them on every call) ----------
-  var skillGroupData = [];
-  var experienceData = [];
-  var certificationData = [];
-
-  // ---------- skill groups (scalable) ----------
-  var skillGroupForm = document.getElementById('skillGroupForm');
-  var addSkillGroupBtn = document.getElementById('addSkillGroupBtn');
-  var skillGroupCounter = 0;
-
-  function addSkillGroup(seed){
-    seed = seed || { title:'', items:'' };
-    var id = 'sg-' + (++skillGroupCounter);
-    var entry = { id:id, title:seed.title, items:seed.items };
-    skillGroupData.push(entry);
-
-    var block = document.createElement('div');
-    block.className = 'exp-block';
-    block.dataset.id = id;
-    block.innerHTML =
-      '<button type="button" class="remove-btn" title="Remove this group">&#10005;</button>' +
-      '<div class="field">' +
-        '<label>Group Title</label>' +
-        '<input type="text" class="sg-title" value="' + escapeHtml(entry.title) + '" placeholder="e.g. Frontend">' +
-      '</div>' +
-      '<div class="field">' +
-        '<label>Items, separated by commas</label>' +
-        '<textarea class="sg-items" rows="3" placeholder="e.g. React.js, TypeScript, HTML5 &amp; CSS3">' + escapeHtml(entry.items) + '</textarea>' +
-      '</div>';
-    skillGroupForm.appendChild(block);
-
-    block.querySelector('.sg-title').addEventListener('input', function(e){ entry.title = e.target.value; renderResume(); });
-    block.querySelector('.sg-items').addEventListener('input', function(e){ entry.items = e.target.value; renderResume(); });
-    block.querySelector('.remove-btn').addEventListener('click', function(){
-      var idx = skillGroupData.indexOf(entry);
-      if (idx > -1) skillGroupData.splice(idx, 1);
-      block.remove();
-      renderResume();
-    });
-
-    renderResume();
-  }
-
-  addSkillGroupBtn.addEventListener('click', function(){ addSkillGroup(); });
-
-  (savedState && savedState.skillGroups ? savedState.skillGroups : [
-    { title: 'Frontend', items: 'React, TypeScript, JavaScript (ES6+), HTML5 & CSS3, Tailwind CSS, CSS Modules, Responsive Web Development, jQuery' },
-    { title: 'State Management', items: 'Redux, Context API' },
-    { title: 'APIs & Data', items: 'REST API' },
-    { title: 'Tools', items: 'Git, Figma, Jira & Workfront, Adobe Photoshop' },
-    { title: 'Methodologies', items: 'Agile / Scrum' }
-  ]).forEach(addSkillGroup);
-
-  // ---------- experience (scalable) ----------
-  var experienceForm = document.getElementById('experienceForm');
-  var addExpBtn = document.getElementById('addExpBtn');
-  var expCounter = 0;
-
-  function addExperience(seed){
-    seed = seed || { role:'', company:'', dates:'', client:'', location:'', tags:'', bullets:[''] };
-    var id = 'exp-' + (++expCounter);
-    var entry = { id:id, role:seed.role, company:seed.company, dates:seed.dates, client:seed.client || '', location:seed.location || '', tags:seed.tags || '', bullets:(seed.bullets || []).slice() };
-    experienceData.push(entry);
-
-    var block = document.createElement('div');
-    block.className = 'exp-block';
-    block.dataset.id = id;
-    block.innerHTML =
-      '<button type="button" class="remove-btn" title="Remove this company">&#10005;</button>' +
-      '<div class="field">' +
-        '<label>Job Title</label>' +
-        '<input type="text" class="exp-role" value="' + escapeHtml(entry.role) + '" placeholder="e.g. Senior Software Engineer">' +
-      '</div>' +
-      '<div class="field">' +
-        '<label>Company</label>' +
-        '<input type="text" class="exp-company" value="' + escapeHtml(entry.company) + '" placeholder="e.g. Tech Mahindra">' +
-      '</div>' +
-      '<div class="field">' +
-        '<label>Client</label>' +
-        '<input type="text" class="exp-client" value="' + escapeHtml(entry.client) + '" placeholder="e.g. Walmart">' +
-      '</div>' +
-      '<div class="field-row">' +
-        '<div class="field">' +
-          '<label>Dates</label>' +
-          '<input type="text" class="exp-dates" value="' + escapeHtml(entry.dates) + '" placeholder="e.g. Mar 2023 - Present">' +
-        '</div>' +
-        '<div class="field">' +
-          '<label>Location</label>' +
-          '<input type="text" class="exp-location" value="' + escapeHtml(entry.location) + '" placeholder="e.g. Bangalore, India">' +
-        '</div>' +
-      '</div>' +
-      '<div class="field">' +
-        '<label>Tech Tags, separated by commas</label>' +
-        '<input type="text" class="exp-tags" value="' + escapeHtml(entry.tags) + '" placeholder="e.g. React, TypeScript, Redux">' +
-      '</div>' +
-      '<div class="field">' +
-        '<label>Bullet points (one per line)</label>' +
-        '<textarea class="exp-bullets" rows="4" placeholder="One achievement per line">' + escapeHtml(entry.bullets.join('\n')) + '</textarea>' +
-      '</div>';
-    experienceForm.appendChild(block);
-
-    block.querySelector('.exp-role').addEventListener('input', function(e){ entry.role = e.target.value; renderResume(); });
-    block.querySelector('.exp-company').addEventListener('input', function(e){ entry.company = e.target.value; renderResume(); });
-    block.querySelector('.exp-client').addEventListener('input', function(e){ entry.client = e.target.value; renderResume(); });
-    block.querySelector('.exp-dates').addEventListener('input', function(e){ entry.dates = e.target.value; renderResume(); });
-    block.querySelector('.exp-location').addEventListener('input', function(e){ entry.location = e.target.value; renderResume(); });
-    block.querySelector('.exp-tags').addEventListener('input', function(e){ entry.tags = e.target.value; renderResume(); });
-    block.querySelector('.exp-bullets').addEventListener('input', function(e){
-      entry.bullets = e.target.value.split('\n').map(function(s){ return s.trim(); }).filter(Boolean);
-      renderResume();
-    });
-    block.querySelector('.remove-btn').addEventListener('click', function(){
-      var idx = experienceData.indexOf(entry);
-      if (idx > -1) experienceData.splice(idx, 1);
-      block.remove();
-      renderResume();
-    });
-
-    renderResume();
-  }
-
-  addExpBtn.addEventListener('click', function(){ addExperience(); });
-
-  (savedState && savedState.experiences ? savedState.experiences : [
-    {
-      role: 'Senior Software Engineer',
-      company: 'Tech Mahindra Ltd',
-      dates: 'Mar 2023 - Present',
-      location: 'Bangalore, India',
-      tags: 'React, JavaScript, Redux, REST API, Agile, Git, Figma',
-      bullets: [
-        "Built web-based campaign management tools for Walmart's advertising platform, enabling efficient creation, management, and optimization of campaigns across multiple sellers and brands.",
-        "Built 40+ brand and campaign pages from scratch for Walmart, delivering scalable, responsive, and pixel-perfect experiences for major marketing initiatives.",
-        "Lead Frontend Developer for building and delivering Walmart's campaign and brand pages, ensuring high-quality, scalable, and responsive implementations.",
-        "Serve as a primary point of contact (POC) for Walmart's Producers and Design teams, collaborating closely to translate business and design requirements into production-ready solutions.",
-        "Participate throughout the entire project lifecycle: from initial design feasibility discussions and technical planning to development, QA support, client reviews, and successful production launches."
-      ]
-    },
-    {
-      role: 'Software Engineer',
-      company: 'BORN Group',
-      dates: 'Dec 2018 - Feb 2023',
-      location: 'Bangalore, India',
-      tags: 'React, JavaScript, REST API, Git, Figma, Agile',
-      bullets: [
-        "Developed and maintained mobile-first brand and campaign experiences for Walmart and Sam's Club, delivering responsive, high-performance web applications that supported large-scale marketing and customer engagement initiatives.",
-        "Delivered frontend solutions for Strider Bikes and Cigna Healthcare, implementing interactive campaign and event experiences while ensuring cross-browser compatibility and pixel-perfect execution.",
-        "Developed an internal knowledge portal using React to host onboarding, knowledge transfer (KT), and technical learning videos, integrating Vimeo for secure video management and enabling employees to access training resources through a centralized platform."
-      ]
-    },
-    {
-      role: 'Software Engineer',
-      company: 'Assert Tech',
-      dates: 'Feb 2016 - Dec 2018',
-      location: 'Bangalore, India',
-      tags: 'JavaScript, jQuery, Bootstrap, REST API, Git, Agile',
-      bullets: [
-        "Developed and maintained frontend solutions for internal and customer-facing applications for Avaya, delivering responsive and user-friendly interfaces that supported business operations.",
-        "Built and maintained promotional and advertising campaign landing pages for Optus, ensuring responsive design, cross-browser compatibility, and consistent user experience across devices.",
-        "Troubleshot and resolved frontend issues, enhancing application stability, usability, and performance across modern web browsers and devices."
-      ]
-    },
-    {
-      role: 'Software Development Intern',
-      company: 'Nivid Technologies',
-      dates: 'Aug 2015 - Feb 2016',
-      location: 'Bangalore, India',
-      tags: 'HTML, CSS, JavaScript, jQuery',
-      bullets: [
-        "Assisted in the development of an insurance e-commerce application, building frontend features and supporting application maintenance activities.",
-        "Collaborated with senior developers to implement responsive UI components, fix bugs, and enhance the overall user experience across the application."
-      ]
-    }
-  ]).forEach(addExperience);
-
-  // ---------- certifications (scalable) ----------
-  var certificationForm = document.getElementById('certificationForm');
-  var addCertBtn = document.getElementById('addCertBtn');
-  var certCounter = 0;
-
-  function addCertification(seed){
-    seed = seed || { name:'', provider:'', validTill:'' };
-    var id = 'cert-' + (++certCounter);
-    var entry = { id:id, name:seed.name, provider:seed.provider, validTill:seed.validTill };
-    certificationData.push(entry);
-
-    var block = document.createElement('div');
-    block.className = 'exp-block';
-    block.dataset.id = id;
-    block.innerHTML =
-      '<button type="button" class="remove-btn" title="Remove this certification">&#10005;</button>' +
-      '<div class="field">' +
-        '<label>Certification Name</label>' +
-        '<input type="text" class="cert-name" value="' + escapeHtml(entry.name) + '" placeholder="e.g. AWS Certified Developer">' +
-      '</div>' +
-      '<div class="field">' +
-        '<label>Provider</label>' +
-        '<input type="text" class="cert-provider" value="' + escapeHtml(entry.provider) + '" placeholder="e.g. Amazon Web Services">' +
-      '</div>' +
-      '<div class="field">' +
-        '<label>Valid Till</label>' +
-        '<input type="text" class="cert-valid" value="' + escapeHtml(entry.validTill) + '" placeholder="e.g. 2027 or No Expiry">' +
-      '</div>';
-    certificationForm.appendChild(block);
-
-    block.querySelector('.cert-name').addEventListener('input', function(e){ entry.name = e.target.value; renderResume(); });
-    block.querySelector('.cert-provider').addEventListener('input', function(e){ entry.provider = e.target.value; renderResume(); });
-    block.querySelector('.cert-valid').addEventListener('input', function(e){ entry.validTill = e.target.value; renderResume(); });
-    block.querySelector('.remove-btn').addEventListener('click', function(){
-      var idx = certificationData.indexOf(entry);
-      if (idx > -1) certificationData.splice(idx, 1);
-      block.remove();
-      renderResume();
-    });
-    renderResume();
-  }
-
-  addCertBtn.addEventListener('click', function(){ addCertification(); });
-
-  if (savedState && savedState.certifications){
-    savedState.certifications.forEach(addCertification);
-  }
-
-  // re-paginate once web fonts finish loading, since font metrics affect
-  // measured block heights (and therefore where pages break)
-  if (document.fonts && document.fonts.ready){
-    document.fonts.ready.then(renderResume);
-  }
-  window.addEventListener('load', renderResume);
-
-  document.getElementById('resetDemoBtn').addEventListener('click', function(){
-    if (confirm('This clears everything you\'ve entered in this browser and reloads the default sample resume. Continue?')){
-      clearSavedState();
-    }
-  });
-
-  // ---------- PDF export (native print) ----------
-  function handleDownloadPdf(){
-    renderResume();
-    window.print();
-  }
-  document.getElementById('footerDownloadBtn').addEventListener('click', handleDownloadPdf);
-  document.getElementById('barDownloadBtn').addEventListener('click', handleDownloadPdf);
-
-  // ---------- Editor sidebar open/close + floating demo callout ----------
-  var appShell = document.getElementById('appShell');
-  var demoCallout = document.getElementById('demoCallout');
-
-  function openEditor(){
-    appShell.classList.add('editor-open');
-    document.body.classList.add('editor-lock-scroll');
-    // let the sidebar's slide-in transition start, then reveal the callout
-    demoCallout.classList.remove('visible');
-    window.setTimeout(function(){ demoCallout.classList.add('visible'); }, 260);
-  }
-
-  function closeEditor(){
-    appShell.classList.remove('editor-open');
-    document.body.classList.remove('editor-lock-scroll');
-    demoCallout.classList.remove('visible');
-  }
-
-  function dismissCallout(){
-    demoCallout.classList.remove('visible');
-  }
-
-  document.getElementById('useTemplateBtn').addEventListener('click', openEditor);
-  document.getElementById('editorCloseBtn').addEventListener('click', closeEditor);
-  document.getElementById('dismissCalloutBtn').addEventListener('click', dismissCallout);
-  document.getElementById('seeActionBtn').addEventListener('click', dismissCallout);
-
-  // ---------- Editor tab navigation (click-to-scroll + scroll-spy) ----------
-  var editorTabs = Array.prototype.slice.call(document.querySelectorAll('.editor-tab'));
-  var editorScroll = document.getElementById('editorScroll');
-  var tabSections = editorTabs.map(function(tab){
-    return document.getElementById(tab.dataset.target);
-  });
-
-  function setActiveTab(tab){
-    editorTabs.forEach(function(t){ t.classList.toggle('active', t === tab); });
-  }
-
-  editorTabs.forEach(function(tab, i){
-    tab.addEventListener('click', function(){
-      setActiveTab(tab);
-      tabSections[i].scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  });
-
-  var scrollSpyTimer = null;
-  editorScroll.addEventListener('scroll', function(){
-    if (scrollSpyTimer) window.clearTimeout(scrollSpyTimer);
-    scrollSpyTimer = window.setTimeout(function(){
-      var scrollTop = editorScroll.scrollTop;
-      var activeIndex = 0;
-      for (var i = 0; i < tabSections.length; i++){
-        if (tabSections[i].offsetTop - editorScroll.offsetTop <= scrollTop + 12){
-          activeIndex = i;
-        }
-      }
-      setActiveTab(editorTabs[activeIndex]);
-    }, 60);
-  });
-</script>
-
-</body>
+    </script>
+  </body>
 </html>

@@ -1,0 +1,1385 @@
+:root {
+        --sidebar-bg: #eef3fa;
+        --navy: #101e36;
+        --pill-bg: #eaf8f3;
+        --pill-border: #cdeee2;
+        --pill-color: #0c7a5a;
+        --ink: #1f2933;
+        --whiteink: #ffffff;
+        --gray-date: #6b7280;
+        --dotted: #c7ced8;
+        --page-w: 210mm;
+        --page-h: 297mm;
+        --margin-top: 14mm;
+        --margin-right: 12mm;
+        --margin-bottom: 10mm;
+        --margin-left: 10mm;
+        --sidebar-w: 74mm;
+        --gutter-w: 6mm;
+        --font: "Poppins", "Century Gothic", "Apple Gothic";
+        --accent: #6c5ce7;
+        --greenink: #12b886;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #e9e9ee;
+        font-family: var(--font);
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+      }
+
+      /* ===== App shell: editor sidebar (overlay/off-canvas) + resume stage ===== */
+      .app-shell {
+        display: flex;
+        align-items: flex-start;
+        min-height: 100vh;
+        max-width:1480px;
+        margin: 0 auto;
+      }
+
+      :root {
+        --editor-w: 400px;
+        --editor-bg: #0c0c12;
+        --editor-bg-raised: #17171f;
+        --editor-border: #26262f;
+        --editor-text: #f2f2f5;
+        --editor-text-dim: #9494a1;
+        --editor-text-faint: #6c6c78;
+      }
+
+      /* ===== Editor sidebar (dark, off-canvas, screen only) ===== */
+      .editor-sidebar {
+        width: var(--editor-w);
+        flex: 0 0 0px;
+        height: 178vh;
+        overflow: hidden;
+        position: sticky;
+        top: 0;
+        background: var(--editor-bg);
+        color: var(--editor-text);
+        display: flex;
+        flex-direction: column;
+        transition: flex-basis 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        margin: 24px auto;
+      }
+      .app-shell.editor-open .editor-sidebar {
+        flex: 0 0 var(--editor-w);
+      }
+
+      .editor-header {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 20px 22px 16px;
+        flex: 0 0 auto;
+        width: var(--editor-w);
+      }
+      .editor-close-btn {
+        width: 26px;
+        height: 26px;
+        flex: 0 0 26px;
+        border: none;
+        border-radius: 50%;
+        background: var(--editor-bg-raised);
+        color: var(--editor-text-dim);
+        font-size: 12px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 2px;
+      }
+      .editor-close-btn:hover {
+        background: #1f1f29;
+        color: #fff;
+      }
+      .editor-header-text {
+        min-width: 0;
+      }
+      .editor-header-text h2 {
+        font-size: 12.5pt;
+        font-weight: 700;
+        margin: 0 0 6px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--editor-text);
+      }
+      .beta-badge {
+        font-size: 7pt;
+        font-weight: 700;
+        letter-spacing: 0.5pt;
+        color: #c9b8fb;
+        background: #2c2145;
+        padding: 2px 7px;
+        border-radius: 5px;
+      }
+      .editor-header-text p {
+        font-size: 8.5pt;
+        line-height: 13pt;
+        color: var(--editor-text-dim);
+        margin: 0;
+      }
+
+      .editor-tabs {
+        display: flex;
+        flex: 0 0 auto;
+        width: var(--editor-w);
+        border-bottom: 1px solid var(--editor-border);
+        padding: 0 8px;
+      }
+      .editor-tab {
+        flex: 1 1 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 10px 4px 9px;
+        color: var(--editor-text-faint);
+        font-family: var(--font);
+        border-bottom: 2px solid transparent;
+      }
+      .editor-tab svg {
+        width: 15px;
+        height: 15px;
+        display: block;
+      }
+      .editor-tab span {
+        font-size: 7pt;
+        font-weight: 700;
+        letter-spacing: 0.4pt;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+      .editor-tab.active {
+        color: var(--accent);
+        border-bottom-color: var(--accent);
+      }
+      .editor-tab:hover:not(.active) {
+        color: var(--editor-text-dim);
+      }
+
+      .editor-scroll {
+        flex: 1 1 auto;
+        overflow-y: auto;
+        width: var(--editor-w);
+        padding: 20px 22px 12px;
+        scrollbar-color: var(--accent) var(--editor-bg);
+      }
+      .editor-tab-section {
+        scroll-margin-top: 8px;
+      }
+      .editor-tab-section + .editor-tab-section {
+        margin-top: 28px;
+      }
+
+      .editor-scroll .form-section {
+        margin-bottom: 22px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid var(--editor-border);
+      }
+      .editor-scroll .form-section:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+      .editor-scroll .form-section h3 {
+        font-size: 9pt;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.6pt;
+        color: var(--editor-text-dim);
+        margin: 0 0 12px;
+      }
+
+      .editor-scroll .field {
+        margin-bottom: 12px;
+      }
+      .editor-scroll .field:last-child {
+        margin-bottom: 0;
+      }
+      .editor-scroll .field label {
+        display: block;
+        font-size: 8.5pt;
+        color: var(--editor-text-faint);
+        margin-bottom: 4px;
+      }
+      .editor-scroll .field-row {
+        display: flex;
+        gap: 8px;
+      }
+      .editor-scroll .field-row .field {
+        flex: 1;
+        margin-bottom: 12px;
+      }
+
+      .editor-scroll input[type="text"],
+      .editor-scroll textarea {
+        width: 100%;
+        font-family: var(--font);
+        font-size: 10pt;
+        padding: 8px 10px;
+        border: 1px solid var(--editor-border);
+        border-radius: 6px;
+        background: var(--editor-bg-raised);
+        color: var(--editor-text);
+      }
+      .editor-scroll textarea {
+        resize: vertical;
+        min-height: 56px;
+        line-height: 14pt;
+      }
+      .editor-scroll input[type="text"]::placeholder,
+      .editor-scroll textarea::placeholder {
+        color: var(--editor-text-faint);
+      }
+      .editor-scroll input[type="text"]:focus,
+      .editor-scroll textarea:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.22);
+      }
+
+      .editor-scroll .exp-block {
+        position: relative;
+        border: 1px solid var(--editor-border);
+        background: var(--editor-bg-raised);
+        border-radius: 8px;
+        padding: 14px 14px 12px;
+        margin-bottom: 14px;
+      }
+      .editor-scroll .exp-block .remove-btn {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        width: 22px;
+        height: 22px;
+        border: none;
+        background: none;
+        color: var(--editor-text-faint);
+        font-size: 13px;
+        line-height: 1;
+        cursor: pointer;
+        border-radius: 50%;
+      }
+      .editor-scroll .exp-block .remove-btn:hover {
+        color: #fff;
+        background: #e05a5a;
+      }
+
+      .editor-scroll .add-exp-btn {
+        width: 100%;
+        padding: 10px;
+        border: 1.5px dashed var(--accent);
+        background: none;
+        color: var(--accent);
+        border-radius: 8px;
+        cursor: pointer;
+        font-family: var(--font);
+        font-weight: 600;
+        font-size: 10pt;
+      }
+      .editor-scroll .add-exp-btn:hover {
+        background: rgba(108, 92, 231, 0.12);
+      }
+
+      /* ===== Bullet on/off toggle switch ===== */
+      .toggle-field {
+        margin-bottom: 14px;
+      }
+      .toggle-switch-label {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        font-size: 8.5pt;
+        color: var(--editor-text-dim);
+        cursor: pointer;
+      }
+      .toggle-switch {
+        position: relative;
+        width: 34px;
+        height: 19px;
+        flex: 0 0 34px;
+        display: inline-block;
+      }
+      .toggle-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+        position: absolute;
+      }
+      .toggle-slider {
+        position: absolute;
+        inset: 0;
+        background: #33333f;
+        border-radius: 999px;
+        transition: background 0.2s ease;
+      }
+      .toggle-slider::before {
+        content: "";
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        left: 2px;
+        top: 2px;
+        background: #fff;
+        border-radius: 50%;
+        transition: transform 0.2s ease;
+      }
+      .toggle-switch input:checked + .toggle-slider {
+        background: var(--accent);
+      }
+      .toggle-switch input:checked + .toggle-slider::before {
+        transform: translateX(15px);
+      }
+
+      .editor-footer {
+        flex: 0 0 auto;
+        width: var(--editor-w);
+        display: flex;
+        gap: 10px;
+        padding: 16px 22px 4px;
+        border-top: 1px solid var(--editor-border);
+      }
+      .editor-footer-btn {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        font-family: var(--font);
+        font-size: 9.5pt;
+        font-weight: 600;
+        padding: 10px 8px;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+      .editor-footer-btn svg {
+        width: 13px;
+        height: 13px;
+      }
+      .editor-footer-btn.secondary {
+        background: none;
+        border: 1px solid var(--editor-border);
+        color: var(--editor-text-dim);
+      }
+      .editor-footer-btn.secondary:hover {
+        background: var(--editor-bg-raised);
+        color: #fff;
+      }
+      .editor-footer-btn.primary {
+        background: var(--accent);
+        border: 1px solid var(--accent);
+        color: #fff;
+      }
+      .editor-footer-btn.primary:hover {
+        background: #5b4bd6;
+      }
+
+      .editor-autosave-note {
+        flex: 0 0 auto;
+        width: var(--editor-w);
+        text-align: center;
+        font-size: 8pt;
+        color: var(--editor-text-faint);
+        padding: 10px 0 18px;
+      }
+
+      /* ===== Resume stage ===== */
+      .resume-stage {
+        flex: 1 1 auto;
+        min-width: 0;
+        position: relative;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 28px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* ===== Saved drafts panel ===== */
+      /* Hidden by default — only shown while the editor is open, since that's
+     the only time the person is actively working on the resume. */
+      .drafts-panel {
+        display: none;
+        width: 190px;
+        flex: 0 0 190px;
+        margin-top: 24px;
+        position: sticky;
+        top: 24px;
+        flex-direction: column;
+        max-height: var(--page-h);
+      }
+      .app-shell.editor-open .drafts-panel {
+        display: flex;
+      }
+      .drafts-panel-header {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 12px;
+        flex: 0 0 auto;
+      }
+      .drafts-panel-header h3 {
+        margin: 0;
+        font-size: 9.5pt;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5pt;
+        color: #57576b;
+      }
+      .new-draft-btn {
+        width: 100%;
+        padding: 8px 6px;
+        border: 1.5px dashed var(--accent);
+        background: #f4f2ff;
+        color: var(--accent);
+        border-radius: 8px;
+        cursor: pointer;
+        font-family: var(--font);
+        font-weight: 600;
+        font-size: 8.5pt;
+      }
+      .new-draft-btn:hover {
+        background: #ece7ff;
+      }
+      .drafts-list {
+        overflow-y: auto;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        padding: 2px 4px 8px 2px;
+        flex: 1 1 auto;
+        scrollbar-width: thin;
+      }
+      .drafts-empty {
+        font-size: 8.5pt;
+        line-height: 1.5;
+        color: #8a8a97;
+        margin: 4px 2px;
+      }
+      .draft-card {
+        background: #fff;
+        border: 1px solid #e2e2ea;
+        border-radius: 10px;
+        padding: 8px;
+        box-shadow: 0 3px 10px rgba(20, 20, 40, 0.06);
+        flex: 0 0 auto;
+      }
+      .draft-card.active {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 2px rgba(108, 92, 231, 0.25);
+      }
+      .draft-thumb-frame {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 210 / 297;
+        overflow: hidden;
+        border-radius: 6px;
+        border: 1px solid #e2e2ea;
+        background: #fff;
+      }
+      .draft-thumb-inner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform-origin: top left;
+        pointer-events: none;
+      }
+      .draft-name-input {
+        width: 100%;
+        margin-top: 8px;
+        border: 1px solid transparent;
+        background: none;
+        font-family: var(--font);
+        font-size: 8.5pt;
+        font-weight: 600;
+        color: #262626;
+        padding: 3px 4px;
+        border-radius: 5px;
+      }
+      .draft-name-input:hover {
+        border-color: #e2e2ea;
+      }
+      .draft-name-input:focus {
+        outline: none;
+        border-color: var(--accent);
+        background: #faf9ff;
+      }
+      .draft-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        margin-top: 6px;
+      }
+      .draft-action-btn {
+        flex: 1 1 auto;
+        min-width: 34px;
+        font-family: var(--font);
+        font-size: 7.5pt;
+        font-weight: 600;
+        padding: 5px 4px;
+        border-radius: 6px;
+        border: 1px solid #e2e2ea;
+        background: #f7f7fb;
+        color: #4b4b58;
+        cursor: pointer;
+      }
+      .draft-action-btn:hover {
+        background: #eef0fb;
+        color: var(--accent);
+      }
+      .draft-action-btn.delete-btn {
+        flex: 0 0 auto;
+        color: #b04545;
+      }
+      .draft-action-btn.delete-btn:hover {
+        background: #fdeaea;
+        color: #c62e2e;
+      }
+
+      /* ===== Floating "Interactive Demo" callout ===== */
+      .demo-callout {
+        position: fixed;
+        left: calc(var(--editor-w) + 32px);
+        top: 230px;
+        width: 220px;
+        background: #ffffff;
+        border-radius: 14px;
+        box-shadow: 0 12px 32px rgba(20, 20, 40, 0.18);
+        padding: 18px 18px 16px;
+        z-index: 20;
+        opacity: 0;
+        transform: translateY(8px);
+        pointer-events: none;
+        transition:
+          opacity 0.3s ease,
+          transform 0.3s ease,
+          left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        display: none !important;
+      }
+      .app-shell.editor-open .demo-callout.visible {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+      .demo-callout-icon {
+        width: 26px;
+        height: 26px;
+        border-radius: 7px;
+        background: #efeaff;
+        color: var(--accent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        margin-bottom: 10px;
+      }
+      .demo-callout h3 {
+        font-size: 11pt;
+        font-weight: 700;
+        color: #1c1c22;
+        margin: 0 0 8px;
+      }
+      .demo-callout p {
+        font-size: 8.5pt;
+        line-height: 13pt;
+        color: #77778a;
+        margin: 0 0 14px;
+      }
+      .demo-callout-btn {
+        width: 100%;
+        background: var(--accent);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 10px;
+        font-family: var(--font);
+        font-size: 9pt;
+        font-weight: 600;
+        cursor: pointer;
+        margin-bottom: 10px;
+      }
+      .demo-callout-btn:hover {
+        background: #5b4bd6;
+      }
+      .demo-callout-link {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: none;
+        border: none;
+        color: #57576b;
+        font-family: var(--font);
+        font-size: 8.5pt;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 0;
+      }
+
+      /* ===== Bottom action bar (screen only) ===== */
+      .action-bar {
+        position: fixed;
+        left: 50%;
+        bottom: 26px;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: #ffffff;
+        border-radius: 18px;
+        box-shadow: 0 14px 40px rgba(20, 20, 40, 0.16);
+        padding: 12px 22px;
+        z-index: 30;
+      }
+      .action-bar-group {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .action-bar-icon {
+        width: 32px;
+        height: 32px;
+        flex: 0 0 32px;
+        border-radius: 9px;
+        background: #eef0fb;
+        color: var(--accent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .action-bar-icon svg {
+        width: 15px;
+        height: 15px;
+      }
+      .action-bar-text {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.25;
+        white-space: nowrap;
+      }
+      .action-bar-text strong {
+        font-size: 9pt;
+        color: #1c1c22;
+      }
+      .action-bar-text span {
+        font-size: 8pt;
+        color: #8a8a97;
+      }
+      .action-bar-divider {
+        font-size: 8pt;
+        font-weight: 700;
+        color: #b3b3bd;
+        letter-spacing: 0.5pt;
+      }
+      .action-bar-btn {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        font-family: var(--font);
+        font-size: 9pt;
+        font-weight: 600;
+        border-radius: 9px;
+        padding: 9px 14px;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      .action-bar-btn svg {
+        width: 12px;
+        height: 12px;
+      }
+      .action-bar-btn.outline {
+        background: #fff;
+        border: 1px solid #dcdce4;
+        color: #33333d;
+      }
+      .action-bar-btn.outline:hover {
+        background: #f7f7fb;
+      }
+      .action-bar-btn.primary {
+        background: var(--accent);
+        border: 1px solid var(--accent);
+        color: #fff;
+      }
+      .action-bar-btn.primary:hover {
+        background: #5b4bd6;
+      }
+
+      /* Only ever shown on mobile (see the max-width:900px block) — desktop
+     reaches drafts through the side panel instead. */
+      .view-drafts-btn {
+        display: none;
+      }
+
+      /* ===== Mobile saved-drafts carousel ===== */
+      .drafts-carousel-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(10, 10, 20, 0.5);
+        z-index: 300;
+        display: none;
+        align-items: flex-end;
+        justify-content: center;
+      }
+      .drafts-carousel-overlay.open {
+        display: flex;
+      }
+      .drafts-carousel-sheet {
+        width: 100%;
+        max-height: 82vh;
+        background: #fff;
+        border-radius: 20px 20px 0 0;
+        padding: 18px 16px 20px;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.28);
+      }
+      .drafts-carousel-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 14px;
+        flex: 0 0 auto;
+      }
+      .drafts-carousel-header h3 {
+        margin: 0;
+        font-size: 11pt;
+        font-weight: 700;
+        color: #1c1c22;
+      }
+      .drafts-carousel-close {
+        width: 28px;
+        height: 28px;
+        flex: 0 0 28px;
+        border-radius: 50%;
+        border: none;
+        background: #f0f0f5;
+        color: #57576b;
+        font-size: 13px;
+        cursor: pointer;
+      }
+      .drafts-carousel-close:hover {
+        background: #e6e6ee;
+      }
+      .drafts-carousel-track {
+        display: flex;
+        gap: 14px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        padding: 2px 2px 8px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .drafts-carousel-track .draft-card {
+        flex: 0 0 68%;
+        scroll-snap-align: center;
+      }
+      .drafts-carousel-track .drafts-empty {
+        flex: 1 1 auto;
+        padding: 10px 2px 4px;
+      }
+      .drafts-carousel-hint {
+        margin: 10px 0 0;
+        font-size: 8pt;
+        color: #9a9aa5;
+        text-align: center;
+        flex: 0 0 auto;
+      }
+
+      .privacy-note {
+        position: fixed;
+        left: 50%;
+        bottom: 6px;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 7.5pt;
+        color: #9a9aa5;
+        z-index: 29;
+        margin: 0;
+      }
+      .privacy-note svg {
+        width: 9px;
+        height: 9px;
+      }
+
+      /* ===== Resume side ===== */
+      .resume-wrap {
+        flex: 0 0 auto;
+        min-width: 0;
+      }
+
+      #pagesContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      /* ===== Page shell (A4) ===== */
+      .page {
+        width: var(--page-w);
+        min-height: var(--page-h);
+        margin: 24px auto;
+        background: #ffffff;
+        position: relative;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+        display: flex;
+        overflow: visible;
+      }
+
+      /* ===== Left sidebar (full-bleed, stretches to page height) ===== */
+      .sidebar {
+        width: var(--sidebar-w);
+        flex: 0 0 var(--sidebar-w);
+        background: var(--navy);
+        padding: var(--margin-top) 5mm var(--margin-bottom) var(--margin-left);
+        color: var(--whiteink);
+      }
+
+      .gutter {
+        width: var(--gutter-w);
+        flex: 0 0 var(--gutter-w);
+      }
+
+      .main {
+        flex: 1 1 auto;
+        padding: var(--margin-top) var(--margin-right) var(--margin-bottom) 0;
+        color: var(--ink);
+        min-width: 0;
+      }
+
+      /* ===== Name / Title block ===== */
+      .name {
+        font-weight: 800;
+        font-size: 25pt;
+        line-height: 27pt;
+        letter-spacing: 0.2pt;
+        text-transform: uppercase;
+        margin: 0 0 4pt 0;
+        color: var(--whiteink);
+      }
+      .name span {
+        display: block;
+      }
+
+      .role-title {
+        font-weight: 700;
+        font-size: 11pt;
+        letter-spacing: 1pt;
+        color: var(--greenink);
+        margin: 0;
+      }
+      .role-title::after {
+        content: "";
+        display: block;
+        width: 20mm;
+        height: 2px;
+        background: var(--navy);
+        margin-top: 9pt;
+        margin-bottom: 20pt;
+        opacity: 0.25;
+      }
+
+      /* ===== Icon-badge section headings (icon circle + text + line + dot) ===== */
+      .section-heading-row {
+        display: flex;
+        align-items: center;
+        gap: 6pt;
+        margin-bottom: 9pt;
+      }
+      .icon-badge {
+        width: 19pt;
+        height: 19pt;
+        border-radius: 20%;
+        border: 1.3pt solid var(--navy);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 19pt;
+        color: var(--greenink);
+        background: var(--navy);
+      }
+      .sidebar .icon-badge {
+        background: var(--greenink);
+        color: var(--navy);
+        border: 1.3pt solid var(--greenink);
+      }
+      .icon-badge svg {
+        width: 10pt;
+        height: 10pt;
+        display: block;
+      }
+      .sidebar .section-heading-text{
+        color: var(--whiteink);
+      }
+      .section-heading-text {
+        font-weight: 700;
+        font-size: 11.5pt;
+        text-transform: uppercase;
+        letter-spacing: 0.8pt;
+        color: var(--navy);
+        white-space: nowrap;
+      }
+      .heading-line {
+        flex: 1 1 auto;
+        height: 2pt;
+        background: linear-gradient(
+          to right,
+          rgba(18, 184, 134, 1) 0%,
+          rgba(18, 184, 134, 0.95) 30%,
+          rgba(18, 184, 134, 0.55) 75%,
+          rgba(18, 184, 134, 0) 100%
+        );
+        margin-left: 4pt;
+      }
+      .heading-dot {
+        width: 4pt;
+        height: 4pt;
+        border-radius: 50%;
+        background: var(--greenink);
+        flex: 0 0 4pt;
+        margin-left: -6pt;
+        display: none;
+      }
+
+      .section-block {
+        margin-bottom: 16pt;
+      }
+      .sidebar .section-block:last-child {
+        margin-bottom: 0;
+      }
+
+      /* ===== Contact list (icon + text rows) ===== */
+      ul.contact-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        margin-left: 2pt;
+      }
+      ul.contact-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 6pt;
+        font-size: 9.5pt;
+        line-height: 1.4;
+        margin-bottom: 7pt;
+        word-break: break-word;
+      }
+      ul.contact-list li:last-child {
+        margin-bottom: 0;
+      }
+      ul.contact-list li a {
+        color: var(--whiteink);
+        text-decoration: none;
+      }
+      .mini-icon {
+        width: 11pt;
+        height: 11pt;
+        flex: 0 0 11pt;
+        color: var(--greenink);
+        margin-top: 1.5pt;
+      }
+      .mini-icon svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+
+      /* ===== Skills (grouped) ===== */
+      .skill-group {
+        margin-left: 2pt;
+      }
+      .skill-group-title {
+        display: flex;
+        align-items: center;
+        gap: 5pt;
+        font-weight: 700;
+        font-size: 9pt;
+        text-transform: uppercase;
+        letter-spacing: 0.5pt;
+        color: var(--greenink);
+        margin-bottom: 4pt;
+      }
+      .skill-group-title .dot {
+        width: 5pt;
+        height: 5pt;
+        border-radius: 20%;
+        background: var(--greenink);
+        flex: 0 0 5pt;
+      }
+      ul.skills-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      ul.skills-list li {
+        position: relative;
+        font-size: 9.5pt;
+        line-height: 1.55;
+        color: var(--whiteink);
+        padding-left: 10pt;
+      }
+      ul.skills-list li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 6.5pt;
+        width: 3pt;
+        height: 3pt;
+        border-radius: 20%;
+        background: var(--greenink);
+      }
+
+      /* ===== Education / Certifications ===== */
+      .edu-school {
+        font-weight: 700;
+        font-size: 10.5pt;
+        margin: 0 0 2pt 2pt;
+        color: var(--whiteink);
+      }
+      .edu-degree {
+        font-size: 9.5pt;
+        margin: 0 0 1pt 2pt;
+        color: var(--whiteink);
+      }
+      .edu-year {
+        font-size: 9.5pt;
+        color: var(--greenink);
+        font-style: italic;
+        margin: 0 0 3pt 2pt;
+      }
+      .edu-location {
+        display: flex;
+        align-items: center;
+        gap: 5pt;
+        font-size: 9pt;
+        color: var(--whiteink);
+        margin: 0 0 0 2pt;
+      }
+      .edu-location .mini-icon {
+        margin-top: 0;
+      }
+
+      .cert-entry {
+        margin-bottom: 10pt;
+      }
+      .cert-entry:last-child {
+        margin-bottom: 0;
+      }
+
+      /* ===== Summary paragraph ===== */
+      .summary {
+        font-size: 9.5pt;
+        line-height: 1.55;
+        margin: 0;
+        color: var(--ink);
+      }
+
+      /* ===== Key Accomplishments subheadings ===== */
+      .accomplishment-subheading {
+        font-weight: 700;
+        color: var(--ink);
+        font-size: 9.5pt;
+        margin: 8pt 0 4pt 0;
+      }
+
+      /* ===== Experience entries ===== */
+      .job-divider {
+        border-top: 1.2pt dashed var(--dotted);
+        margin: 0 0 10pt 0;
+      }
+      .job-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 10pt;
+      }
+      .job-role {
+        font-weight: 700;
+        font-size: 11.5pt;
+        color: var(--ink);
+      }
+      .job-company {
+        font-weight: 600;
+        font-size: 10pt;
+        color: var(--navy);
+        margin-top: 1pt;
+      }
+      .job-meta {
+        display: flex;
+        align-items: center;
+        gap: 4pt;
+        font-size: 8.5pt;
+        color: var(--gray-date);
+        white-space: nowrap;
+        flex: 0 0 auto;
+      }
+      .job-meta svg {
+        width: 9pt;
+        height: 9pt;
+        display: block;
+      }
+      .job-client-line {
+        font-style: italic;
+        font-size: 9pt;
+        color: var(--gray-date);
+        margin: 3pt 0 0 0;
+      }
+
+      .tags-row {
+        margin: 8pt 0 9pt 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5pt;
+      }
+      .tag-pill {
+        background: var(--pill-bg);
+        color: var(--pill-color);
+        border: 1px solid var(--pill-border);
+        font-size: 8pt;
+        font-weight: 600;
+        padding: 3pt 8pt;
+        border-radius: 4pt;
+      }
+
+      ul.job-bullets {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      ul.job-bullets li {
+        position: relative;
+        font-size: 9.5pt;
+        line-height: 1.45;
+        padding-left: 12pt;
+        margin-bottom: 4pt;
+        color: var(--ink);
+      }
+      ul.job-bullets li::before {
+        content: "";
+        position: absolute;
+        left: 1pt;
+        top: 6pt;
+        width: 3.5pt;
+        height: 3.5pt;
+        border-radius: 50%;
+        background: var(--navy);
+      }
+      ul.job-bullets li:last-child {
+        margin-bottom: 0;
+      }
+
+      .job-plain-text {
+        font-size: 9.5pt;
+        line-height: 1.45;
+        margin: 0 0 4pt 0;
+        color: var(--ink);
+      }
+      .job-plain-text:last-child {
+        margin-bottom: 0;
+      }
+
+      @media (max-width: 900px) {
+        .app-shell {
+          flex-direction: column;
+        }
+
+        /* Editor becomes a slide-in overlay PANEL on mobile — not a full-bleed
+       screen. It takes most of the width (with its own drop shadow, like a
+       card sitting on top), while the resume stays visible-but-dimmed/
+       blurred behind it on the right edge, so it's clear the editor is
+       floating over the document rather than replacing it. */
+        .editor-sidebar {
+          position: fixed;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          max-width: 100%;
+          height: 100%;
+          max-height: none;
+          flex: none;
+          transform: translateX(-100%);
+          transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+          z-index: 100;
+          border-bottom: none;
+          box-shadow: 16px 0 40px rgba(10, 10, 20, 0.35);
+        }
+        .app-shell.editor-open .editor-sidebar {
+          flex: none;
+          transform: translateX(0);
+        }
+        .editor-header,
+        .editor-tabs,
+        .editor-scroll,
+        .editor-footer,
+        .editor-autosave-note {
+          width: 100%;
+        }
+
+        /* No room for the floating hint card on a small screen — the editor
+       panel already makes it obvious you're editing. */
+        .demo-callout {
+          display: none;
+        }
+
+        .resume-stage {
+          flex-direction: column;
+          align-items: center;
+          padding: 0 12px;
+          gap: 16px;
+        }
+
+        /* The side drafts panel only works on desktop: there, opening the
+       editor is a sidebar that shares the screen with the resume, so the
+       panel next to it stays reachable. On mobile the editor is a full-
+       screen overlay, so that same panel would render fully hidden behind
+       it (and its row of thumbnails was inflating the page's scrollable
+       width). It's force-hidden here regardless of editor-open state —
+       mobile users reach drafts instead through the "View Saved Drafts"
+       button in the action bar, which opens the carousel below. */
+        .drafts-panel,
+        .app-shell.editor-open .drafts-panel {
+          display: none !important;
+        }
+
+        .view-drafts-btn {
+          display: flex;
+        }
+
+        body.editor-lock-scroll {
+          overflow: hidden;
+        }
+
+        /* Bottom action bar: stack each "offer" as icon+label centered above its
+       own full-width button, with a proper divider between the two. Width is
+       set at runtime (see syncActionBarLayout in the script) to match the
+       resume's own rendered width — the values here are just a fallback for
+       the instant before that first runs. */
+        .action-bar {
+          width: 93%;
+          bottom: 12px;
+          transform: none;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 14px;
+          padding: 20px 18px 18px;
+          margin: 16px auto 0;
+          position: static;
+          border-radius: 0px 0px 18px 18px;
+        }
+        .action-bar-group {
+          flex-direction: row;
+          align-items: center;
+          gap: 10px;
+        }
+        .action-bar-text {
+          align-items: flex-start;
+          text-align: left;
+          white-space: normal;
+        }
+        .action-bar-btn {
+          width: 100%;
+          justify-content: center;
+        }
+        .action-bar-divider {
+          position: relative;
+          text-align: center;
+          color: #c7c7d1;
+          margin: 2px 0;
+        }
+        .action-bar-divider::before,
+        .action-bar-divider::after {
+          content: "";
+          position: absolute;
+          top: 50%;
+          width: calc(50% - 18px);
+          height: 1px;
+          background: #ececf2;
+        }
+        .action-bar-divider::before {
+          left: 0;
+        }
+        .action-bar-divider::after {
+          right: 0;
+        }
+        .privacy-note {
+          position: static;
+          transform: none;
+          justify-content: center;
+          margin: 8px auto 0;
+        }
+      }
+
+      /* ===== Print styles ===== */
+      @page {
+        size: A4;
+        margin: 0;
+      }
+      @media print {
+        html,
+        body {
+          background: #fff;
+          height: auto;
+        }
+        * {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+          color-adjust: exact;
+        }
+        .editor-sidebar,
+        .action-bar,
+        .demo-callout,
+        .privacy-note,
+        .drafts-panel,
+        .drafts-carousel-overlay {
+          display: none;
+        }
+        .app-shell {
+          display: block;
+          height: auto;
+        }
+        .resume-stage {
+          display: block;
+        }
+        .resume-wrap {
+          width: 100% !important;
+          height: auto !important;
+          overflow: visible !important;
+        }
+        #pagesContainer {
+          display: block;
+          transform: none !important;
+          width: auto !important;
+        }
+        .page {
+          margin: 0;
+          box-shadow: none;
+          width: var(--page-w);
+          height: var(--page-h);
+          min-height: 0;
+          overflow: hidden;
+        }
+        .page + .page {
+          page-break-before: always;
+          break-before: page;
+        }
+        .sidebar .section-block {
+          page-break-inside: avoid;
+          break-inside: avoid;
+        }
+      }

@@ -1347,6 +1347,8 @@
         body {
           background: #fff;
           height: auto;
+          margin:0 !important;
+          padding:0 !important;
         }
         * {
           -webkit-print-color-adjust: exact;
@@ -1393,6 +1395,16 @@
         .sidebar .section-block {
           page-break-inside: avoid;
           break-inside: avoid;
+        }
+        .app-shell,
+        .resume-stage,
+        .resume-wrap,
+        #pagesContainer{
+          display:block !important;
+          margin:0 !important;
+          padding:0 !important;
+          width:210mm !important;
+          max-width:210mm !important;
         }
       }
     </style>

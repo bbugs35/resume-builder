@@ -12,9 +12,12 @@
     <style>
       :root {
         --sidebar-bg: #eef3fa;
-        --navy: #1b4b77;
-        --pill-bg: #e1ecfb;
-        --ink: #262626;
+        --navy: #101e36;
+        --pill-bg: #eaf8f3;
+        --pill-border: #cdeee2;
+        --pill-color: #0c7a5a;
+        --ink: #1f2933;
+        --whiteink: #ffffff;
         --gray-date: #6b7280;
         --dotted: #c7ced8;
         --page-w: 210mm;
@@ -27,6 +30,7 @@
         --gutter-w: 6mm;
         --font: "Poppins", "Century Gothic", "Apple Gothic";
         --accent: #6c5ce7;
+        --greenink: #12b886;
       }
 
       * {
@@ -48,7 +52,7 @@
         display: flex;
         align-items: flex-start;
         min-height: 100vh;
-        max-width:1600px;
+        max-width:1480px;
         margin: 0 auto;
       }
 
@@ -66,7 +70,7 @@
       .editor-sidebar {
         width: var(--editor-w);
         flex: 0 0 0px;
-        height: 100vh;
+        height: 178vh;
         overflow: hidden;
         position: sticky;
         top: 0;
@@ -853,9 +857,9 @@
       .sidebar {
         width: var(--sidebar-w);
         flex: 0 0 var(--sidebar-w);
-        background: var(--sidebar-bg);
+        background: var(--navy);
         padding: var(--margin-top) 5mm var(--margin-bottom) var(--margin-left);
-        color: var(--ink);
+        color: var(--whiteink);
       }
 
       .gutter {
@@ -878,7 +882,7 @@
         letter-spacing: 0.2pt;
         text-transform: uppercase;
         margin: 0 0 4pt 0;
-        color: var(--navy);
+        color: var(--whiteink);
       }
       .name span {
         display: block;
@@ -888,7 +892,7 @@
         font-weight: 700;
         font-size: 11pt;
         letter-spacing: 1pt;
-        color: var(--navy);
+        color: var(--greenink);
         margin: 0;
       }
       .role-title::after {
@@ -912,19 +916,27 @@
       .icon-badge {
         width: 19pt;
         height: 19pt;
-        border-radius: 50%;
+        border-radius: 20%;
         border: 1.3pt solid var(--navy);
         display: flex;
         align-items: center;
         justify-content: center;
         flex: 0 0 19pt;
+        color: var(--greenink);
+        background: var(--navy);
+      }
+      .sidebar .icon-badge {
+        background: var(--greenink);
         color: var(--navy);
-        background: #fff;
+        border: 1.3pt solid var(--greenink);
       }
       .icon-badge svg {
         width: 10pt;
         height: 10pt;
         display: block;
+      }
+      .sidebar .section-heading-text{
+        color: var(--whiteink);
       }
       .section-heading-text {
         font-weight: 700;
@@ -936,19 +948,24 @@
       }
       .heading-line {
         flex: 1 1 auto;
-        height: 1.2pt;
-        background: var(--navy);
+        height: 2pt;
+        background: linear-gradient(
+          to right,
+          rgba(18, 184, 134, 1) 0%,
+          rgba(18, 184, 134, 0.95) 30%,
+          rgba(18, 184, 134, 0.55) 75%,
+          rgba(18, 184, 134, 0) 100%
+        );
         margin-left: 4pt;
-        opacity: 0.25;
       }
       .heading-dot {
         width: 4pt;
         height: 4pt;
         border-radius: 50%;
-        background: var(--navy);
+        background: var(--greenink);
         flex: 0 0 4pt;
         margin-left: -6pt;
-        opacity: 0.25;
+        display: none;
       }
 
       .section-block {
@@ -978,14 +995,14 @@
         margin-bottom: 0;
       }
       ul.contact-list li a {
-        color: var(--ink);
+        color: var(--whiteink);
         text-decoration: none;
       }
       .mini-icon {
         width: 11pt;
         height: 11pt;
         flex: 0 0 11pt;
-        color: var(--navy);
+        color: var(--greenink);
         margin-top: 1.5pt;
       }
       .mini-icon svg {
@@ -1006,14 +1023,14 @@
         font-size: 9pt;
         text-transform: uppercase;
         letter-spacing: 0.5pt;
-        color: var(--ink);
+        color: var(--greenink);
         margin-bottom: 4pt;
       }
       .skill-group-title .dot {
         width: 5pt;
         height: 5pt;
-        border-radius: 50%;
-        background: var(--navy);
+        border-radius: 20%;
+        background: var(--greenink);
         flex: 0 0 5pt;
       }
       ul.skills-list {
@@ -1025,7 +1042,7 @@
         position: relative;
         font-size: 9.5pt;
         line-height: 1.55;
-        color: var(--ink);
+        color: var(--whiteink);
         padding-left: 10pt;
       }
       ul.skills-list li::before {
@@ -1035,8 +1052,8 @@
         top: 6.5pt;
         width: 3pt;
         height: 3pt;
-        border-radius: 50%;
-        background: var(--navy);
+        border-radius: 20%;
+        background: var(--greenink);
       }
 
       /* ===== Education / Certifications ===== */
@@ -1044,16 +1061,16 @@
         font-weight: 700;
         font-size: 10.5pt;
         margin: 0 0 2pt 2pt;
-        color: var(--ink);
+        color: var(--whiteink);
       }
       .edu-degree {
         font-size: 9.5pt;
         margin: 0 0 1pt 2pt;
-        color: var(--ink);
+        color: var(--whiteink);
       }
       .edu-year {
         font-size: 9.5pt;
-        color: var(--gray-date);
+        color: var(--greenink);
         font-style: italic;
         margin: 0 0 3pt 2pt;
       }
@@ -1062,7 +1079,7 @@
         align-items: center;
         gap: 5pt;
         font-size: 9pt;
-        color: var(--gray-date);
+        color: var(--whiteink);
         margin: 0 0 0 2pt;
       }
       .edu-location .mini-icon {
@@ -1078,7 +1095,7 @@
 
       /* ===== Summary paragraph ===== */
       .summary {
-        font-size: 10.5pt;
+        font-size: 9.5pt;
         line-height: 1.55;
         margin: 0;
         color: var(--ink);
@@ -1143,11 +1160,12 @@
       }
       .tag-pill {
         background: var(--pill-bg);
-        color: var(--navy);
+        color: var(--pill-color);
+        border: 1px solid var(--pill-border);
         font-size: 8pt;
         font-weight: 600;
         padding: 3pt 8pt;
-        border-radius: 9pt;
+        border-radius: 4pt;
       }
 
       ul.job-bullets {
